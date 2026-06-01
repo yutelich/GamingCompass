@@ -4,71 +4,67 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Berita Game Indonesia — Gaming Compass</title>
-<meta name="description" content="Kumpulan berita game terbaru dari Indonesia. Update harian dari Gamebrott, KotakGame, dan Hybrid.co.id dalam satu halaman.">
+<meta name="description" content="Kumpulan berita game terbaru dari Indonesia. Update harian dari Gamebrott, KotakGame, dan Hybrid.co.id.">
 <link rel="stylesheet" href="../assets/css/main.css">
 <style>
-  .news-header { max-width:1100px; margin:2rem auto 0; padding:0 1.5rem; }
-  .news-header-title { font-family:var(--font-head); font-size:clamp(1.8rem,5vw,3rem); font-weight:800; letter-spacing:0.02em; line-height:1; margin-bottom:0.5rem; }
-  .news-header-title span { color:var(--c-accent); }
-  .news-header-sub { color:var(--c-text-2); font-size:0.9rem; margin-bottom:1.5rem; }
-  .news-filters { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid var(--c-border); }
-  .news-filter-btn { font-family:var(--font-head); font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.45rem 1rem; border-radius:var(--radius-sm); border:1px solid var(--c-border); background:var(--c-surface); color:var(--c-text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:0.4rem; }
-  .news-filter-btn:hover { border-color:var(--c-border-2); color:var(--c-text); }
-  .news-filter-btn.active { background:var(--c-accent); border-color:var(--c-accent); color:#fff; }
-  .news-filter-dot { width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0.8; }
-  .news-layout { max-width:1100px; margin:0 auto; padding:0 1.5rem 4rem; display:grid; grid-template-columns:1fr 300px; gap:2rem; align-items:start; }
-  .news-hero { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:0; background:var(--c-surface); border:1px solid var(--c-border); border-radius:var(--radius-lg); overflow:hidden; text-decoration:none; transition:border-color 0.2s,box-shadow 0.2s; margin-bottom:0.5rem; }
-  .news-hero:hover { border-color:var(--c-border-2); box-shadow:var(--shadow-lg); }
-  .news-hero-img { aspect-ratio:16/9; background:var(--c-surface-2); overflow:hidden; }
-  .news-hero-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
-  .news-hero:hover .news-hero-img img { transform:scale(1.03); }
-  .news-hero-body { padding:2rem; display:flex; flex-direction:column; justify-content:center; }
-  .news-hero-source { font-family:var(--font-head); font-size:0.7rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--c-accent); margin-bottom:0.6rem; display:flex; align-items:center; gap:0.4rem; }
-  .news-hero-title { font-family:var(--font-head); font-size:clamp(1.1rem,2.5vw,1.5rem); font-weight:800; line-height:1.2; color:var(--c-text); margin-bottom:0.75rem; }
-  .news-hero-excerpt { font-size:0.88rem; color:var(--c-text-2); line-height:1.6; margin-bottom:1rem; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  .news-hero-date { font-size:0.75rem; color:var(--c-text-3); }
-  .news-main { min-width:0; }
-  .news-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
-  .news-card { background:var(--c-surface); border:1px solid var(--c-border); border-radius:var(--radius); overflow:hidden; text-decoration:none; display:flex; flex-direction:column; transition:border-color 0.2s,transform 0.2s; }
-  .news-card:hover { border-color:var(--c-border-2); transform:translateY(-2px); }
-  .news-card-img { aspect-ratio:16/9; background:var(--c-surface-2); overflow:hidden; flex-shrink:0; }
-  .news-card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
-  .news-card:hover .news-card-img img { transform:scale(1.04); }
-  .news-card-body { padding:0.85rem 1rem 1rem; flex:1; display:flex; flex-direction:column; }
-  .news-card-source { font-family:var(--font-head); font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:0.35rem; }
-  .source-gamebrott { color:#e74c3c; }
-  .source-kotakgame { color:#f39c12; }
-  .source-hybrid { color:#3498db; }
-  .news-card-title { font-family:var(--font-head); font-size:0.92rem; font-weight:700; line-height:1.3; color:var(--c-text); margin-bottom:auto; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  .news-card-date { font-size:0.72rem; color:var(--c-text-3); margin-top:0.6rem; }
-  .news-sidebar { position:sticky; top:calc(var(--nav-h) + 1rem); }
-  .news-sidebar-section { background:var(--c-surface); border:1px solid var(--c-border); border-radius:var(--radius); overflow:hidden; margin-bottom:1rem; }
-  .news-sidebar-title { font-family:var(--font-head); font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--c-text-3); padding:0.75rem 1rem; border-bottom:1px solid var(--c-border); background:var(--c-surface-2); }
-  .news-sidebar-item { display:flex; gap:0.75rem; padding:0.75rem 1rem; border-bottom:1px solid var(--c-border); text-decoration:none; transition:background 0.15s; }
-  .news-sidebar-item:last-child { border-bottom:none; }
-  .news-sidebar-item:hover { background:var(--c-surface-2); }
-  .news-sidebar-num { font-family:var(--font-head); font-size:1.1rem; font-weight:800; color:var(--c-accent); opacity:0.4; min-width:1.5rem; line-height:1.2; }
-  .news-sidebar-item-title { font-size:0.82rem; color:var(--c-text-2); line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .news-source-list { padding:0.5rem; display:flex; flex-direction:column; gap:0.25rem; }
-  .news-source-badge { display:flex; align-items:center; justify-content:space-between; padding:0.5rem 0.75rem; border-radius:var(--radius-sm); text-decoration:none; transition:background 0.15s; font-size:0.82rem; }
-  .news-source-badge:hover { background:var(--c-surface-2); }
-  .news-source-badge-name { font-family:var(--font-head); font-weight:700; letter-spacing:0.04em; }
-  .news-source-badge-count { font-size:0.72rem; color:var(--c-text-3); font-family:monospace; }
-  .news-updated { font-size:0.75rem; color:var(--c-text-3); margin-bottom:1rem; display:flex; align-items:center; gap:0.4rem; }
-  .news-updated-dot { width:6px; height:6px; border-radius:50%; background:var(--c-green); animation:blink 2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .news-empty { grid-column:1/-1; text-align:center; padding:3rem 1rem; color:var(--c-text-3); font-size:0.9rem; }
-  .news-empty-icon { font-size:2rem; margin-bottom:0.75rem; }
-  .news-retry-btn { margin-top:1rem; font-family:var(--font-head); font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.5rem 1.25rem; border-radius:var(--radius-sm); border:1px solid var(--c-border-2); background:var(--c-surface); color:var(--c-text-2); cursor:pointer; transition:all 0.15s; }
-  .news-retry-btn:hover { background:var(--c-surface-2); color:var(--c-text); }
-  .skel { background:linear-gradient(90deg,var(--c-surface) 25%,var(--c-surface-2) 50%,var(--c-surface) 75%); background-size:200% 100%; animation:sk 1.4s infinite; border-radius:var(--radius-sm); }
-  @keyframes sk { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-  @media(max-width:900px){ .news-layout{grid-template-columns:1fr} .news-sidebar{position:static} .news-hero{grid-template-columns:1fr} .news-hero-body{padding:1.25rem} }
-  @media(max-width:600px){ .news-grid{grid-template-columns:1fr} }
+  .news-header{max-width:1100px;margin:2rem auto 0;padding:0 1.5rem}
+  .news-header-title{font-family:var(--font-head);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1;margin-bottom:0.5rem}
+  .news-header-title span{color:var(--c-accent)}
+  .news-header-sub{color:var(--c-text-2);font-size:0.9rem;margin-bottom:1.5rem}
+  .news-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--c-border)}
+  .nfb{font-family:var(--font-head);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.45rem 1rem;border-radius:var(--radius-sm);border:1px solid var(--c-border);background:var(--c-surface);color:var(--c-text-2);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:0.4rem}
+  .nfb:hover{border-color:var(--c-border-2);color:var(--c-text)}
+  .nfb.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+  .ndot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.8}
+  .news-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 300px;gap:2rem;align-items:start}
+  .news-hero{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:border-color 0.2s,box-shadow 0.2s;margin-bottom:0.5rem}
+  .news-hero:hover{border-color:var(--c-border-2);box-shadow:var(--shadow-lg)}
+  .nhi{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden}
+  .nhi img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+  .news-hero:hover .nhi img{transform:scale(1.03)}
+  .nhb{padding:2rem;display:flex;flex-direction:column;justify-content:center}
+  .nhs{font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-accent);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem}
+  .nht{font-family:var(--font-head);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;line-height:1.2;color:var(--c-text);margin-bottom:0.75rem}
+  .nhe{font-size:0.88rem;color:var(--c-text-2);line-height:1.6;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .nhd{font-size:0.75rem;color:var(--c-text-3)}
+  .news-main{min-width:0}
+  .news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  .nc{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:border-color 0.2s,transform 0.2s}
+  .nc:hover{border-color:var(--c-border-2);transform:translateY(-2px)}
+  .nci{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden;flex-shrink:0}
+  .nci img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+  .nc:hover .nci img{transform:scale(1.04)}
+  .ncb{padding:0.85rem 1rem 1rem;flex:1;display:flex;flex-direction:column}
+  .ncsrc{font-family:var(--font-head);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem}
+  .s-gb{color:#e74c3c}.s-kg{color:#f39c12}.s-hy{color:#3498db}
+  .nctl{font-family:var(--font-head);font-size:0.92rem;font-weight:700;line-height:1.3;color:var(--c-text);margin-bottom:auto;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .ncdt{font-size:0.72rem;color:var(--c-text-3);margin-top:0.6rem}
+  .news-sidebar{position:sticky;top:calc(var(--nav-h) + 1rem)}
+  .nss{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem}
+  .nsst{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-text-3);padding:0.75rem 1rem;border-bottom:1px solid var(--c-border);background:var(--c-surface-2)}
+  .nsi{display:flex;gap:0.75rem;padding:0.75rem 1rem;border-bottom:1px solid var(--c-border);text-decoration:none;transition:background 0.15s}
+  .nsi:last-child{border-bottom:none}
+  .nsi:hover{background:var(--c-surface-2)}
+  .nsin{font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--c-accent);opacity:0.4;min-width:1.5rem;line-height:1.2}
+  .nsit{font-size:0.82rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .nsl{padding:0.5rem;display:flex;flex-direction:column;gap:0.25rem}
+  .nsb{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.75rem;border-radius:var(--radius-sm);text-decoration:none;transition:background 0.15s;font-size:0.82rem}
+  .nsb:hover{background:var(--c-surface-2)}
+  .nsbn{font-family:var(--font-head);font-weight:700;letter-spacing:0.04em}
+  .nsbc{font-size:0.72rem;color:var(--c-text-3);font-family:monospace}
+  .nupd{font-size:0.75rem;color:var(--c-text-3);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem}
+  .nudot{width:6px;height:6px;border-radius:50%;background:var(--c-green);animation:bl 2s infinite}
+  @keyframes bl{0%,100%{opacity:1}50%{opacity:0.3}}
+  .nempty{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--c-text-3)}
+  .nrbtn{margin-top:1rem;font-family:var(--font-head);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.25rem;border-radius:var(--radius-sm);border:1px solid var(--c-border-2);background:var(--c-surface);color:var(--c-text-2);cursor:pointer;transition:all 0.15s}
+  .nrbtn:hover{background:var(--c-surface-2);color:var(--c-text)}
+  .skel{background:linear-gradient(90deg,var(--c-surface) 25%,var(--c-surface-2) 50%,var(--c-surface) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:var(--radius-sm)}
+  @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  @media(max-width:900px){.news-layout{grid-template-columns:1fr}.news-sidebar{position:static}.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
+  @media(max-width:600px){.news-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <nav class="gc-nav">
   <a href="../" class="gc-nav-logo">Gaming<span>Compass</span></a>
   <div class="gc-nav-links">
@@ -76,7 +72,7 @@
     <a href="." class="gc-nav-link active">Berita</a>
   </div>
   <div class="gc-nav-right">
-    <button class="gc-nav-code" id="gc-nav-code" onclick="window.location.href='../'">Masuk / Kode</button>
+    <button class="gc-nav-code" onclick="window.location.href='../'">Masuk / Kode</button>
   </div>
 </nav>
 
@@ -84,289 +80,249 @@
   <div class="news-header-title">Berita <span>Game</span> Indonesia</div>
   <div class="news-header-sub">Agregasi berita terbaru dari portal game Indonesia terpercaya &middot; Diperbarui otomatis</div>
   <div class="news-filters">
-    <button class="news-filter-btn active" onclick="filterNews('all',this)">
-      <span class="news-filter-dot"></span> Semua
-    </button>
-    <button class="news-filter-btn" onclick="filterNews('gamebrott',this)" style="color:#e74c3c;border-color:rgba(231,76,60,0.3)">
-      <span class="news-filter-dot" style="background:#e74c3c"></span> Gamebrott
-    </button>
-    <button class="news-filter-btn" onclick="filterNews('kotakgame',this)" style="color:#f39c12;border-color:rgba(243,156,18,0.3)">
-      <span class="news-filter-dot" style="background:#f39c12"></span> KotakGame
-    </button>
-    <button class="news-filter-btn" onclick="filterNews('hybrid',this)" style="color:#3498db;border-color:rgba(52,152,219,0.3)">
-      <span class="news-filter-dot" style="background:#3498db"></span> Hybrid.co.id
-    </button>
+    <button class="nfb active" onclick="filterNews('all',this)"><span class="ndot"></span>Semua</button>
+    <button class="nfb" onclick="filterNews('gamebrott',this)" style="color:#e74c3c;border-color:rgba(231,76,60,0.3)"><span class="ndot" style="background:#e74c3c"></span>Gamebrott</button>
+    <button class="nfb" onclick="filterNews('kotakgame',this)" style="color:#f39c12;border-color:rgba(243,156,18,0.3)"><span class="ndot" style="background:#f39c12"></span>KotakGame</button>
+    <button class="nfb" onclick="filterNews('hybrid',this)" style="color:#3498db;border-color:rgba(52,152,219,0.3)"><span class="ndot" style="background:#3498db"></span>Hybrid.co.id</button>
   </div>
 </div>
 
 <div class="news-layout">
-  <div id="news-hero-wrap" style="grid-column:1/-1"></div>
+  <div id="hero-wrap" style="grid-column:1/-1"></div>
   <main class="news-main">
-    <div class="news-updated" id="news-updated" style="display:none">
-      <span class="news-updated-dot"></span>
-      <span id="news-updated-text"></span>
-    </div>
+    <div class="nupd" id="nupd" style="display:none"><span class="nudot"></span><span id="nupd-txt"></span></div>
     <div class="news-grid" id="news-grid"></div>
   </main>
   <aside class="news-sidebar">
-    <div class="news-sidebar-section">
-      <div class="news-sidebar-title">Sumber Berita</div>
-      <div class="news-source-list">
-        <a href="https://gamebrott.com" target="_blank" rel="noopener" class="news-source-badge">
-          <span class="news-source-badge-name source-gamebrott">Gamebrott</span>
-          <span class="news-source-badge-count">gamebrott.com &rarr;</span>
-        </a>
-        <a href="https://kotakgame.com" target="_blank" rel="noopener" class="news-source-badge">
-          <span class="news-source-badge-name source-kotakgame">KotakGame</span>
-          <span class="news-source-badge-count">kotakgame.com &rarr;</span>
-        </a>
-        <a href="https://hybrid.co.id" target="_blank" rel="noopener" class="news-source-badge">
-          <span class="news-source-badge-name source-hybrid">Hybrid.co.id</span>
-          <span class="news-source-badge-count">hybrid.co.id &rarr;</span>
-        </a>
+    <div class="nss">
+      <div class="nsst">Sumber Berita</div>
+      <div class="nsl">
+        <a href="https://gamebrott.com" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-gb">Gamebrott</span><span class="nsbc">gamebrott.com &rarr;</span></a>
+        <a href="https://kotakgame.com" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-kg">KotakGame</span><span class="nsbc">kotakgame.com &rarr;</span></a>
+        <a href="https://hybrid.co.id" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-hy">Hybrid.co.id</span><span class="nsbc">hybrid.co.id &rarr;</span></a>
       </div>
     </div>
-    <div class="news-sidebar-section">
-      <div class="news-sidebar-title">Artikel Terbaru</div>
-      <div id="news-popular">
-        <div class="news-sidebar-item" style="pointer-events:none;opacity:0.4">
-          <span style="font-size:0.82rem;color:var(--c-text-3)">Memuat...</span>
-        </div>
-      </div>
+    <div class="nss">
+      <div class="nsst">Artikel Terbaru</div>
+      <div id="popular"><div class="nsi" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Memuat...</span></div></div>
     </div>
-    <div class="news-sidebar-section" style="padding:1rem">
+    <div class="nss" style="padding:1rem">
       <div style="font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--c-text-2);margin-bottom:0.5rem">Tentang Halaman Ini</div>
-      <p style="font-size:0.8rem;color:var(--c-text-3);line-height:1.6">Berita dikumpulkan otomatis dari RSS feed sumber resmi. Gaming Compass hanya menampilkan judul, thumbnail, dan ringkasan singkat.</p>
+      <p style="font-size:0.8rem;color:var(--c-text-3);line-height:1.6">Berita dikumpulkan otomatis dari RSS feed. Gaming Compass hanya menampilkan judul dan ringkasan singkat &mdash; klik untuk baca di sumber asli.</p>
     </div>
   </aside>
 </div>
 
 <footer class="gc-footer">
   <strong>Gaming Compass</strong> &mdash; <a href="../">Home</a> &middot; <a href="../games/dwo/">Guide DWO</a>
-  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &middot; KotakGame &middot; Hybrid.co.id &mdash; semua hak cipta milik penerbit masing-masing. Gaming Compass hanya menampilkan headline dan snippet untuk keperluan agregasi.</span>
+  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &middot; KotakGame &middot; Hybrid.co.id &mdash; hak cipta milik penerbit masing-masing.</span>
 </footer>
 
 <script>
 var SOURCES = [
-  { id:'gamebrott', name:'Gamebrott', url:'https://gamebrott.com/feed', color:'#e74c3c', cls:'source-gamebrott' },
-  { id:'kotakgame', name:'KotakGame', url:'http://www.kotakgame.com/rss/', color:'#f39c12', cls:'source-kotakgame' },
-  { id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed', color:'#3498db', cls:'source-hybrid' }
+  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',          color:'#e74c3c', cls:'s-gb'},
+  {id:'kotakgame', name:'KotakGame',    url:'http://www.kotakgame.com/rss/',        color:'#f39c12', cls:'s-kg'},
+  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',           color:'#3498db', cls:'s-hy'}
 ];
-
-// Beberapa proxy publik sebagai fallback
-var PROXIES = [
-  'https://api.allorigins.win/get?url=',
-  'https://corsproxy.io/?',
-  'https://api.codetabs.com/v1/proxy?quest='
-];
-
 var allArticles = [];
 var activeFilter = 'all';
 
-async function fetchWithProxy(rssUrl) {
-  for (var i = 0; i < PROXIES.length; i++) {
+// Ambil XML dari RSS via proxy — handle berbagai format response
+async function fetchXML(rssUrl) {
+  var proxies = [
+    // allorigins — returns {contents: "...xml..."}
+    {url: 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl), parse: function(r) { return r.json().then(function(d){ return d.contents; }); }},
+    // corsproxy.io — returns raw XML directly
+    {url: 'https://corsproxy.io/?' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }},
+    // codetabs — returns raw XML directly  
+    {url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }},
+    // rssbridge (no encode needed for some)
+    {url: 'https://rss-proxy.smef.io/proxy?url=' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }}
+  ];
+
+  for (var i = 0; i < proxies.length; i++) {
     try {
-      var proxyUrl = PROXIES[i] + encodeURIComponent(rssUrl);
-      var controller = new AbortController();
-      var timer = setTimeout(function() { controller.abort(); }, 10000);
-      var res = await fetch(proxyUrl, { signal: controller.signal });
-      clearTimeout(timer);
+      var ctrl = new AbortController();
+      var t = setTimeout(function(){ ctrl.abort(); }, 10000);
+      var res = await fetch(proxies[i].url, {signal: ctrl.signal});
+      clearTimeout(t);
       if (!res.ok) continue;
-      var data = await res.json();
-      // allorigins returns {contents:...}, codetabs returns string directly
-      var text = data.contents || data;
-      if (typeof text !== 'string') text = JSON.stringify(text);
-      return text;
+      var xml = await proxies[i].parse(res);
+      if (typeof xml === 'string' && xml.indexOf('<') === 0) return xml;
+      if (typeof xml === 'string' && xml.length > 100) return xml;
     } catch(e) {
-      console.warn('Proxy ' + i + ' failed:', e.message);
+      console.warn('Proxy ' + i + ' error:', e.message);
     }
   }
-  throw new Error('Semua proxy gagal');
+  throw new Error('Semua proxy gagal untuk ' + rssUrl);
 }
 
-function stripHtml(html) {
-  var tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || '';
+function stripHtml(s) {
+  var d = document.createElement('div');
+  d.innerHTML = s;
+  return d.textContent || d.innerText || '';
 }
 
-function extractImage(item) {
-  var enclosure = item.querySelector('enclosure[type^="image"]');
-  if (enclosure) return enclosure.getAttribute('url');
-  var media = item.querySelector('content, thumbnail');
-  if (media) return media.getAttribute('url') || media.getAttribute('src');
-  var desc = item.querySelector('description') ? item.querySelector('description').textContent : '';
-  var m = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
-  if (m) return m[1];
+function extractImg(item) {
+  var enc = item.querySelector('enclosure[type^="image"]');
+  if (enc) return enc.getAttribute('url');
+  var mc = item.querySelector('content');
+  if (mc && mc.getAttribute('url')) return mc.getAttribute('url');
+  var mt = item.querySelector('thumbnail');
+  if (mt && mt.getAttribute('url')) return mt.getAttribute('url');
+  var desc = item.querySelector('description');
+  if (desc) {
+    var m = desc.textContent.match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (m) return m[1];
+  }
   return null;
 }
 
-function formatDate(dateStr) {
-  if (!dateStr) return '';
+function fmtDate(s) {
+  if (!s) return '';
   try {
-    var d = new Date(dateStr);
-    var now = new Date();
+    var d = new Date(s), now = new Date();
     var diff = Math.floor((now - d) / 1000);
     if (diff < 3600) return Math.floor(diff/60) + ' menit lalu';
     if (diff < 86400) return Math.floor(diff/3600) + ' jam lalu';
     if (diff < 604800) return Math.floor(diff/86400) + ' hari lalu';
-    return d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
-  } catch(e) { return dateStr; }
+    return d.toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'});
+  } catch(e) { return s; }
 }
 
-async function fetchSource(source) {
+function ph(src, alt) {
+  return src
+    ? '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=&quot;width:100%;height:100%;background:var(--c-surface-3);display:flex;align-items:center;justify-content:center;font-size:2rem&quot;>&#127918;</div>\'">'
+    : '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">&#127918;</div>';
+}
+
+async function fetchSource(src) {
   try {
-    var text = await fetchWithProxy(source.url);
+    var xml = await fetchXML(src.url);
     var parser = new DOMParser();
-    var xml = parser.parseFromString(text, 'text/xml');
-    var items = Array.from(xml.querySelectorAll('item')).slice(0, 15);
+    var doc = parser.parseFromString(xml, 'text/xml');
+    var parseErr = doc.querySelector('parsererror');
+    if (parseErr) throw new Error('XML parse error');
+    var items = Array.from(doc.querySelectorAll('item')).slice(0, 15);
     return items.map(function(item) {
-      var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : 'Tanpa Judul';
-      var link = item.querySelector('link') ? item.querySelector('link').textContent.trim() : '#';
-      if (!link || link === '') {
-        var guid = item.querySelector('guid');
-        link = guid ? guid.textContent.trim() : '#';
-      }
+      var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : '';
+      var link = '';
+      var linkEl = item.querySelector('link');
+      if (linkEl) link = linkEl.textContent.trim() || linkEl.getAttribute('href') || '';
+      if (!link) { var g = item.querySelector('guid'); if (g) link = g.textContent.trim(); }
       var date = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent.trim() : '';
       var descEl = item.querySelector('description');
       var excerpt = descEl ? stripHtml(descEl.textContent.trim()).slice(0, 200) : '';
-      return {
-        source: source.id,
-        sourceName: source.name,
-        sourceColor: source.color,
-        sourceCls: source.cls,
-        title: title,
-        link: link,
-        date: date,
-        excerpt: excerpt,
-        image: extractImage(item)
-      };
+      return {source:src.id, sourceName:src.name, sourceColor:src.color, sourceCls:src.cls,
+              title:title, link:link||'#', date:date, excerpt:excerpt, image:extractImg(item)};
     });
   } catch(e) {
-    console.warn('[' + source.name + '] failed:', e.message);
+    console.warn('['+src.name+'] failed:', e.message);
     return [];
   }
 }
 
-function imgTag(src, alt) {
-  if (src) {
-    return '<img src="' + src + '" alt="' + (alt||'') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=&quot;width:100%;height:100%;background:var(--c-surface-3);display:flex;align-items:center;justify-content:center;font-size:2rem&quot;>🎮</div>\'">';
-  }
-  return '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">🎮</div>';
-}
-
 function renderHero(a) {
-  var wrap = document.getElementById('news-hero-wrap');
-  if (!a) { wrap.innerHTML = ''; return; }
-  wrap.innerHTML =
-    '<a href="' + a.link + '" target="_blank" rel="noopener" class="news-hero">' +
-      '<div class="news-hero-img">' + imgTag(a.image, a.title) + '</div>' +
-      '<div class="news-hero-body">' +
-        '<div class="news-hero-source">' +
-          '<span style="width:8px;height:8px;border-radius:50%;background:' + a.sourceColor + ';display:inline-block"></span>' +
-          a.sourceName +
-        '</div>' +
-        '<div class="news-hero-title">' + a.title + '</div>' +
-        (a.excerpt ? '<div class="news-hero-excerpt">' + a.excerpt + '...</div>' : '') +
-        '<div class="news-hero-date">' + formatDate(a.date) + '</div>' +
-      '</div>' +
-    '</a>';
+  var w = document.getElementById('hero-wrap');
+  if (!a) { w.innerHTML = ''; return; }
+  w.innerHTML = '<a href="'+a.link+'" target="_blank" rel="noopener" class="news-hero">'+
+    '<div class="nhi">'+ph(a.image, a.title)+'</div>'+
+    '<div class="nhb">'+
+      '<div class="nhs"><span style="width:8px;height:8px;border-radius:50%;background:'+a.sourceColor+';display:inline-block"></span>'+a.sourceName+'</div>'+
+      '<div class="nht">'+a.title+'</div>'+
+      (a.excerpt ? '<div class="nhe">'+a.excerpt+'...</div>' : '')+
+      '<div class="nhd">'+fmtDate(a.date)+'</div>'+
+    '</div>'+
+  '</a>';
 }
 
-function renderGrid(articles) {
-  var grid = document.getElementById('news-grid');
-  if (articles.length === 0) {
-    grid.innerHTML =
-      '<div class="news-empty">' +
-        '<div class="news-empty-icon">📭</div>' +
-        '<div>Tidak ada berita dari sumber ini saat ini.</div>' +
-        '<button class="news-retry-btn" onclick="loadNews()">&#x21BA; Coba Lagi</button>' +
-      '</div>';
+function renderGrid(arts) {
+  var g = document.getElementById('news-grid');
+  if (!arts.length) {
+    g.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita dari sumber ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
-  grid.innerHTML = articles.map(function(a) {
-    return '<a href="' + a.link + '" target="_blank" rel="noopener" class="news-card" data-source="' + a.source + '">' +
-      '<div class="news-card-img">' + imgTag(a.image, a.title) + '</div>' +
-      '<div class="news-card-body">' +
-        '<div class="news-card-source ' + a.sourceCls + '">' + a.sourceName + '</div>' +
-        '<div class="news-card-title">' + a.title + '</div>' +
-        '<div class="news-card-date">' + formatDate(a.date) + '</div>' +
-      '</div>' +
+  g.innerHTML = arts.map(function(a) {
+    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc" data-source="'+a.source+'">'+
+      '<div class="nci">'+ph(a.image, a.title)+'</div>'+
+      '<div class="ncb">'+
+        '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
+        '<div class="nctl">'+a.title+'</div>'+
+        '<div class="ncdt">'+fmtDate(a.date)+'</div>'+
+      '</div>'+
     '</a>';
   }).join('');
 }
 
-function renderPopular(articles) {
-  var pop = document.getElementById('news-popular');
-  var top5 = articles.slice(0, 5);
-  if (top5.length === 0) { pop.innerHTML = '<div class="news-sidebar-item" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Belum ada data</span></div>'; return; }
-  pop.innerHTML = top5.map(function(a, i) {
-    return '<a href="' + a.link + '" target="_blank" rel="noopener" class="news-sidebar-item">' +
-      '<span class="news-sidebar-num">0' + (i+1) + '</span>' +
-      '<span class="news-sidebar-item-title">' + a.title + '</span>' +
+function renderPopular(arts) {
+  var p = document.getElementById('popular');
+  var top = arts.slice(0, 5);
+  if (!top.length) { p.innerHTML = '<div class="nsi" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Belum ada data</span></div>'; return; }
+  p.innerHTML = top.map(function(a, i) {
+    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nsi">'+
+      '<span class="nsin">0'+(i+1)+'</span>'+
+      '<span class="nsit">'+a.title+'</span>'+
     '</a>';
   }).join('');
 }
 
 function renderSkeleton() {
-  var grid = document.getElementById('news-grid');
-  var cards = '';
+  var g = document.getElementById('news-grid');
+  var html = '';
   for (var i = 0; i < 6; i++) {
-    cards += '<div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden">' +
-      '<div class="skel" style="aspect-ratio:16/9"></div>' +
-      '<div style="padding:0.85rem 1rem;display:flex;flex-direction:column;gap:0.5rem">' +
-        '<div class="skel" style="height:12px;width:40%"></div>' +
-        '<div class="skel" style="height:14px;width:100%"></div>' +
-        '<div class="skel" style="height:14px;width:85%"></div>' +
-        '<div class="skel" style="height:11px;width:30%;margin-top:0.4rem"></div>' +
-      '</div>' +
+    html += '<div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden">'+
+      '<div class="skel" style="aspect-ratio:16/9"></div>'+
+      '<div style="padding:0.85rem 1rem;display:flex;flex-direction:column;gap:0.5rem">'+
+        '<div class="skel" style="height:12px;width:40%"></div>'+
+        '<div class="skel" style="height:14px"></div>'+
+        '<div class="skel" style="height:14px;width:85%"></div>'+
+        '<div class="skel" style="height:11px;width:30%;margin-top:0.4rem"></div>'+
+      '</div>'+
     '</div>';
   }
-  grid.innerHTML = cards;
-  document.getElementById('news-hero-wrap').innerHTML = '';
+  g.innerHTML = html;
 }
 
-function filterNews(source, btn) {
-  activeFilter = source;
-  document.querySelectorAll('.news-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+function filterNews(src, btn) {
+  activeFilter = src;
+  document.querySelectorAll('.nfb').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  var filtered = source === 'all' ? allArticles : allArticles.filter(function(a) { return a.source === source; });
+  var filtered = src === 'all' ? allArticles : allArticles.filter(function(a){ return a.source === src; });
   renderHero(filtered[0] || null);
   renderGrid(filtered.slice(1));
 }
 
 async function loadNews() {
   renderSkeleton();
+  document.getElementById('hero-wrap').innerHTML = '';
+
   var results = await Promise.allSettled(SOURCES.map(fetchSource));
   var items = [];
-  results.forEach(function(r) { if (r.status === 'fulfilled') items = items.concat(r.value); });
-  items.sort(function(a, b) {
+  results.forEach(function(r){ if (r.status === 'fulfilled') items = items.concat(r.value); });
+  items.sort(function(a, b){
     var da = a.date ? new Date(a.date) : new Date(0);
     var db = b.date ? new Date(b.date) : new Date(0);
     return db - da;
   });
   allArticles = items;
 
-  var updEl = document.getElementById('news-updated');
-  var updTxt = document.getElementById('news-updated-text');
+  var updEl = document.getElementById('nupd');
+  var updTxt = document.getElementById('nupd-txt');
   updEl.style.display = 'flex';
 
-  if (allArticles.length === 0) {
+  if (!allArticles.length) {
     updTxt.textContent = 'Gagal memuat berita';
-    document.getElementById('news-hero-wrap').innerHTML = '';
     document.getElementById('news-grid').innerHTML =
-      '<div class="news-empty">' +
-        '<div class="news-empty-icon">⚠️</div>' +
-        '<div>Gagal memuat berita. Periksa koneksi internet kamu.</div>' +
-        '<button class="news-retry-btn" onclick="loadNews()">&#x21BA; Coba Lagi</button>' +
-      '</div>';
+      '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#9888;&#65039;</div>'+
+      '<div>Gagal memuat berita. Coba lagi beberapa saat.</div>'+
+      '<button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
 
-  var now = new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
-  updTxt.textContent = allArticles.length + ' artikel dimuat \u00b7 ' + now;
+  var now = new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+  updTxt.textContent = allArticles.length + ' artikel \u00b7 ' + now;
 
-  var filtered = activeFilter === 'all' ? allArticles : allArticles.filter(function(a) { return a.source === activeFilter; });
+  var filtered = activeFilter === 'all' ? allArticles : allArticles.filter(function(a){ return a.source === activeFilter; });
   renderHero(filtered[0] || null);
   renderGrid(filtered.slice(1));
   renderPopular(allArticles);
