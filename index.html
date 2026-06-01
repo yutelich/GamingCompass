@@ -9,7 +9,7 @@
 <meta property="og:title" content="Gaming Compass — Panduan Game Bahasa Indonesia">
 <meta property="og:description" content="Guide achievement, true ending, secret ending, dan tips trik game dalam Bahasa Indonesia.">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://yutelich.github.io/DWOrigin-pt/">
+<link rel="canonical" href="https://yutelich.github.io/GamingCompass/">
 <link rel="stylesheet" href="assets/css/main.css">
 <style>
   /* ── HERO SLIDER ─────────────────────────────── */
@@ -414,7 +414,9 @@
 
     function goTo(idx) {
       current = (idx + total) % total;
-      document.getElementById('gc-slides').style.transform = `translateX(-${current * 100}%)`;
+      const slides = document.getElementById('gc-slides');
+      if (!slides) return;
+      slides.style.transform = `translateX(-${current * 100}%)`;
       document.querySelectorAll('.gc-slider-dot').forEach((d, i) => {
         d.classList.toggle('active', i === current);
       });
