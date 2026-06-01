@@ -11,12 +11,7 @@
   .news-header-title{font-family:var(--font-head);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1;margin-bottom:0.5rem}
   .news-header-title span{color:var(--c-accent)}
   .news-header-sub{color:var(--c-text-2);font-size:0.9rem;margin-bottom:1.5rem}
-  .news-filters{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--c-border)}
-  .nfb{font-family:var(--font-head);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.45rem 1rem;border-radius:var(--radius-sm);border:1px solid var(--c-border);background:var(--c-surface);color:var(--c-text-2);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:0.4rem}
-  .nfb:hover{border-color:var(--c-border-2);color:var(--c-text)}
-  .nfb.active{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
-  .ndot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:0.8}
-  .news-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 300px;gap:2rem;align-items:start}
+  .news-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem}
   .news-hero{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:border-color 0.2s,box-shadow 0.2s;margin-bottom:0.5rem}
   .news-hero:hover{border-color:var(--c-border-2);box-shadow:var(--shadow-lg)}
   .nhi{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden}
@@ -48,19 +43,6 @@
   .nl-item-title{font-size:0.88rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .nl-item:hover .nl-item-title{color:var(--c-text)}
   .nl-item-date{font-size:0.72rem;color:var(--c-text-3);white-space:nowrap;margin-top:0.2rem;flex-shrink:0}
-  .news-sidebar{position:sticky;top:calc(var(--nav-h) + 1rem)}
-  .nss{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;margin-bottom:1rem}
-  .nsst{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-text-3);padding:0.75rem 1rem;border-bottom:1px solid var(--c-border);background:var(--c-surface-2)}
-  .nsi{display:flex;gap:0.75rem;padding:0.75rem 1rem;border-bottom:1px solid var(--c-border);text-decoration:none;transition:background 0.15s}
-  .nsi:last-child{border-bottom:none}
-  .nsi:hover{background:var(--c-surface-2)}
-  .nsin{font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:var(--c-accent);opacity:0.4;min-width:1.5rem;line-height:1.2}
-  .nsit{font-size:0.82rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .nsl{padding:0.5rem;display:flex;flex-direction:column;gap:0.25rem}
-  .nsb{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.75rem;border-radius:var(--radius-sm);text-decoration:none;transition:background 0.15s;font-size:0.82rem}
-  .nsb:hover{background:var(--c-surface-2)}
-  .nsbn{font-family:var(--font-head);font-weight:700;letter-spacing:0.04em}
-  .nsbc{font-size:0.72rem;color:var(--c-text-3);font-family:monospace}
   .nupd{font-size:0.75rem;color:var(--c-text-3);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem}
   .nudot{width:6px;height:6px;border-radius:50%;background:var(--c-green);animation:bl 2s infinite}
   @keyframes bl{0%,100%{opacity:1}50%{opacity:0.3}}
@@ -72,7 +54,7 @@
   /* Gallery card compact — gambar lebih kecil, judul pendek */
   .nc-compact .nci{aspect-ratio:4/3}
   .nc-compact .nctl{-webkit-line-clamp:2;font-size:0.85rem}
-  @media(max-width:900px){.news-layout{grid-template-columns:1fr}.news-sidebar{position:static}.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
+  @media(max-width:900px){.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
   @media(max-width:600px){.news-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -91,10 +73,7 @@
 <div class="news-header">
   <div class="news-header-title">Berita <span>Game</span> Indonesia</div>
   <div class="news-header-sub">Agregasi berita terbaru dari portal game Indonesia terpercaya &middot; Diperbarui otomatis</div>
-  <div class="news-filters">
-    <button class="nfb active" id="btn-all" onclick="filterNews('all',this)"><span class="ndot"></span>Semua</button>
-    <button class="nfb" id="btn-gamebrott" onclick="filterNews('gamebrott',this)" style="color:#e74c3c;border-color:rgba(231,76,60,0.3)"><span class="ndot" style="background:#e74c3c"></span>Gamebrott</button>
-  </div>
+
 </div>
 
 <div class="news-layout">
@@ -103,22 +82,7 @@
     <div class="nupd" id="nupd" style="display:none"><span class="nudot"></span><span id="nupd-txt"></span></div>
     <div class="news-grid" id="news-grid"></div>
   </main>
-  <aside class="news-sidebar">
-    <div class="nss">
-      <div class="nsst">Sumber Berita</div>
-      <div class="nsl">
-        <a href="https://gamebrott.com" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-gb">Gamebrott</span><span class="nsbc">gamebrott.com &rarr;</span></a>
-      </div>
-    </div>
-    <div class="nss">
-      <div class="nsst">Artikel Terbaru</div>
-      <div id="popular"><div class="nsi" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Memuat...</span></div></div>
-    </div>
-    <div class="nss" style="padding:1rem">
-      <div style="font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--c-text-2);margin-bottom:0.5rem">Tentang Halaman Ini</div>
-      <p style="font-size:0.8rem;color:var(--c-text-3);line-height:1.6">Berita dikumpulkan otomatis dari RSS feed. Gaming Compass hanya menampilkan judul dan ringkasan &mdash; klik untuk baca di sumber asli.</p>
-    </div>
-  </aside>
+
 </div>
 
 <footer class="gc-footer">
@@ -163,7 +127,6 @@ function isGamingArticle(title, excerpt) {
 }
 
 var allArticles = [];
-var activeFilter = 'all';
 
 function stripHtml(s) {
   var d = document.createElement('div');
@@ -284,11 +247,20 @@ function renderSkeleton() {
   g.innerHTML = html;
 }
 
+var DEFAULT_HERO_IMG = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2371&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+var DEFAULT_HERO_CREDIT = 'Photo: Javier Martinez / Unsplash';
+
 function renderHero(a) {
   var w = document.getElementById('hero-wrap');
   if (!a) { w.innerHTML=''; return; }
+  // Gunakan default image jika tidak ada gambar
+  var heroImg = a.image || DEFAULT_HERO_IMG;
+  var isDefault = !a.image;
   w.innerHTML='<a href="'+a.link+'" target="_blank" rel="noopener" class="news-hero">'+
-    '<div class="nhi">'+imgTag(a.image,a.title)+'</div>'+
+    '<div class="nhi" style="position:relative">'+
+      '<img src="'+heroImg+'" alt="'+a.title+'" loading="lazy" onerror="this.src=''+DEFAULT_HERO_IMG+''">'+
+      (isDefault ? '<span style="position:absolute;bottom:0.4rem;right:0.5rem;font-size:0.6rem;color:rgba(255,255,255,0.4);background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:3px">'+DEFAULT_HERO_CREDIT+'</span>' : '')+
+    '</div>'+
     '<div class="nhb">'+
       '<div class="nhs"><span style="width:8px;height:8px;border-radius:50%;background:'+a.sourceColor+';display:inline-block"></span>'+a.sourceName+'</div>'+
       '<div class="nht">'+a.title+'</div>'+
@@ -339,17 +311,7 @@ function renderGrid(arts) {
   g.innerHTML = html;
 }
 
-function renderPopular(arts) {
-  var p = document.getElementById('popular');
-  var top = arts.slice(0,5);
-  if (!top.length) { p.innerHTML='<div class="nsi" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Belum ada data</span></div>'; return; }
-  p.innerHTML = top.map(function(a,i){
-    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nsi">'+
-      '<span class="nsin">0'+(i+1)+'</span>'+
-      '<span class="nsit">'+a.title+'</span>'+
-    '</a>';
-  }).join('');
-}
+
 
 function filterNews(src, btn) {
   activeFilter = src;
@@ -401,11 +363,10 @@ async function loadNews() {
 
   var filtered = activeFilter==='all' ? allArticles : allArticles.filter(function(a){return a.source===activeFilter;});
   var withImg = filtered.filter(function(a){return !!a.image;});
-  var hero = withImg[0] || null;
+  var hero = withImg[0] || filtered[0] || null;
   var rest = filtered.filter(function(a){return a!==hero;});
   renderHero(hero);
   renderGrid(rest);
-  renderPopular(allArticles);
 }
 
 loadNews();
