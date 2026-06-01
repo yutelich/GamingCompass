@@ -155,15 +155,7 @@ const GCModal = (function () {
           Gaming Compass gratis selamanya 🎮<br>
           Jika ingin dukung pengembangan guide baru:
         </div>
-        <script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'><\/script>
-        <script type='text/javascript'>
-          (function(){
-            if(typeof trbtn !== 'undefined'){
-              var id=trbtn.init('Dukung di Trakteer','#04B7A6','https://trakteer.id/yudith2/tip','https://trakteer.id/images/mix/coffee.png','36');
-              trbtn.draw(id);
-            }
-          })();
-        <\/script>
+        <div id="gc-trakteer-slot"></div>
       </div>
 
       <button class="btn btn-primary" onclick="GCModal.finishAuth()" style="width:100%;margin-top:1.25rem">
@@ -173,6 +165,15 @@ const GCModal = (function () {
 
     // Tap to copy on code display
     document.getElementById('gc-new-code')?.addEventListener('click', () => GCModal.copyCode(code));
+
+    // Inject Trakteer button ke slot
+    setTimeout(() => {
+      const slot = document.getElementById('gc-trakteer-slot');
+      const trakteerEl = document.getElementById('gc-trakteer-fixed');
+      if (slot && trakteerEl) {
+        slot.appendChild(trakteerEl.cloneNode(true));
+      }
+    }, 100);
   }
 
   // ─── ACTIONS ──────────────────────────────────────────────────────────────
