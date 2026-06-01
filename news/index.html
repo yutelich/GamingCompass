@@ -108,7 +108,7 @@
     </div>
     <div class="nss" style="padding:1rem">
       <div style="font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--c-text-2);margin-bottom:0.5rem">Tentang Halaman Ini</div>
-      <p style="font-size:0.8rem;color:var(--c-text-3);line-height:1.6">Berita dikumpulkan otomatis dari RSS feed. Gaming Compass hanya menampilkan judul dan ringkasan singkat &mdash; klik untuk baca di sumber asli.</p>
+      <p style="font-size:0.8rem;color:var(--c-text-3);line-height:1.6">Berita dikumpulkan otomatis dari RSS feed. Gaming Compass hanya menampilkan judul dan ringkasan &mdash; klik untuk baca di sumber asli.</p>
     </div>
   </aside>
 </div>
@@ -119,63 +119,23 @@
 </footer>
 
 <script>
+// RSS2JSON API — layanan khusus konversi RSS ke JSON dengan CORS support
+// Free tier: 500 request/hari, cukup untuk personal site
+var RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+
 var SOURCES = [
-  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',          color:'#e74c3c', cls:'s-gb'},
-  {id:'kotakgame', name:'KotakGame',    url:'http://www.kotakgame.com/rss/',        color:'#f39c12', cls:'s-kg'},
-  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',           color:'#3498db', cls:'s-hy'}
+  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',        color:'#e74c3c', cls:'s-gb'},
+  {id:'kotakgame', name:'KotakGame',    url:'http://www.kotakgame.com/rss/',      color:'#f39c12', cls:'s-kg'},
+  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',         color:'#3498db', cls:'s-hy'}
 ];
+
 var allArticles = [];
 var activeFilter = 'all';
-
-// Ambil XML dari RSS via proxy — handle berbagai format response
-async function fetchXML(rssUrl) {
-  var proxies = [
-    // allorigins — returns {contents: "...xml..."}
-    {url: 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl), parse: function(r) { return r.json().then(function(d){ return d.contents; }); }},
-    // corsproxy.io — returns raw XML directly
-    {url: 'https://corsproxy.io/?' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }},
-    // codetabs — returns raw XML directly  
-    {url: 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }},
-    // rssbridge (no encode needed for some)
-    {url: 'https://rss-proxy.smef.io/proxy?url=' + encodeURIComponent(rssUrl), parse: function(r) { return r.text(); }}
-  ];
-
-  for (var i = 0; i < proxies.length; i++) {
-    try {
-      var ctrl = new AbortController();
-      var t = setTimeout(function(){ ctrl.abort(); }, 10000);
-      var res = await fetch(proxies[i].url, {signal: ctrl.signal});
-      clearTimeout(t);
-      if (!res.ok) continue;
-      var xml = await proxies[i].parse(res);
-      if (typeof xml === 'string' && xml.indexOf('<') === 0) return xml;
-      if (typeof xml === 'string' && xml.length > 100) return xml;
-    } catch(e) {
-      console.warn('Proxy ' + i + ' error:', e.message);
-    }
-  }
-  throw new Error('Semua proxy gagal untuk ' + rssUrl);
-}
 
 function stripHtml(s) {
   var d = document.createElement('div');
   d.innerHTML = s;
-  return d.textContent || d.innerText || '';
-}
-
-function extractImg(item) {
-  var enc = item.querySelector('enclosure[type^="image"]');
-  if (enc) return enc.getAttribute('url');
-  var mc = item.querySelector('content');
-  if (mc && mc.getAttribute('url')) return mc.getAttribute('url');
-  var mt = item.querySelector('thumbnail');
-  if (mt && mt.getAttribute('url')) return mt.getAttribute('url');
-  var desc = item.querySelector('description');
-  if (desc) {
-    var m = desc.textContent.match(/<img[^>]+src=["']([^"']+)["']/i);
-    if (m) return m[1];
-  }
-  return null;
+  return (d.textContent || d.innerText || '').replace(/\s+/g, ' ').trim();
 }
 
 function fmtDate(s) {
@@ -183,6 +143,7 @@ function fmtDate(s) {
   try {
     var d = new Date(s), now = new Date();
     var diff = Math.floor((now - d) / 1000);
+    if (isNaN(diff)) return s;
     if (diff < 3600) return Math.floor(diff/60) + ' menit lalu';
     if (diff < 86400) return Math.floor(diff/3600) + ' jam lalu';
     if (diff < 604800) return Math.floor(diff/86400) + ' hari lalu';
@@ -191,33 +152,42 @@ function fmtDate(s) {
 }
 
 function ph(src, alt) {
-  return src
-    ? '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=&quot;width:100%;height:100%;background:var(--c-surface-3);display:flex;align-items:center;justify-content:center;font-size:2rem&quot;>&#127918;</div>\'">'
-    : '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">&#127918;</div>';
+  var fallback = '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">&#127918;</div>';
+  if (!src) return fallback;
+  return '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\''+fallback.replace(/'/g,'&#39;')+'\'">'; 
 }
 
 async function fetchSource(src) {
   try {
-    var xml = await fetchXML(src.url);
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(xml, 'text/xml');
-    var parseErr = doc.querySelector('parsererror');
-    if (parseErr) throw new Error('XML parse error');
-    var items = Array.from(doc.querySelectorAll('item')).slice(0, 15);
-    return items.map(function(item) {
-      var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : '';
-      var link = '';
-      var linkEl = item.querySelector('link');
-      if (linkEl) link = linkEl.textContent.trim() || linkEl.getAttribute('href') || '';
-      if (!link) { var g = item.querySelector('guid'); if (g) link = g.textContent.trim(); }
-      var date = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent.trim() : '';
-      var descEl = item.querySelector('description');
-      var excerpt = descEl ? stripHtml(descEl.textContent.trim()).slice(0, 200) : '';
-      return {source:src.id, sourceName:src.name, sourceColor:src.color, sourceCls:src.cls,
-              title:title, link:link||'#', date:date, excerpt:excerpt, image:extractImg(item)};
+    var apiUrl = RSS2JSON + encodeURIComponent(src.url) + '&count=15';
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 12000);
+    var res = await fetch(apiUrl, {signal: ctrl.signal});
+    clearTimeout(timer);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var data = await res.json();
+    if (data.status !== 'ok' || !data.items) throw new Error('RSS2JSON error: ' + data.message);
+    return data.items.map(function(item) {
+      var img = item.thumbnail || item.enclosure && item.enclosure.link || null;
+      // Coba extract dari description jika tidak ada thumbnail
+      if (!img && item.description) {
+        var m = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (m) img = m[1];
+      }
+      return {
+        source: src.id,
+        sourceName: src.name,
+        sourceColor: src.color,
+        sourceCls: src.cls,
+        title: item.title || '',
+        link: item.link || item.guid || '#',
+        date: item.pubDate || '',
+        excerpt: stripHtml(item.description || item.content || '').slice(0, 200),
+        image: img
+      };
     });
   } catch(e) {
-    console.warn('['+src.name+'] failed:', e.message);
+    console.warn('['+src.name+'] gagal:', e.message);
     return [];
   }
 }
@@ -239,11 +209,11 @@ function renderHero(a) {
 function renderGrid(arts) {
   var g = document.getElementById('news-grid');
   if (!arts.length) {
-    g.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita dari sumber ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
+    g.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita dari sumber ini saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
   g.innerHTML = arts.map(function(a) {
-    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc" data-source="'+a.source+'">'+
+    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc">'+
       '<div class="nci">'+ph(a.image, a.title)+'</div>'+
       '<div class="ncb">'+
         '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
@@ -313,9 +283,11 @@ async function loadNews() {
   if (!allArticles.length) {
     updTxt.textContent = 'Gagal memuat berita';
     document.getElementById('news-grid').innerHTML =
-      '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#9888;&#65039;</div>'+
-      '<div>Gagal memuat berita. Coba lagi beberapa saat.</div>'+
-      '<button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
+      '<div class="nempty">'+
+        '<div style="font-size:2rem;margin-bottom:0.75rem">&#9888;&#65039;</div>'+
+        '<div>Gagal memuat berita. Periksa koneksi atau coba lagi.</div>'+
+        '<button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button>'+
+      '</div>';
     return;
   }
 
