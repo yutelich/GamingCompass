@@ -17,8 +17,11 @@ const GC = (function () {
     JSONBIN_API_KEY: '$2a$10$VFA8BfmxCnPmR4nZk/qxd..3oQptVimsCT5/ZEF265dcwY8LIfJZK', // Ganti dengan Master Key JSONBin kamu
     JSONBIN_BASE: 'https://api.jsonbin.io/v3',
     // INDEX_BIN_ID: bin khusus yang menyimpan mapping { code -> binId }
-    // Buat sekali manual di jsonbin.io dengan isi {} lalu taruh ID-nya di sini
-    INDEX_BIN_ID: '6a1d070121f9ee59d2a368ad',
+    // Buat sekali manual di jsonbin.io dengan isi {"index":{}} lalu taruh ID-nya di sini
+    INDEX_BIN_ID: '6a1cf3e1ddf5aa59f77dd639',
+    // COLLECTION_ID: ID collection "Gaming Compass Web" di JSONBin
+    // Semua bin user akan otomatis masuk ke collection ini
+    COLLECTION_ID: '6a1d080eddf5aa59f77e08e2',
     DATA_VERSION: '1.0',
     CODE_PREFIX: 'GC',
     LOCAL_KEY: 'gc_session',   // key localStorage untuk simpan sesi
@@ -65,6 +68,9 @@ const GC = (function () {
         'X-Master-Key': CONFIG.JSONBIN_API_KEY,
         'X-Bin-Name': data.meta.code,
         'X-Bin-Private': 'true',
+        ...(CONFIG.COLLECTION_ID && CONFIG.COLLECTION_ID !== 'YOUR_COLLECTION_ID_HERE'
+          ? { 'X-Collection-Id': CONFIG.COLLECTION_ID }
+          : {}),
       },
       body: JSON.stringify(data)
     });
