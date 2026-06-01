@@ -69,6 +69,9 @@
   .nrbtn:hover{background:var(--c-surface-2);color:var(--c-text)}
   .skel{background:linear-gradient(90deg,var(--c-surface) 25%,var(--c-surface-2) 50%,var(--c-surface) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:var(--radius-sm)}
   @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  /* Gallery card compact — gambar lebih kecil, judul pendek */
+  .nc-compact .nci{aspect-ratio:4/3}
+  .nc-compact .nctl{-webkit-line-clamp:2;font-size:0.85rem}
   @media(max-width:900px){.news-layout{grid-template-columns:1fr}.news-sidebar{position:static}.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
   @media(max-width:600px){.news-grid{grid-template-columns:1fr}}
 </style>
@@ -91,7 +94,6 @@
   <div class="news-filters">
     <button class="nfb active" id="btn-all" onclick="filterNews('all',this)"><span class="ndot"></span>Semua</button>
     <button class="nfb" id="btn-gamebrott" onclick="filterNews('gamebrott',this)" style="color:#e74c3c;border-color:rgba(231,76,60,0.3)"><span class="ndot" style="background:#e74c3c"></span>Gamebrott</button>
-    <button class="nfb" id="btn-hybrid" onclick="filterNews('hybrid',this)" style="color:#3498db;border-color:rgba(52,152,219,0.3)"><span class="ndot" style="background:#3498db"></span>Hybrid.co.id</button>
   </div>
 </div>
 
@@ -106,7 +108,6 @@
       <div class="nsst">Sumber Berita</div>
       <div class="nsl">
         <a href="https://gamebrott.com" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-gb">Gamebrott</span><span class="nsbc">gamebrott.com &rarr;</span></a>
-        <a href="https://hybrid.co.id" target="_blank" rel="noopener" class="nsb"><span class="nsbn s-hy">Hybrid.co.id</span><span class="nsbc">hybrid.co.id &rarr;</span></a>
       </div>
     </div>
     <div class="nss">
@@ -122,17 +123,44 @@
 
 <footer class="gc-footer">
   <strong>Gaming Compass</strong> &mdash; <a href="../">Home</a> &middot; <a href="../games/dwo/">Guide DWO</a>
-  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &middot; Hybrid.co.id &mdash; hak cipta milik penerbit masing-masing.</span>
+  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &mdash; hak cipta milik penerbit masing-masing. Artikel difilter untuk konten gaming.</span>
 </footer>
 
 <script>
 // Cloudflare Worker proxy milik sendiri — reliable, no timeout
 var CF = 'https://gc-rss-proxy.yudithputra-smi.workers.dev/?url=';
 
+// Sumber RSS — hasil test: hanya Gamebrott berita yang reliable & gaming-focused (70% score)
 var SOURCES = [
-  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed', color:'#e74c3c', cls:'s-gb'},
-  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',  color:'#3498db', cls:'s-hy'}
+  {id:'gamebrott', name:'Gamebrott', url:'https://gamebrott.com/category/berita/feed', color:'#e74c3c', cls:'s-gb'},
 ];
+
+// Keyword filter — buang artikel yang jelas bukan tentang game
+var NON_GAME_KW = [
+  'smartphone','earphone','earbuds','tws ','truly wireless','headphone bukan gaming',
+  'kamera mirrorless','kamera dslr','laptop non gaming','oppo find','samsung galaxy a',
+  'xiaomi redmi','vivo v','realme c','iphone','macbook','charger','powerbank',
+  'kulkas','ac ruangan','printer','router wifi','tv oled','monitor non gaming',
+  'mobil listrik','motor listrik'
+];
+var GAME_KW = [
+  'game','gaming','gamer','esport','ps5','ps4','xbox','nintendo','switch','steam',
+  'playstation','valorant','mobile legend','mlbb','pubg','free fire','genshin',
+  'rpg','fps','moba','mmorpg','indie game','dlc','patch notes','review game',
+  'trailer game','konsol','pc game'
+];
+
+function isGamingArticle(title, excerpt) {
+  var text = (title + ' ' + excerpt).toLowerCase();
+  // Langsung buang jika ada keyword non-game yang kuat
+  var isNonGame = NON_GAME_KW.some(function(k){ return text.indexOf(k) !== -1; });
+  if (isNonGame) return false;
+  // Terima jika ada keyword game
+  var isGame = GAME_KW.some(function(k){ return text.indexOf(k) !== -1; });
+  if (isGame) return true;
+  // Default: terima (agar tidak terlalu banyak yang dibuang)
+  return true;
+}
 
 var allArticles = [];
 var activeFilter = 'all';
@@ -225,8 +253,16 @@ async function fetchSource(src) {
     if (!res.ok) throw new Error('HTTP '+res.status);
     var xml = await res.text();
     var arts = parseRSS(xml, src);
-    console.log('['+src.name+'] OK: '+arts.length+' artikel');
-    return arts;
+    // Filter artikel non-game
+    var filtered = arts.filter(function(a){
+      return isGamingArticle(a.title, a.excerpt);
+    });
+    var removed = arts.length - filtered.length;
+    console.log('['+src.name+'] OK: '+arts.length+' artikel raw, '+filtered.length+' setelah filter'+(removed?' ('+removed+' non-game dibuang)':''));
+    // Tag array dengan metadata untuk debug
+    filtered._src_total = arts.length;
+    filtered._src_removed = removed;
+    return filtered;
   } catch(e) {
     console.warn('['+src.name+'] gagal:', e.message);
     return [];
@@ -268,29 +304,38 @@ function renderGrid(arts) {
     g.innerHTML='<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
+
   var withImg = arts.filter(function(a){return !!a.image;});
   var noImg   = arts.filter(function(a){return !a.image;});
-  var html = withImg.map(function(a) {
-    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc">'+
-      '<div class="nci">'+imgTag(a.image,a.title)+'</div>'+
-      '<div class="ncb">'+
-        '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
-        '<div class="nctl">'+a.title+'</div>'+
-        '<div class="ncdt">'+fmtDate(a.date)+'</div>'+
-      '</div></a>';
-  }).join('');
+  var html = '';
+
+  // Gallery: artikel bergambar — compact, judul + source saja (tanpa excerpt)
+  if (withImg.length) {
+    html += withImg.map(function(a) {
+      return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc nc-compact">'+
+        '<div class="nci">'+imgTag(a.image,a.title)+'</div>'+
+        '<div class="ncb">'+
+          '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
+          '<div class="nctl">'+a.title+'</div>'+
+          '<div class="ncdt">'+fmtDate(a.date)+'</div>'+
+        '</div></a>';
+    }).join('');
+  }
+
+  // List teks: artikel tanpa gambar
   if (noImg.length) {
-    html+='<div class="nl-section"><div class="nl-title">Berita Lainnya</div>'+
+    html += '<div class="nl-section"><div class="nl-title">Berita Lainnya</div>'+
       noImg.map(function(a){
         return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nl-item">'+
           '<div class="nl-item-left">'+
-            '<span class="ncsrc '+a.sourceCls+'" style="display:block;margin-bottom:0.2rem">'+a.sourceName+'</span>'+
+            '<span class="ncsrc '+a.sourceCls+'" style="display:block;margin-bottom:0.1rem">'+a.sourceName+'</span>'+
             '<span class="nl-item-title">'+a.title+'</span>'+
           '</div>'+
           '<span class="nl-item-date">'+fmtDate(a.date)+'</span>'+
         '</a>';
       }).join('')+'</div>';
   }
+
   g.innerHTML = html;
 }
 
@@ -346,11 +391,17 @@ async function loadNews() {
   }
 
   var now = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  updTxt.textContent = allArticles.length+' artikel \u00b7 '+now;
+  var totalFetched = results.reduce(function(acc,r){ return acc + (r.status==='fulfilled' ? r.value.length : 0); }, 0);
+  var filtered_count = allArticles.length;
+  var removed_count = 0;
+  results.forEach(function(r){
+    if(r.status==='fulfilled') removed_count += r.value._raw_count || 0;
+  });
+  updTxt.textContent = filtered_count+' artikel game \u00b7 '+now;
 
   var filtered = activeFilter==='all' ? allArticles : allArticles.filter(function(a){return a.source===activeFilter;});
   var withImg = filtered.filter(function(a){return !!a.image;});
-  var hero = withImg[0] || filtered[0] || null;
+  var hero = withImg[0] || null;
   var rest = filtered.filter(function(a){return a!==hero;});
   renderHero(hero);
   renderGrid(rest);
