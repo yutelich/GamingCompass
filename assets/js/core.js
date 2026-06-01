@@ -16,6 +16,9 @@ const GC = (function () {
   const CONFIG = {
     JSONBIN_API_KEY: '$2a$10$VFA8BfmxCnPmR4nZk/qxd..3oQptVimsCT5/ZEF265dcwY8LIfJZK', // Ganti dengan Master Key JSONBin kamu
     JSONBIN_BASE: 'https://api.jsonbin.io/v3',
+    // INDEX_BIN_ID: bin khusus yang menyimpan mapping { code -> binId }
+    // Buat sekali manual di jsonbin.io dengan isi {} lalu taruh ID-nya di sini
+    INDEX_BIN_ID: '6a1d070121f9ee59d2a368ad',
     DATA_VERSION: '1.0',
     CODE_PREFIX: 'GC',
     LOCAL_KEY: 'gc_session',   // key localStorage untuk simpan sesi
@@ -67,7 +70,16 @@ const GC = (function () {
     });
     if (!res.ok) throw new Error(`JSONBin create failed: ${res.status}`);
     const json = await res.json();
-    return json.metadata.id;
+    const binId = json.metadata.id;
+    // Simpan mapping code -> binId ke index bin
+    try {
+      const index = await _readIndex();
+      index[data.meta.code] = binId;
+      await _writeIndex(index);
+    } catch (e) {
+      console.warn('Index update failed:', e.message);
+    }
+    return binId;
   }
 
   async function _readBin(binId) {
@@ -93,27 +105,41 @@ const GC = (function () {
     return true;
   }
 
-  // Cari binId berdasarkan code
-  // JSONBin v3: list semua bin lalu filter by name (search by name endpoint tidak tersedia di free tier)
-  async function _findBinByCode(code) {
-    // Endpoint resmi: GET /v3/b dengan X-Master-Key akan list semua bins
-    const res = await fetch(`${CONFIG.JSONBIN_BASE}/b`, {
+  // ─── INDEX BIN ───────────────────────────────────────────────────────────
+  // Bin indeks menyimpan mapping { "GC-XXXX-XXXX": "binId" }
+  // Ini solusi karena JSONBin tidak support search by name di free tier
+
+  async function _readIndex() {
+    if (!CONFIG.INDEX_BIN_ID || CONFIG.INDEX_BIN_ID === 'YOUR_INDEX_BIN_ID_HERE') {
+      throw new Error('Index bin belum dikonfigurasi. Hubungi admin.');
+    }
+    const res = await fetch(`${CONFIG.JSONBIN_BASE}/b/${CONFIG.INDEX_BIN_ID}/latest`, {
       headers: { 'X-Master-Key': CONFIG.JSONBIN_API_KEY }
     });
-    if (!res.ok) throw new Error(`JSONBin list failed: ${res.status}`);
-    const bins = await res.json();
-    // bins adalah array of { record: { metadata: { id, name } } }
-    if (!Array.isArray(bins) || bins.length === 0) {
-      throw new Error('Kode tidak ditemukan. Periksa kembali kode kamu.');
-    }
-    // Cari bin yang namanya cocok dengan kode
-    const match = bins.find(b => {
-      const name = b.snippetMeta?.name || b.record?.metadata?.name || b.metadata?.name || '';
-      return name === code;
+    if (!res.ok) throw new Error(`Gagal baca index: ${res.status}`);
+    const json = await res.json();
+    return json.record || {};
+  }
+
+  async function _writeIndex(indexData) {
+    const res = await fetch(`${CONFIG.JSONBIN_BASE}/b/${CONFIG.INDEX_BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': CONFIG.JSONBIN_API_KEY,
+      },
+      body: JSON.stringify(indexData)
     });
-    if (!match) throw new Error('Kode tidak ditemukan. Periksa kembali kode kamu.');
-    // Return binId
-    return match.snippetMeta?.id || match.record?.metadata?.id || match.metadata?.id || match.id;
+    if (!res.ok) throw new Error(`Gagal update index: ${res.status}`);
+    return true;
+  }
+
+  // Cari binId berdasarkan code — lookup di index bin
+  async function _findBinByCode(code) {
+    const index = await _readIndex();
+    const binId = index[code];
+    if (!binId) throw new Error('Kode tidak ditemukan. Periksa kembali kode kamu.');
+    return binId;
   }
 
   // ─── SESSION ──────────────────────────────────────────────────────────────
