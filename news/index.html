@@ -130,16 +130,11 @@
 </footer>
 
 <script>
-// RSS2JSON API — layanan khusus konversi RSS ke JSON dengan CORS support
-// Free tier: 500 request/hari, cukup untuk personal site
-var RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
-
 var SOURCES = [
-  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',        color:'#e74c3c', cls:'s-gb'},
-  {id:'kotakgame', name:'KotakGame',    url:'https://kotakgame.com/rss/',         color:'#f39c12', cls:'s-kg'},
-  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',         color:'#3498db', cls:'s-hy'}
+  {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',  color:'#e74c3c', cls:'s-gb'},
+  {id:'kotakgame', name:'KotakGame',    url:'https://kotakgame.com/rss/', color:'#f39c12', cls:'s-kg'},
+  {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',  color:'#3498db', cls:'s-hy'}
 ];
-
 var allArticles = [];
 var activeFilter = 'all';
 
@@ -163,121 +158,60 @@ function fmtDate(s) {
 }
 
 function ph(src, alt) {
-  var fallback = '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">&#127918;</div>';
-  if (!src) return fallback;
-  return '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\''+fallback.replace(/'/g,'&#39;')+'\'">'; 
+  var fb = '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2.5rem">&#127918;</div>';
+  if (!src) return fb;
+  return '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\''+fb.replace(/'/g,'&#39;')+'\'">';
+}
+
+function parseRSS(xmlText, src) {
+  try {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xmlText, 'text/xml');
+    if (doc.querySelector('parsererror')) throw new Error('parse error');
+    var items = Array.from(doc.querySelectorAll('item')).slice(0, 15);
+    return items.map(function(item) {
+      var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : '';
+      var linkEl = item.querySelector('link');
+      var link = linkEl ? (linkEl.textContent.trim() || linkEl.getAttribute('href') || '') : '';
+      if (!link) { var g = item.querySelector('guid'); if (g) link = g.textContent.trim(); }
+      var date = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent.trim() : '';
+      var descEl = item.querySelector('description');
+      var dHtml = descEl ? descEl.textContent : '';
+      var cEl = item.querySelector('encoded') || item.querySelector('content');
+      var cHtml = cEl ? cEl.textContent : '';
+      var excerpt = stripHtml(dHtml || cHtml).slice(0, 200);
+      var img = null;
+      var enc = item.querySelector('enclosure[type^="image"]');
+      if (enc) img = enc.getAttribute('url');
+      if (!img) { var mc = item.querySelector('content'); if (mc && mc.getAttribute('url')) img = mc.getAttribute('url'); }
+      if (!img && dHtml) { var m = dHtml.match(/<img[^>]+src=["']([^"']+)["']/i); if (m && m[1] && m[1].indexOf('http')===0) img = m[1]; }
+      if (!img && cHtml) { var m2 = cHtml.match(/<img[^>]+src=["']([^"']+)["']/i); if (m2 && m2[1] && m2[1].indexOf('http')===0) img = m2[1]; }
+      if (img && /pixel|track|stat|1x1|beacon/i.test(img)) img = null;
+      return {source:src.id, sourceName:src.name, sourceColor:src.color, sourceCls:src.cls,
+              title:title, link:link||'#', date:date, excerpt:excerpt, image:img};
+    });
+  } catch(e) { console.warn('parseRSS:', e.message); return []; }
 }
 
 async function fetchSource(src) {
-  try {
-    var apiUrl = RSS2JSON + encodeURIComponent(src.url) + '&count=15';
-    var ctrl = new AbortController();
-    var timer = setTimeout(function(){ ctrl.abort(); }, 12000);
-    var res = await fetch(apiUrl, {signal: ctrl.signal});
-    clearTimeout(timer);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var data = await res.json();
-    if (data.status !== 'ok' || !data.items) throw new Error('RSS2JSON error: ' + data.message);
-    return data.items.map(function(item) {
-      // RSS2JSON menyimpan gambar di: thumbnail, enclosure.link, atau content HTML
-      var img = item.thumbnail || (item.enclosure && item.enclosure.link) || null;
-      // Coba extract gambar pertama dari description (HTML)
-      if (!img && item.description) {
-        var m = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
-        if (m && m[1] && m[1].indexOf('http') === 0) img = m[1];
-      }
-      // Coba extract dari content (full article HTML)
-      if (!img && item.content) {
-        var m2 = item.content.match(/<img[^>]+src=["']([^"']+)["']/i);
-        if (m2 && m2[1] && m2[1].indexOf('http') === 0) img = m2[1];
-      }
-      // Hindari gambar tracking pixel (biasanya < 10px)
-      if (img && (img.indexOf('pixel') !== -1 || img.indexOf('track') !== -1 || img.indexOf('stat') !== -1)) img = null;
-      return {
-        source: src.id,
-        sourceName: src.name,
-        sourceColor: src.color,
-        sourceCls: src.cls,
-        title: item.title || '',
-        link: item.link || item.guid || '#',
-        date: item.pubDate || '',
-        excerpt: stripHtml(item.description || item.content || '').slice(0, 200),
-        image: img
-      };
-    });
-  } catch(e) {
-    console.warn('['+src.name+'] gagal:', e.message);
-    return [];
+  var proxies = [
+    {u:'https://api.allorigins.win/get?url=', json:true},
+    {u:'https://api.allorigins.win/raw?url=', json:false},
+  ];
+  for (var i = 0; i < proxies.length; i++) {
+    try {
+      var ctrl = new AbortController();
+      var t = setTimeout(function(){ ctrl.abort(); }, 12000);
+      var res = await fetch(proxies[i].u + encodeURIComponent(src.url), {signal:ctrl.signal});
+      clearTimeout(t);
+      if (!res.ok) continue;
+      var xmlText = proxies[i].json ? (await res.json()).contents : await res.text();
+      if (!xmlText || xmlText.indexOf('<') === -1) continue;
+      var arts = parseRSS(xmlText, src);
+      if (arts.length > 0) { console.log('['+src.name+'] OK via proxy '+i+': '+arts.length+' items'); return arts; }
+    } catch(e) { console.warn('['+src.name+'] proxy '+i+':', e.message); }
   }
-}
-
-function renderHero(a) {
-  var w = document.getElementById('hero-wrap');
-  if (!a) { w.innerHTML = ''; return; }
-  w.innerHTML = '<a href="'+a.link+'" target="_blank" rel="noopener" class="news-hero">'+
-    '<div class="nhi">'+ph(a.image, a.title)+'</div>'+
-    '<div class="nhb">'+
-      '<div class="nhs"><span style="width:8px;height:8px;border-radius:50%;background:'+a.sourceColor+';display:inline-block"></span>'+a.sourceName+'</div>'+
-      '<div class="nht">'+a.title+'</div>'+
-      (a.excerpt ? '<div class="nhe">'+a.excerpt+'...</div>' : '')+
-      '<div class="nhd">'+fmtDate(a.date)+'</div>'+
-    '</div>'+
-  '</a>';
-}
-
-function renderGrid(arts) {
-  var g = document.getElementById('news-grid');
-  if (!arts.length) {
-    g.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita dari sumber ini saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
-    return;
-  }
-
-  // Pisah: ada gambar vs tidak ada gambar
-  var withImg = arts.filter(function(a){ return !!a.image; });
-  var noImg   = arts.filter(function(a){ return !a.image; });
-
-  // Render card grid untuk yang punya gambar
-  var gridHtml = withImg.map(function(a) {
-    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc">'+
-      '<div class="nci">'+ph(a.image, a.title)+'</div>'+
-      '<div class="ncb">'+
-        '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
-        '<div class="nctl">'+a.title+'</div>'+
-        '<div class="ncdt">'+fmtDate(a.date)+'</div>'+
-      '</div>'+
-    '</a>';
-  }).join('');
-
-  // Render list teks untuk yang tidak punya gambar
-  var listHtml = '';
-  if (noImg.length > 0) {
-    listHtml = '<div class="nl-section">'+
-      '<div class="nl-title">Berita Lainnya</div>'+
-      noImg.map(function(a) {
-        return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nl-item">'+
-          '<div class="nl-item-left">'+
-            '<span class="ncsrc '+a.sourceCls+'" style="display:block;margin-bottom:0.2rem">'+a.sourceName+'</span>'+
-            '<span class="nl-item-title">'+a.title+'</span>'+
-          '</div>'+
-          '<span class="nl-item-date">'+fmtDate(a.date)+'</span>'+
-        '</a>';
-      }).join('')+
-    '</div>';
-  }
-
-  g.innerHTML = gridHtml + listHtml;
-}
-
-function renderPopular(arts) {
-  var p = document.getElementById('popular');
-  var top = arts.slice(0, 5);
-  if (!top.length) { p.innerHTML = '<div class="nsi" style="pointer-events:none;opacity:0.4"><span style="font-size:0.82rem;color:var(--c-text-3)">Belum ada data</span></div>'; return; }
-  p.innerHTML = top.map(function(a, i) {
-    return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nsi">'+
-      '<span class="nsin">0'+(i+1)+'</span>'+
-      '<span class="nsit">'+a.title+'</span>'+
-    '</a>';
-  }).join('');
+  return [];
 }
 
 function renderSkeleton() {
