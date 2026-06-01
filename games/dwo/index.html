@@ -473,17 +473,14 @@
   </span>
 </footer>
 
-<!-- Trakteer — disembunyikan, ditampilkan saat modal muncul -->
-<div id="gc-trakteer-fixed" style="display:flex;justify-content:center;margin-top:0.5rem"></div>
-<script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script>
-<script type='text/javascript'>
-  window.addEventListener('load', function() {
-    if (typeof trbtn !== 'undefined') {
-      var id = trbtn.init('Dukung di Trakteer','#04B7A6','https://trakteer.id/yudith2/tip','https://trakteer.id/images/mix/coffee.png','36');
-      trbtn.draw(id, document.getElementById('gc-trakteer-fixed'));
-    }
-  });
-</script>
+<!-- Trakteer: gunakan link langsung, hindari script embed yang override body -->
+<div id="gc-trakteer-fixed" style="display:none">
+  <a href="https://trakteer.id/yudith2/tip" target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;gap:8px;background:#04B7A6;color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none">
+    <img src="https://trakteer.id/images/mix/coffee.png" width="24" height="24" alt="">
+    Dukung di Trakteer
+  </a>
+</div>
 <script src="../../assets/js/core.js"></script>
 <script src="../../assets/js/modal.js"></script>
 <script src="../../assets/js/tracker.js"></script>
