@@ -548,29 +548,92 @@
     });
   }
 
-  // Init
-  async function initPage() {
-    const result = await GCModal.init('dwo');
-    // Load progress dari GC jika sudah login
+  // ── UPDATE NAV BUTTON ─────────────────────────
+  function updateNavBtn() {
+    const navBtn = document.getElementById('gc-nav-code');
+    if (!navBtn) return;
     if (GC.isLoggedIn()) {
-      const prog = GC.getProgress('dwo');
-      document.querySelectorAll('.check-item').forEach(item => {
-        const cb = item.querySelector('input[type=checkbox]');
-        if (cb && prog[cb.dataset.id]) item.classList.add('done');
-        if (!item.classList.contains('locked')) {
-          item.addEventListener('click', async e => {
-            e.preventDefault();
-            const isDone = item.classList.toggle('done');
-            const id = item.querySelector('input[type=checkbox]')?.dataset.id;
-            if (id) {
-              try { await GC.setProgress('dwo', id, isDone); } catch {}
-            }
-            updateSidebarCounters();
-          });
-        }
-      });
+      navBtn.textContent = '🔑 ' + GC.getCode();
+      navBtn.classList.add('logged-in');
+      navBtn.title = 'Klik untuk logout';
+      navBtn.onclick = () => {
+        if (confirm('Keluar dari kode ini?')) { GC.logout(); location.reload(); }
+      };
+    } else if (GC.isGuest()) {
+      navBtn.textContent = '👁 Mode Tamu';
+      navBtn.onclick = () => GCModal.showAuth();
+    } else {
+      navBtn.textContent = 'Masuk / Kode';
+      navBtn.onclick = () => GCModal.showAuth();
     }
-    updateSidebarCounters();
+  }
+
+  // ── INIT CHECKLIST ────────────────────────────
+  function initChecklist() {
+    const isLocked = !GC.isLoggedIn();
+    const prog = GC.isLoggedIn() ? GC.getProgress('dwo') : {};
+
+    document.querySelectorAll('.check-item').forEach(item => {
+      const cb = item.querySelector('input[type=checkbox]');
+      if (!cb) return;
+      const id = cb.dataset.id;
+
+      // Render saved progress
+      if (prog[id]) item.classList.add('done');
+
+      if (isLocked) {
+        // Tamu: klik item → munculkan modal kode
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', e => {
+          e.preventDefault();
+          GCModal.showAuth(() => { location.reload(); });
+        });
+      } else {
+        // Login: klik item → centang & simpan
+        item.addEventListener('click', async e => {
+          e.preventDefault();
+          const isDone = item.classList.toggle('done');
+          if (id) {
+            try { await GC.setProgress('dwo', id, isDone); } catch {}
+          }
+          updateSidebarCounters();
+        });
+      }
+    });
+
+    // Banner locked jika tamu
+    if (isLocked) {
+      let banner = document.getElementById('gc-locked-banner');
+      if (!banner) {
+        banner = document.createElement('div');
+        banner.id = 'gc-locked-banner';
+        banner.className = 'gc-locked-banner';
+        banner.innerHTML = `
+          🔒 <strong>Mode Tamu</strong> — Klik item apapun untuk aktifkan checklist dengan kode gratis.
+          <button onclick="GCModal.showAuth(() => location.reload())">Minta Kode →</button>
+        `;
+        document.body.appendChild(banner);
+      }
+    }
+  }
+
+  // ── INIT PAGE (pop-up hanya jika belum pernah pilih mode) ──
+  async function initPage() {
+    const result = await GC.init();
+    updateNavBtn();
+
+    // Pop-up HANYA muncul jika user belum pernah pilih mode sama sekali
+    // (bukan guest, bukan login) — ini halaman guide, wajar tanya
+    if (result.mode === 'none') {
+      GCModal.showAuth(() => {
+        initChecklist();
+        updateSidebarCounters();
+        updateNavBtn();
+      });
+    } else {
+      initChecklist();
+      updateSidebarCounters();
+    }
   }
 
   initPage();
