@@ -60,6 +60,17 @@
   .nrbtn:hover{background:var(--c-surface-2);color:var(--c-text)}
   .skel{background:linear-gradient(90deg,var(--c-surface) 25%,var(--c-surface-2) 50%,var(--c-surface) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:var(--radius-sm)}
   @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  /* List style untuk artikel tanpa gambar */
+  .nl-section{grid-column:1/-1;margin-top:1rem}
+  .nl-title{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--c-border);display:flex;align-items:center;gap:0.5rem}
+  .nl-title::before{content:'';flex:1;height:1px;background:var(--c-border)}
+  .nl-item{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:0.65rem 0.75rem;border-radius:var(--radius-sm);text-decoration:none;transition:background 0.15s;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .nl-item:last-child{border-bottom:none}
+  .nl-item:hover{background:var(--c-surface)}
+  .nl-item-left{flex:1;min-width:0}
+  .nl-item-title{font-size:0.88rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .nl-item:hover .nl-item-title{color:var(--c-text)}
+  .nl-item-date{font-size:0.72rem;color:var(--c-text-3);white-space:nowrap;margin-top:0.2rem;flex-shrink:0}
   @media(max-width:900px){.news-layout{grid-template-columns:1fr}.news-sidebar{position:static}.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
   @media(max-width:600px){.news-grid{grid-template-columns:1fr}}
 </style>
@@ -125,7 +136,7 @@ var RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
 var SOURCES = [
   {id:'gamebrott', name:'Gamebrott',    url:'https://gamebrott.com/feed',        color:'#e74c3c', cls:'s-gb'},
-  {id:'kotakgame', name:'KotakGame',    url:'http://www.kotakgame.com/rss/',      color:'#f39c12', cls:'s-kg'},
+  {id:'kotakgame', name:'KotakGame',    url:'https://kotakgame.com/rss/',         color:'#f39c12', cls:'s-kg'},
   {id:'hybrid',    name:'Hybrid.co.id', url:'https://hybrid.co.id/feed',         color:'#3498db', cls:'s-hy'}
 ];
 
@@ -168,12 +179,20 @@ async function fetchSource(src) {
     var data = await res.json();
     if (data.status !== 'ok' || !data.items) throw new Error('RSS2JSON error: ' + data.message);
     return data.items.map(function(item) {
-      var img = item.thumbnail || item.enclosure && item.enclosure.link || null;
-      // Coba extract dari description jika tidak ada thumbnail
+      // RSS2JSON menyimpan gambar di: thumbnail, enclosure.link, atau content HTML
+      var img = item.thumbnail || (item.enclosure && item.enclosure.link) || null;
+      // Coba extract gambar pertama dari description (HTML)
       if (!img && item.description) {
         var m = item.description.match(/<img[^>]+src=["']([^"']+)["']/i);
-        if (m) img = m[1];
+        if (m && m[1] && m[1].indexOf('http') === 0) img = m[1];
       }
+      // Coba extract dari content (full article HTML)
+      if (!img && item.content) {
+        var m2 = item.content.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (m2 && m2[1] && m2[1].indexOf('http') === 0) img = m2[1];
+      }
+      // Hindari gambar tracking pixel (biasanya < 10px)
+      if (img && (img.indexOf('pixel') !== -1 || img.indexOf('track') !== -1 || img.indexOf('stat') !== -1)) img = null;
       return {
         source: src.id,
         sourceName: src.name,
@@ -212,7 +231,13 @@ function renderGrid(arts) {
     g.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita dari sumber ini saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
-  g.innerHTML = arts.map(function(a) {
+
+  // Pisah: ada gambar vs tidak ada gambar
+  var withImg = arts.filter(function(a){ return !!a.image; });
+  var noImg   = arts.filter(function(a){ return !a.image; });
+
+  // Render card grid untuk yang punya gambar
+  var gridHtml = withImg.map(function(a) {
     return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc">'+
       '<div class="nci">'+ph(a.image, a.title)+'</div>'+
       '<div class="ncb">'+
@@ -222,6 +247,25 @@ function renderGrid(arts) {
       '</div>'+
     '</a>';
   }).join('');
+
+  // Render list teks untuk yang tidak punya gambar
+  var listHtml = '';
+  if (noImg.length > 0) {
+    listHtml = '<div class="nl-section">'+
+      '<div class="nl-title">Berita Lainnya</div>'+
+      noImg.map(function(a) {
+        return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nl-item">'+
+          '<div class="nl-item-left">'+
+            '<span class="ncsrc '+a.sourceCls+'" style="display:block;margin-bottom:0.2rem">'+a.sourceName+'</span>'+
+            '<span class="nl-item-title">'+a.title+'</span>'+
+          '</div>'+
+          '<span class="nl-item-date">'+fmtDate(a.date)+'</span>'+
+        '</a>';
+      }).join('')+
+    '</div>';
+  }
+
+  g.innerHTML = gridHtml + listHtml;
 }
 
 function renderPopular(arts) {
@@ -258,8 +302,12 @@ function filterNews(src, btn) {
   document.querySelectorAll('.nfb').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
   var filtered = src === 'all' ? allArticles : allArticles.filter(function(a){ return a.source === src; });
-  renderHero(filtered[0] || null);
-  renderGrid(filtered.slice(1));
+  // Prioritaskan artikel bergambar untuk hero
+  var withImg = filtered.filter(function(a){ return !!a.image; });
+  var hero = withImg[0] || filtered[0] || null;
+  var rest = filtered.filter(function(a){ return a !== hero; });
+  renderHero(hero);
+  renderGrid(rest);
 }
 
 async function loadNews() {
@@ -295,8 +343,12 @@ async function loadNews() {
   updTxt.textContent = allArticles.length + ' artikel \u00b7 ' + now;
 
   var filtered = activeFilter === 'all' ? allArticles : allArticles.filter(function(a){ return a.source === activeFilter; });
-  renderHero(filtered[0] || null);
-  renderGrid(filtered.slice(1));
+  // Prioritaskan artikel bergambar untuk hero
+  var withImg = filtered.filter(function(a){ return !!a.image; });
+  var hero = withImg[0] || filtered[0] || null;
+  var rest = filtered.filter(function(a){ return a !== hero; });
+  renderHero(hero);
+  renderGrid(rest);
   renderPopular(allArticles);
 }
 
