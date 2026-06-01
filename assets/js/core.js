@@ -14,7 +14,7 @@ const GC = (function () {
 
   // ─── CONFIG ───────────────────────────────────────────────────────────────
   const CONFIG = {
-    JSONBIN_API_KEY: 'YOUR_API_KEY_HERE', // Ganti dengan Master Key JSONBin kamu
+    JSONBIN_API_KEY: '$2a$10$VFA8BfmxCnPmR4nZk/qxd..3oQptVimsCT5/ZEF265dcwY8LIfJZK', // Ganti dengan Master Key JSONBin kamu
     JSONBIN_BASE: 'https://api.jsonbin.io/v3',
     DATA_VERSION: '1.0',
     CODE_PREFIX: 'GC',
@@ -93,16 +93,27 @@ const GC = (function () {
     return true;
   }
 
-  // Cari binId berdasarkan code (search by bin name)
+  // Cari binId berdasarkan code
+  // JSONBin v3: list semua bin lalu filter by name (search by name endpoint tidak tersedia di free tier)
   async function _findBinByCode(code) {
-    const res = await fetch(`${CONFIG.JSONBIN_BASE}/b?name=${code}`, {
+    // Endpoint resmi: GET /v3/b dengan X-Master-Key akan list semua bins
+    const res = await fetch(`${CONFIG.JSONBIN_BASE}/b`, {
       headers: { 'X-Master-Key': CONFIG.JSONBIN_API_KEY }
     });
-    if (!res.ok) throw new Error(`JSONBin search failed: ${res.status}`);
-    const json = await res.json();
-    if (!json || json.length === 0) return null;
-    // Ambil yang paling baru jika ada duplikat
-    return json[json.length - 1].record.metadata.id;
+    if (!res.ok) throw new Error(`JSONBin list failed: ${res.status}`);
+    const bins = await res.json();
+    // bins adalah array of { record: { metadata: { id, name } } }
+    if (!Array.isArray(bins) || bins.length === 0) {
+      throw new Error('Kode tidak ditemukan. Periksa kembali kode kamu.');
+    }
+    // Cari bin yang namanya cocok dengan kode
+    const match = bins.find(b => {
+      const name = b.snippetMeta?.name || b.record?.metadata?.name || b.metadata?.name || '';
+      return name === code;
+    });
+    if (!match) throw new Error('Kode tidak ditemukan. Periksa kembali kode kamu.');
+    // Return binId
+    return match.snippetMeta?.id || match.record?.metadata?.id || match.metadata?.id || match.id;
   }
 
   // ─── SESSION ──────────────────────────────────────────────────────────────
