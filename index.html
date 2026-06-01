@@ -3,656 +3,507 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dynasty Warriors: Origins — Guide Lengkap | Gaming Compass</title>
-<meta name="description" content="Panduan lengkap Dynasty Warriors Origins Switch 2 — achievement, true ending, secret ending, DLC Visions of Four Heroes. Bahasa Indonesia dengan progress tracker.">
-<meta name="keywords" content="dynasty warriors origins guide, dynasty warriors origins bahasa indonesia, dynasty warriors origins true ending, dynasty warriors origins DLC, panduan dynasty warriors">
-<link rel="stylesheet" href="../../assets/css/main.css">
+<title>Gaming Compass — Panduan Game Lengkap Bahasa Indonesia</title>
+<meta name="description" content="Gaming Compass adalah website panduan game berbahasa Indonesia. Temukan guide achievement, true ending, secret ending, dan tips trik menyelesaikan game favoritmu.">
+<meta name="keywords" content="panduan game, guide game indonesia, achievement guide, true ending, secret ending, tips trik game, gaming compass">
+<meta property="og:title" content="Gaming Compass — Panduan Game Bahasa Indonesia">
+<meta property="og:description" content="Guide achievement, true ending, secret ending, dan tips trik game dalam Bahasa Indonesia.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://yutelich.github.io/GamingCompass/">
+<link rel="stylesheet" href="assets/css/main.css">
 <style>
-  :root {
-    --c-game: #c9a84c;
-    --c-game-dim: rgba(201,168,76,0.12);
+  /* ── HERO SLIDER ─────────────────────────────── */
+  .gc-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    margin: 1.5rem auto 0;
+    max-width: 1100px;
+    padding: 0 1.5rem;
+    box-sizing: content-box;
   }
-  .dot-shared { background: #6b7280; }
-  .dot-shu    { background: #3b82f6; }
-  .dot-wei    { background: #ef4444; }
-  .dot-wu     { background: #f59e0b; }
-  .dot-post   { background: #22c55e; }
-  .dot-dlc    { background: #a855f7; }
-  .tag-shu    { color: #60a5fa; }
-  .tag-wei    { color: #f87171; }
-  .tag-wu     { color: #fbbf24; }
-  .tag-dlc    { color: #c084fc; }
-  .tag-secret { color: #4ade80; }
-  /* Section tabs */
-  .gc-tab-section { display: none; }
-  .gc-tab-section.active { display: block; }
+  .gc-slider-inner { padding: 0 1.5rem; }
+  .gc-slides {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+  .gc-slide {
+    min-width: 100%;
+    position: relative;
+    height: 340px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+  .gc-slide-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .gc-slide-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+  }
+  .gc-slide-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    width: 100%;
+  }
+  .gc-slide-label {
+    font-family: var(--font-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .gc-slide-label::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--c-accent);
+    display: inline-block;
+  }
+  .gc-slide-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .gc-slide-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 1rem;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+
+  /* News slide items */
+  .gc-slide-news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .gc-slide-news-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 0.7rem 0.85rem;
+    text-decoration: none;
+    display: block;
+    transition: background 0.15s;
+  }
+  .gc-slide-news-item:hover { background: rgba(255,255,255,0.12); }
+  .gc-slide-news-source {
+    font-family: var(--font-head);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 0.25rem;
+  }
+  .gc-slide-news-title {
+    font-family: var(--font-head);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--c-text);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Slider controls */
+  .gc-slider-controls {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+  }
+  .gc-slider-dot {
+    width: 6px; height: 6px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    padding: 0;
+  }
+  .gc-slider-dot.active {
+    background: #fff;
+    width: 20px;
+  }
+  .gc-slider-arrow {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  .gc-slider-arrow:hover { background: rgba(255,255,255,0.25); }
+  .gc-slider-arrow.prev { left: 2rem; }
+  .gc-slider-arrow.next { right: 2rem; }
+
+  /* News loading */
+  .gc-news-loading {
+    display: flex;
+    gap: 0.75rem;
+  }
+  .gc-news-skeleton {
+    flex: 1;
+    background: rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    height: 70px;
+    animation: shimmer 1.4s infinite;
+  }
+  @keyframes shimmer {
+    0%,100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* ── HOW IT WORKS ────────────────────────────── */
+  .gc-how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .gc-how-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .gc-how-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .gc-how-title {
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .gc-how-desc { font-size: 0.83rem; color: var(--c-text-2); line-height: 1.55; }
+
+  @media (max-width: 640px) {
+    .gc-slide { height: 420px; }
+    .gc-slide-news-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    .gc-slider-arrow { display: none; }
+  }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav class="gc-nav">
-  <a href="../../" class="gc-nav-logo">Gaming<span>Compass</span></a>
+  <a href="/" class="gc-nav-logo">Gaming<span>Compass</span></a>
   <div class="gc-nav-links">
-    <a href="../../" class="gc-nav-link">Home</a>
-    <a href="../../news/" class="gc-nav-link">Berita</a>
+    <a href="/" class="gc-nav-link active">Home</a>
+    <a href="news/" class="gc-nav-link">Berita</a>
   </div>
   <div class="gc-nav-right">
     <button class="gc-nav-code" id="gc-nav-code" onclick="GCModal.showAuth()">Masuk / Kode</button>
   </div>
 </nav>
 
-<div style="max-width:1200px;margin:0 auto;padding:0 1.5rem">
+<!-- HERO -->
+<section class="gc-hero" style="padding-bottom:1.5rem">
+  <div class="gc-hero-eyebrow">Panduan Game Bahasa Indonesia</div>
+  <h1 class="gc-hero-title">Raih <span>100%</span> Completion<br>di Game Favoritmu</h1>
+  <p class="gc-hero-desc">
+    Gaming Compass menyediakan panduan lengkap achievement, true ending, secret ending,
+    serta tips dan trik — semuanya dalam Bahasa Indonesia.
+  </p>
+  <div class="gc-hero-actions">
+    <button class="btn btn-primary btn-lg" onclick="GCModal.showNewCode()">✨ Minta Kode Gratis</button>
+    <button class="btn btn-outline btn-lg" onclick="GCModal.showEnterCode()">🔑 Masukkan Kode</button>
+  </div>
+</section>
 
-  <!-- HERO BANNER -->
-  <div class="gc-game-hero" style="margin-top:1.5rem">
-    <div class="gc-game-hero-bg">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)"></div>
+<!-- ── FEATURED SLIDER ─────────────────────────── -->
+<div class="gc-slider" id="gc-slider">
+  <button class="gc-slider-arrow prev" onclick="GCSlider.prev()" aria-label="Sebelumnya">‹</button>
+  <button class="gc-slider-arrow next" onclick="GCSlider.next()" aria-label="Berikutnya">›</button>
+
+  <div class="gc-slides" id="gc-slides">
+
+    <!-- Slide 1: Featured Game -->
+    <div class="gc-slide">
+      <div class="gc-slide-bg">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)"></div>
+      </div>
+      <div class="gc-slide-gradient"></div>
+      <div class="gc-slide-content">
+        <div class="gc-slide-label">Guide Terbaru</div>
+        <div class="gc-slide-title">Dynasty Warriors: Origins</div>
+        <div class="gc-slide-desc">Nintendo Switch 2 · Termasuk DLC Visions of Four Heroes · 3 Jalur Faksi · 8 Ending · Progress Tracker</div>
+        <a href="games/dwo/" class="btn btn-primary">Buka Guide →</a>
+      </div>
     </div>
-    <div class="gc-game-hero-gradient"></div>
-    <div class="gc-game-hero-content">
-      <div class="gc-game-hero-tag">Complete Guide · Switch 2 + DLC</div>
-      <div class="gc-game-hero-title">Dynasty Warriors: Origins</div>
+
+    <!-- Slide 2: Berita Terkini -->
+    <div class="gc-slide">
+      <div class="gc-slide-bg">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0f1a 0%,#0d1f3c 50%,#0a1628 100%)"></div>
+      </div>
+      <div class="gc-slide-gradient"></div>
+      <div class="gc-slide-content">
+        <div class="gc-slide-label">Berita Terkini</div>
+        <div class="gc-slide-title">Seputar Dunia Game</div>
+        <div id="gc-slide-news">
+          <!-- Diisi JS dari RSS feed -->
+          <div class="gc-news-loading">
+            <div class="gc-news-skeleton"></div>
+            <div class="gc-news-skeleton"></div>
+            <div class="gc-news-skeleton"></div>
+          </div>
+        </div>
+        <a href="news/" class="btn btn-outline" style="margin-top:0.85rem">Lihat Semua Berita →</a>
+      </div>
     </div>
+
   </div>
 
-  <div class="gc-game-layout" style="padding:0;max-width:none">
+  <!-- Dots -->
+  <div class="gc-slider-controls">
+    <button class="gc-slider-dot active" onclick="GCSlider.goTo(0)"></button>
+    <button class="gc-slider-dot" onclick="GCSlider.goTo(1)"></button>
+  </div>
+</div>
 
-    <!-- SIDEBAR -->
-    <aside class="gc-sidebar">
-      <div class="gc-sidebar-progress">
-        <div class="gc-sidebar-progress-label">Progress Keseluruhan</div>
-        <div class="gc-overall-bar">
-          <div class="gc-overall-bar-fill" id="bar-all" style="width:0%"></div>
-        </div>
-        <div class="gc-overall-pct" id="pct-all">0%</div>
+<!-- ── GAME LIST ──────────────────────────────── -->
+<div class="gc-section">
+  <div class="gc-section-title">Semua Guide</div>
+  <div class="gc-game-grid">
+    <a href="games/dwo/" class="gc-game-card">
+      <div class="gc-game-card-cover">
+        <div class="gc-game-card-cover-placeholder"
+             style="background:linear-gradient(135deg,#1a0800,#8b1a1a)">⚔️</div>
       </div>
-
-      <div class="gc-sidebar-title">Per Jalur</div>
-      <div class="gc-sidebar-nav">
-        <a href="#" class="gc-sidebar-link" onclick="showTab('shared',this);return false">
-          ⬤ Ch.1–3 Shared
-          <span class="gc-sidebar-link-pct" id="spct-shared">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('shu',this);return false" style="color:#60a5fa">
-          🔵 Jalur Shu
-          <span class="gc-sidebar-link-pct" id="spct-shu">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('wei',this);return false" style="color:#f87171">
-          🔴 Jalur Wei
-          <span class="gc-sidebar-link-pct" id="spct-wei">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('wu',this);return false" style="color:#fbbf24">
-          🟡 Jalur Wu
-          <span class="gc-sidebar-link-pct" id="spct-wu">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('post',this);return false">
-          🏆 Post-Game
-          <span class="gc-sidebar-link-pct" id="spct-post">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('dlc',this);return false" style="color:#c084fc">
-          🟣 DLC
-          <span class="gc-sidebar-link-pct" id="spct-dlc">0/0</span>
-        </a>
-        <a href="#" class="gc-sidebar-link" onclick="showTab('endings',this);return false">
-          📋 Semua Ending
-        </a>
-      </div>
-
-      <div class="gc-sidebar-title" style="margin-top:1.25rem">Data</div>
-      <div style="display:flex;flex-direction:column;gap:0.4rem">
-        <button class="btn btn-ghost btn-sm" onclick="GC.exportProgress()" style="width:100%;justify-content:flex-start">⬇ Export Progress</button>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('gc-import-file').click()" style="width:100%;justify-content:flex-start">⬆ Import Progress</button>
-        <input type="file" id="gc-import-file" accept=".json" style="display:none" onchange="handleImport(event)">
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="gc-content">
-
-      <!-- LEGEND -->
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;margin-bottom:1.25rem;font-size:0.8rem;color:var(--c-text-3)">
-        <span><span style="color:#ef4444">⭐</span> Krusial untuk True Ending</span>
-        <span><span style="color:var(--c-gold)">⚠</span> Missable</span>
-        <span><span style="color:var(--c-text-3)">💡</span> Tips</span>
-      </div>
-
-      <!-- TABS -->
-      <div class="gc-tabs">
-        <button class="gc-tab active" onclick="showTab('shared',this)">Ch.1–3</button>
-        <button class="gc-tab" onclick="showTab('shu',this)" style="color:#60a5fa">🔵 Shu</button>
-        <button class="gc-tab" onclick="showTab('wei',this)" style="color:#f87171">🔴 Wei</button>
-        <button class="gc-tab" onclick="showTab('wu',this)" style="color:#fbbf24">🟡 Wu</button>
-        <button class="gc-tab" onclick="showTab('post',this)">Post-Game</button>
-        <button class="gc-tab" onclick="showTab('dlc',this)" style="color:#c084fc">DLC</button>
-        <button class="gc-tab" onclick="showTab('endings',this)">Ending</button>
-      </div>
-
-      <!-- ══ SHARED ══ -->
-      <div class="gc-tab-section active" id="tab-shared">
-
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-shared"></span>Chapter 1 — Linear (Semua Faksi)</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-s-ch1">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">Objektif Utama</div>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s1"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Zhuo County (tutorial pertempuran)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s2"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Guangzong — kalahkan Zhang Jiao</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s3"><span class="check-box"></span><span class="check-text">Pelajari sistem Battle Arts, Musou, dan Bond (tutorial wajib)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s4"><span class="check-box"></span><span class="check-text">Eksplorasi peta overworld dasar</span></label>
-            <div class="gc-sub-title">Khusus Jika DLC Aktif</div>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s5"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar di barat laut peta di battle Zhang Jiao → temukan "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s6"><span class="check-box"></span><span class="check-text">⭐ ⚠ Habiskan HP Zhang Jiao → pilih "Spare and Listen" saat prompt muncul</span><span class="badge badge-miss">Missable</span></label>
-          </div>
-        </div>
-
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-shared"></span>Chapter 2 — Linear (Semua Faksi)</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-s-ch2">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s7"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama Chapter 2</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s8"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.2 (ikon oranye di peta)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s9"><span class="check-box"></span><span class="check-text">Mulai membangun Bond dengan officer yang tersedia</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s10"><span class="check-box"></span><span class="check-text">Upgrade senjata dan equipment sebelum masuk Ch.3</span></label>
-            <div class="gc-tip">💡 Ch.1–2 adalah zona aman belajar sistem. Tidak ada yang missable di sini.</div>
-          </div>
-        </div>
-
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-shared"></span>Chapter 3 — Pilih Faksi + Quest Yuanhua</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-s-ch3">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">Pilih Faksi</div>
-            <div class="gc-tip">💡 Rekomendasi urutan: <strong>Shu</strong> dulu (termudah, 1 syarat) → <strong>Wu</strong> (2 syarat) → <strong>Wei</strong> (tersulit, 3 syarat). Faksi lain bisa diakses via Story Tab di Inn setelah clear pertama.</div>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s11"><span class="check-box"></span><span class="check-text">Pilih faksi di Chapter 3 (Shu / Wei / Wu)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s12"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama Ch.3 sesuai faksi yang dipilih</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s13"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.3</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s14"><span class="check-box"></span><span class="check-text">Kerjakan Request Missions dari officer faksimu (ikon biru)</span></label>
-            <div class="gc-sub-title">🌿 Quest Yuanhua — Search for Memories (aktif Ch.3–Ch.4)</div>
-            <table class="gc-table">
-              <tr><th>#</th><th>Herb</th><th>Lokasi</th><th>Ch.</th><th>Reward</th></tr>
-              <tr><td>0</td><td><em>Cutscene</em></td><td>Battle awal Ch.3 — otomatis</td><td>3</td><td>Bravery Increase</td></tr>
-              <tr><td>1</td><td>Billow Balm</td><td>Yan Province — timur Puyang</td><td>3</td><td>—</td></tr>
-              <tr><td>2</td><td>Moongrass</td><td>Jingzhou — pantai Wan City</td><td>3</td><td>Cek surat di Inn</td></tr>
-              <tr><td>3</td><td>Arborgreen</td><td>Dekat Xiapi Castle</td><td>4</td><td>Incense of Vitality</td></tr>
-              <tr><td>4</td><td>Herb ke-4</td><td>Pantai timur Beihai</td><td>4</td><td>Fried Mountain Tuber</td></tr>
-              <tr><td>5</td><td>Thistle of the Dawn</td><td>Timur danau dekat Qu'a</td><td>4</td><td>Porridge + Ice Luan</td></tr>
-              <tr><td>★</td><td><strong>Desa Sakura</strong></td><td>Dekat Ye — trigger otomatis akhir Ch.4</td><td>4</td><td><strong>⭐ Musou Rage</strong></td></tr>
-            </table>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s15"><span class="check-box"></span><span class="check-text">Temui Yuanhua awal Ch.3 → terima quest</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s16"><span class="check-box"></span><span class="check-text">Kumpulkan Billow Balm (timur Puyang, Yan Province)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s17"><span class="check-box"></span><span class="check-text">Kumpulkan Moongrass (pantai Wan City, Jingzhou) → cek surat di Inn</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s18"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen (Xiapi Castle) — tersedia Ch.4</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s19"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 (pantai timur Beihai) — tersedia Ch.4</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s20"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn (danau Qu'a) — tersedia Ch.4</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s21"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura akhir Ch.4 → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
-          </div>
+      <div class="gc-game-card-info">
+        <div class="gc-game-card-title">Dynasty Warriors: Origins</div>
+        <div class="gc-game-card-meta">Switch 2 · 2025 · + DLC</div>
+        <div class="gc-game-card-progress">
+          <div class="gc-game-card-progress-fill" id="prog-dwo" style="width:0%"></div>
         </div>
       </div>
-
-      <!-- ══ SHU ══ -->
-      <div class="gc-tab-section" id="tab-shu">
-        <div class="gc-tip" style="margin-bottom:1.25rem">🔵 <strong>Jalur Shu — Liu Bei.</strong> Termudah. True Ending hanya butuh <strong>1 syarat</strong> di Ch.5.</div>
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-shu"></span>Chapter 4 — Shu</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-sh-ch4">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh1"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama Ch.4 jalur Shu</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh2"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh3"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh4"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh5"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh6"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.4</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh7"><span class="check-box"></span><span class="check-text">Selesaikan Request Missions officer Shu (ikon biru)</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh8"><span class="check-box"></span><span class="check-text">Tingkatkan Bond: Guan Yu, Zhang Fei, Zhao Yun</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-shu"></span>Chapter 5 — Shu + Ending</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-sh-ch5">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial — True Ending Shu</div>
-            <div class="gc-tip">⚠ <strong>Battle of Changban</strong> — Zhao Yun dekat spawn point. Langsung rush ke sana begitu battle mulai.</div>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh9"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush langsung ke posisi Zhao Yun</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh10"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh yang mengepung Zhao Yun sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh11"><span class="check-box"></span><span class="check-text">Lanjutkan escort Liu Bei ke titik kabur</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">Kalahkan Bailuan (penyihir kabut yang memblokir jalan)</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh13"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Changban</span></label>
-            <div class="gc-sub-title">Lanjutan & Ending</div>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh14"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi (Shu perspective)</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh15"><span class="check-box"></span><span class="check-text">Selesaikan battle final jalur Shu</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh16"><span class="check-box"></span><span class="check-text">Saksikan Standard Ending Shu</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh17"><span class="check-box"></span><span class="check-text">⭐ Saksikan True Ending Shu — Trophy: "The True Path to Unity"</span><span class="badge badge-critical">Krusial</span></label>
-          </div>
-        </div>
+    </a>
+    <div class="gc-game-card" style="opacity:0.4;cursor:default;pointer-events:none">
+      <div class="gc-game-card-cover">
+        <div class="gc-game-card-cover-placeholder" style="background:var(--c-surface-2)">🎮</div>
       </div>
-
-      <!-- ══ WEI ══ -->
-      <div class="gc-tab-section" id="tab-wei">
-        <div class="gc-tip" style="margin-bottom:1.25rem">🔴 <strong>Jalur Wei — Cao Cao.</strong> Tersulit. True Ending butuh <strong>3 syarat</strong>. Gunakan difficulty <strong>Historian</strong>.</div>
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wei"></span>Chapter 4 — Wei</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-w-ch4">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #1 — Selamatkan Dian Wei</div>
-            <div class="gc-tip">⚠ <strong>Escape from Wan Castle</strong> — Tinggalkan objektif utama sementara, rush ke Dian Wei.</div>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Tinggalkan objektif utama → rush ke posisi Dian Wei</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w2"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh di sekitar Dian Wei sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w3"><span class="check-box"></span><span class="check-text">Kembali ke objektif utama setelah Dian Wei aman</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w4"><span class="check-box"></span><span class="check-text">Selesaikan Escape from Wan Castle</span></label>
-            <div class="gc-sub-title">Objektif Utama Ch.4</div>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w5"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama lainnya Ch.4 jalur Wei</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w6"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w7"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w8"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w9"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w10"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.4</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w11"><span class="check-box"></span><span class="check-text">Selesaikan Request Missions officer Wei (ikon biru)</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w12"><span class="check-box"></span><span class="check-text">Tingkatkan Bond: Dian Wei, Guo Jia, Sima Yi, Xu Zhu</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wei"></span>Chapter 5 — Wei + Ending</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-w-ch5">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #2 — Selamatkan Guo Jia</div>
-            <div class="gc-tip">⚠ <strong>Battle of Mt. Bailang</strong> — Rush ke sisi utara peta begitu battle mulai.</div>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w13"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush ke sisi utara peta</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w14"><span class="check-box"></span><span class="check-text">⭐ Temukan Guo Jia, kalahkan officer yang mengancamnya sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w15"><span class="check-box"></span><span class="check-text">Selesaikan sisa objektif → selesaikan Battle of Mt. Bailang</span></label>
-            <div class="gc-sub-title">⭐ Aksi Krusial #3 — Cegah Huang Gai (Paling Kompleks!)</div>
-            <div class="gc-tip">⚠ <strong>Battle of Chibi (Wei path)</strong> — Bisa turunkan difficulty ke Easy khusus battle ini.</div>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w16"><span class="check-box"></span><span class="check-text">⭐ ⚠ Ikuti jejak asap di tepi peta → temukan gua di sudut peta</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w17"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → trigger boss battle: phantom Zhang Jiao</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w18"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Jiao phantom sebelum Huang Gai mencapai armada Cao Cao</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w19"><span class="check-box"></span><span class="check-text">Setelah phantom kalah → batu runtuh → cegah Huang Gai</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w20"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi</span></label>
-            <div class="gc-sub-title">Lanjutan & Ending</div>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w21"><span class="check-box"></span><span class="check-text">Selesaikan battle final jalur Wei</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w22"><span class="check-box"></span><span class="check-text">Saksikan Standard Ending Wei</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w23"><span class="check-box"></span><span class="check-text">⭐ Saksikan True Ending Wei — Trophy: "The True Path to Power"</span><span class="badge badge-critical">Krusial</span></label>
-          </div>
-        </div>
+      <div class="gc-game-card-info">
+        <div class="gc-game-card-title">Coming Soon</div>
+        <div class="gc-game-card-meta">Guide berikutnya</div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <!-- ══ WU ══ -->
-      <div class="gc-tab-section" id="tab-wu">
-        <div class="gc-tip" style="margin-bottom:1.25rem">🟡 <strong>Jalur Wu — Sun Jian.</strong> Tingkat sedang. True Ending butuh <strong>2 syarat</strong>.</div>
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wu"></span>Chapter 4 — Wu</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-wu-ch4">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #1 — Selamatkan Sun Ce</div>
-            <div class="gc-tip">⚠ <strong>Battle of Shouchun</strong> — Rush ke Sun Ce sebelum timer habis.</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush langsung ke posisi Sun Ce</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu2"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh yang menyerang Sun Ce sebelum timer habis</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu3"><span class="check-box"></span><span class="check-text">Selesaikan sisa objektif → selesaikan Battle of Shouchun</span></label>
-            <div class="gc-sub-title">Objektif Utama Ch.4</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu4"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama lainnya Ch.4 jalur Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu5"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu6"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu7"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu8"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu9"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.4</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu10"><span class="check-box"></span><span class="check-text">Selesaikan Request Missions officer Wu (ikon biru)</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu11"><span class="check-box"></span><span class="check-text">Tingkatkan Bond: Sun Ce, Zhou Yu, Gan Ning</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wu"></span>Chapter 5 — Wu + Ending</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-wu-ch5">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #2 — Selamatkan Sun Jian</div>
-            <div class="gc-tip">⚠ <strong>Battle of Chibi (Wu path)</strong> — Mekanisme sama dengan Wei: ikuti asap → gua → phantom boss.</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu12"><span class="check-box"></span><span class="check-text">⭐ ⚠ Ikuti jejak asap di tepi peta → temukan gua di sudut peta</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu13"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → trigger boss battle: phantom Zhang Jiao</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu14"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Jiao phantom sebelum Sun Jian terbunuh</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu15"><span class="check-box"></span><span class="check-text">Setelah phantom kalah → tunggangi kuda ke selatan → Sun Jian selamat</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu16"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi</span></label>
-            <div class="gc-sub-title">Lanjutan & Ending</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu17"><span class="check-box"></span><span class="check-text">Selesaikan battle final jalur Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu18"><span class="check-box"></span><span class="check-text">Saksikan Standard Ending Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu19"><span class="check-box"></span><span class="check-text">⭐ Saksikan True Ending Wu — Trophy: "The True Path to Harmony"</span><span class="badge badge-critical">Krusial</span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ POST-GAME ══ -->
-      <div class="gc-tab-section" id="tab-post">
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-post"></span>Replay & Ending Tersisa</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-p-end">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p1"><span class="check-box"></span><span class="check-text">Buka Story Tab di Inn → replay kampanye faksi lain</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p2"><span class="check-box"></span><span class="check-text">Saksikan semua 6 ending utama (3 standard + 3 true)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p3"><span class="check-box"></span><span class="check-text">Saksikan Guardians of Peace secret ending 🔒</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-post"></span>Dream Battle — Misi Rahasia Final</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-p-dream">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <div class="gc-tip">💡 Rekomendasi minimum Rank Level 60 sebelum mencoba Dream Battle.</div>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p4"><span class="check-box"></span><span class="check-text">Max Peace Level di semua provinsi</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p5"><span class="check-box"></span><span class="check-text">Baca surat di Inn → Dream Battle unlocked</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p6"><span class="check-box"></span><span class="check-text">Selesaikan Dream Battle</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p7"><span class="check-box"></span><span class="check-text">Dapatkan Disc of Huanglong (reward Dream Battle)</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-post"></span>Lu Bu, Equipment & Koleksi</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-p-col">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p8"><span class="check-box"></span><span class="check-text">Kalahkan Lu Bu di Battle of Hulao Gate (difficulty bebas)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p9"><span class="check-box"></span><span class="check-text">Clear game minimal 1x → Lu Bu & Red Hare unlocked</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p10"><span class="check-box"></span><span class="check-text">Upgrade senjata ke Rank 11 (dibuka setelah clear main story)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p11"><span class="check-box"></span><span class="check-text">Kumpulkan semua Battle Arts</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p12"><span class="check-box"></span><span class="check-text">Kumpulkan semua weapon traits</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p13"><span class="check-box"></span><span class="check-text">Kumpulkan semua Accessories</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p14"><span class="check-box"></span><span class="check-text">Kumpulkan semua Old Coin rewards</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p15"><span class="check-box"></span><span class="check-text">Kumpulkan semua kuda (termasuk Red Hare)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p16"><span class="check-box"></span><span class="check-text">Max Bond semua officer dari semua faksi (via Story Tab replay)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p17"><span class="check-box"></span><span class="check-text">Selesaikan semua Request Missions dari semua faksi</span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ DLC ══ -->
-      <div class="gc-tab-section" id="tab-dlc">
-        <div class="gc-tip" style="margin-bottom:1.25rem">🟣 <strong>DLC — Visions of Four Heroes.</strong> Tersedia dari Inn mulai Ch.2, disarankan clear main game dulu.</div>
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-dlc"></span>Kampanye Zhang Jiao (Mulai dari Sini)</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-d-zhang">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d1"><span class="check-box"></span><span class="check-text">Install DLC & akses dari Penginapan</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d2"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar barat laut Ch.1 DLC → "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d3"><span class="check-box"></span><span class="check-text">⭐ ⚠ Pilih "Spare and Listen" saat HP Zhang Jiao habis</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d4"><span class="check-box"></span><span class="check-text">Unlock senjata Bow (otomatis battle pertama)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d5"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Zhang Jiao → Trophy #1</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d6"><span class="check-box"></span><span class="check-text">[UC] Menangkan battle dengan 9+ Yellow Turban officer masih hidup</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-dlc"></span>Dong Zhuo, Yuan Shao, Lu Bu & True Ending DLC</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-d-rest">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d7"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Dong Zhuo</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d8"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Yuan Shao</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d9"><span class="check-box"></span><span class="check-text">Unlock senjata Rope Dart (battle ke-3 Yuan Shao)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d10"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Lu Bu</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d11"><span class="check-box"></span><span class="check-text">⭐ Selesaikan True Ending DLC (butuh semua 4 kampanye)</span><span class="badge badge-critical">Krusial</span></label>
-          </div>
-        </div>
-        <div class="gc-chapter">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-dlc"></span>Equipment, Companion, World of Visions & Trophies</div>
-            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-d-col">0/0</span><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d12"><span class="check-box"></span><span class="check-text">Beli semua rank Bow di shop</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d13"><span class="check-box"></span><span class="check-text">Beli semua rank Rope Dart di shop</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d14"><span class="check-box"></span><span class="check-text">Dapatkan Luan Bow (Ultimate Warrior challenge)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d15"><span class="check-box"></span><span class="check-text">Dapatkan Luan Rope Dart (Ultimate Warrior challenge)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d16"><span class="check-box"></span><span class="check-text">Unlock Zhuhe (companion baru)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d17"><span class="check-box"></span><span class="check-text">Unlock Diaochan (companion baru)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d18"><span class="check-box"></span><span class="check-text">Unlock officer baru (tidak ada di main game)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d19"><span class="check-box"></span><span class="check-text">Unlock semua stories & records World of Visions → Trophy #2</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d20"><span class="check-box"></span><span class="check-text">Selesaikan semua training World of Visions → Trophy #7</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d21"><span class="check-box"></span><span class="check-text">Menangkan semua training ground battles → Trophy #3</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d22"><span class="check-box"></span><span class="check-text">Kumpulkan semua Visions World Accessories → Trophy #4</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d23"><span class="check-box"></span><span class="check-text">Acquire semua skills Vision Rank skill panels → Trophy #5</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d24"><span class="check-box"></span><span class="check-text">Gunakan semua Battle Arts DLC minimal 1x → Trophy #6</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d25"><span class="check-box"></span><span class="check-text">Kalahkan 1.000 musuh dengan Secret Tactics → Trophy #8</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d26"><span class="check-box"></span><span class="check-text">Kalahkan musuh dengan Unit Action di overworld → Trophy #9</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d27"><span class="check-box"></span><span class="check-text">Selesaikan semua Strategic Battles DLC</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d28"><span class="check-box"></span><span class="check-text">Trophy #10–12: cek in-game DLC achievement list</span></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══ ENDINGS ══ -->
-      <div class="gc-tab-section" id="tab-endings">
-        <div class="gc-chapter open">
-          <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title">Ringkasan Semua Ending</div>
-            <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
-          </div>
-          <div class="gc-chapter-body">
-            <table class="gc-table">
-              <tr><th>#</th><th>Ending</th><th>Faksi</th><th>Syarat Kunci</th><th>Trophy</th></tr>
-              <tr><td>1</td><td>Standard Ending</td><td class="tag-shu">Shu</td><td>Clear kampanye Shu</td><td>—</td></tr>
-              <tr><td>2</td><td><strong>⭐ True Ending Shu</strong></td><td class="tag-shu">Shu</td><td>Selamatkan Zhao Yun — Changban Ch.5</td><td>The True Path to Unity</td></tr>
-              <tr><td>3</td><td>Standard Ending</td><td class="tag-wei">Wei</td><td>Clear kampanye Wei</td><td>—</td></tr>
-              <tr><td>4</td><td><strong>⭐ True Ending Wei</strong></td><td class="tag-wei">Wei</td><td>Dian Wei (Ch.4) + Guo Jia (Ch.5) + cegah Huang Gai (Ch.5)</td><td>The True Path to Power</td></tr>
-              <tr><td>5</td><td>Standard Ending</td><td class="tag-wu">Wu</td><td>Clear kampanye Wu</td><td>—</td></tr>
-              <tr><td>6</td><td><strong>⭐ True Ending Wu</strong></td><td class="tag-wu">Wu</td><td>Sun Ce (Ch.4) + Sun Jian di Chibi (Ch.5)</td><td>The True Path to Harmony</td></tr>
-              <tr><td>7</td><td><strong>🔒 Guardians of Peace</strong></td><td class="tag-secret">Semua</td><td>Semua 6 ending + syarat tersembunyi multi-playthrough</td><td>Secret scene</td></tr>
-              <tr><td>8</td><td><strong>⭐ True Ending DLC</strong></td><td class="tag-dlc">DLC</td><td>Clear semua 4 kampanye DLC</td><td>DLC Trophy</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-
-    </main>
+<!-- ── HOW IT WORKS ──────────────────────────── -->
+<div class="gc-section" style="padding-top:0">
+  <div class="gc-section-title">Cara Kerja</div>
+  <div class="gc-how-grid">
+    <div class="gc-how-card">
+      <div class="gc-how-icon">✨</div>
+      <div class="gc-how-title">Minta Kode Gratis</div>
+      <div class="gc-how-desc">Klik "Minta Kode Gratis" dan langsung dapat kode unik. Tidak perlu email atau daftar akun.</div>
+    </div>
+    <div class="gc-how-card">
+      <div class="gc-how-icon">✅</div>
+      <div class="gc-how-title">Centang Progress</div>
+      <div class="gc-how-desc">Buka guide game pilihanmu, centang setiap item yang sudah diselesaikan. Progress tersimpan otomatis.</div>
+    </div>
+    <div class="gc-how-card">
+      <div class="gc-how-icon">📱</div>
+      <div class="gc-how-title">Akses dari Mana Saja</div>
+      <div class="gc-how-desc">Masukkan kode yang sama di HP, iPad, atau Laptop. Progress langsung tersinkron.</div>
+    </div>
+    <div class="gc-how-card">
+      <div class="gc-how-icon">🔒</div>
+      <div class="gc-how-title">Simpan Kodenya</div>
+      <div class="gc-how-desc">Kode adalah satu-satunya cara akses datamu. Simpan di notes HP atau screenshot.</div>
+    </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="gc-footer">
-  <strong>Gaming Compass</strong> — <a href="../../">Kembali ke Home</a>
+  <strong>Gaming Compass</strong> — Panduan game lengkap Bahasa Indonesia<br>
+  <a href="news/">Berita Game</a> ·
+  <a href="#" onclick="GCModal.showAuth();return false">Kode Akses</a>
   <span class="gc-disclaimer">
-    Sumber: GameRant · Game8 · Push Square · PSNProfiles · GamingTrend · Sportskeeda — data per Mei 2026 ·
-    Panduan ini bukan afiliasi resmi Koei Tecmo / Omega Force
+    Gaming Compass bukan afiliasi resmi dari publisher manapun.
+    Informasi guide bersumber dari komunitas gamer dan sumber publik yang dikreditkan di setiap halaman game.
   </span>
 </footer>
 
-<!-- Trakteer — dimuat terakhir setelah semua konten selesai render -->
-<div id="gc-trakteer-fixed" style="display:none"></div>
+<!-- Trakteer: gunakan link langsung, hindari script embed yang override body -->
+<div id="gc-trakteer-fixed" style="display:none">
+  <a href="https://trakteer.id/yudith2/tip" target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;gap:8px;background:#04B7A6;color:#fff;padding:10px 20px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none">
+    <img src="https://trakteer.id/images/mix/coffee.png" width="24" height="24" alt="">
+    Dukung di Trakteer
+  </a>
+</div>
+<script src="assets/js/core.js"></script>
+<script src="assets/js/modal.js"></script>
+<script src="assets/js/test.js"></script>
 <script>
-  window.addEventListener('load', function() {
-    var s = document.createElement('script');
-    s.src = 'https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025';
-    s.onload = function() {
-      if (typeof trbtn !== 'undefined') {
-        var container = document.getElementById('gc-trakteer-fixed');
-        var id = trbtn.init('Dukung di Trakteer','#04B7A6','https://trakteer.id/yudith2/tip','https://trakteer.id/images/mix/coffee.png','36');
-        trbtn.draw(id, container);
-      }
-    };
-    document.body.appendChild(s);
-  });
-</script>
-<script src="../../assets/js/core.js"></script>
-<script src="../../assets/js/modal.js"></script>
-<script src="../../assets/js/tracker.js"></script>
-<script src="../../assets/js/test.js"></script>
-<script>
-  // Isi dengan API key JSONBin kamu
+  // ── API KEY ────────────────────────────────────
   GC.CONFIG.JSONBIN_API_KEY = 'YOUR_API_KEY_HERE';
-  window.GC_GAME_SLUG = 'dwo';
 
-  // Tab navigation
-  function showTab(name, el) {
-    document.querySelectorAll('.gc-tab-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.gc-tab, .gc-sidebar-link').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name)?.classList.add('active');
-    if (el) el.classList.add('active');
-  }
-
-  // Chapter accordion
-  function toggleChapter(header) {
-    header.closest('.gc-chapter').classList.toggle('open');
-  }
-
-  // Import handler
-  async function handleImport(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    try {
-      await GC.importProgress(file);
-      window.location.reload();
-    } catch { alert('File tidak valid.'); }
-    e.target.value = '';
-  }
-
-  // Update sidebar counters
-  function updateSidebarCounters() {
-    const groups = ['shared','shu','wei','wu','post','dlc'];
-    groups.forEach(g => {
-      const items = document.querySelectorAll(`.check-item[data-group="${g}"]`);
-      const done = [...items].filter(i => i.classList.contains('done')).length;
-      const el = document.getElementById(`spct-${g}`);
-      if (el) el.textContent = `${done}/${items.length}`;
-    });
-    // Overall
-    const all = document.querySelectorAll('.check-item');
-    const done = [...all].filter(i => i.classList.contains('done')).length;
-    const p = all.length ? Math.round(done/all.length*100) : 0;
-    const bar = document.getElementById('bar-all');
-    const pct = document.getElementById('pct-all');
-    if (bar) bar.style.width = p + '%';
-    if (pct) pct.textContent = p + '%';
-
-    // Mini counters per chapter
-    const ranges = [
-      ['mp-s-ch1','s1','s6'],['mp-s-ch2','s7','s10'],['mp-s-ch3','s11','s21'],
-      ['mp-sh-ch4','sh1','sh8'],['mp-sh-ch5','sh9','sh17'],
-      ['mp-w-ch4','w1','w12'],['mp-w-ch5','w13','w23'],
-      ['mp-wu-ch4','wu1','wu11'],['mp-wu-ch5','wu12','wu19'],
-      ['mp-p-end','p1','p3'],['mp-p-dream','p4','p7'],['mp-p-col','p8','p17'],
-      ['mp-d-zhang','d1','d6'],['mp-d-rest','d7','d11'],['mp-d-col','d12','d28']
-    ];
-    ranges.forEach(([elId, from, to]) => {
-      const cbs = [...document.querySelectorAll('.check-item input[type=checkbox]')];
-      const ids = cbs.map(c => c.dataset.id);
-      const s = ids.indexOf(from), e2 = ids.indexOf(to);
-      if (s < 0 || e2 < 0) return;
-      let d = 0, t = 0;
-      for (let i = s; i <= e2; i++) {
-        t++;
-        if (cbs[i].closest('.check-item').classList.contains('done')) d++;
-      }
-      const el = document.getElementById(elId);
-      if (el) { el.textContent = `${d}/${t}`; el.className = `gc-chapter-counter${d===t&&t>0?' done':''}`; }
-    });
-  }
-
-  // ── UPDATE NAV BUTTON ─────────────────────────
-  function updateNavBtn() {
+  // ── INIT: tanpa pop-up, hanya update nav ──────
+  (async () => {
+    await GC.init();
+    // Update tombol nav sesuai status login — tanpa modal pop-up
     const navBtn = document.getElementById('gc-nav-code');
-    if (!navBtn) return;
+    if (navBtn) {
+      if (GC.isLoggedIn()) {
+        navBtn.textContent = '🔑 ' + GC.getCode();
+        navBtn.classList.add('logged-in');
+        navBtn.title = 'Klik untuk logout';
+        navBtn.onclick = () => {
+          if (confirm('Keluar dari kode ini?')) { GC.logout(); location.reload(); }
+        };
+      } else if (GC.isGuest()) {
+        navBtn.textContent = '👁 Mode Tamu';
+      }
+    }
+    // Progress bar di game card
     if (GC.isLoggedIn()) {
-      navBtn.textContent = '🔑 ' + GC.getCode();
-      navBtn.classList.add('logged-in');
-      navBtn.title = 'Klik untuk logout';
-      navBtn.onclick = () => {
-        if (confirm('Keluar dari kode ini?')) { GC.logout(); location.reload(); }
-      };
-    } else if (GC.isGuest()) {
-      navBtn.textContent = '👁 Mode Tamu';
-      navBtn.onclick = () => GCModal.showAuth();
-    } else {
-      navBtn.textContent = 'Masuk / Kode';
-      navBtn.onclick = () => GCModal.showAuth();
+      const prog = GC.getProgress('dwo');
+      const done = Object.values(prog).filter(Boolean).length;
+      const total = 125;
+      const el = document.getElementById('prog-dwo');
+      if (el) el.style.width = Math.round(done / total * 100) + '%';
     }
-  }
+  })();
 
-  // ── INIT CHECKLIST ────────────────────────────
-  function initChecklist() {
-    const isLocked = !GC.isLoggedIn();
-    const prog = GC.isLoggedIn() ? GC.getProgress('dwo') : {};
+  // ── SLIDER ────────────────────────────────────
+  const GCSlider = (() => {
+    let current = 0;
+    const total = 2;
+    let timer = null;
+    const INTERVAL = 6000;
 
-    document.querySelectorAll('.check-item').forEach(item => {
-      const cb = item.querySelector('input[type=checkbox]');
-      if (!cb) return;
-      const id = cb.dataset.id;
-
-      // Render saved progress
-      if (prog[id]) item.classList.add('done');
-
-      if (isLocked) {
-        // Tamu: klik item → munculkan modal kode
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', e => {
-          e.preventDefault();
-          GCModal.showAuth(() => { location.reload(); });
-        });
-      } else {
-        // Login: klik item → centang & simpan
-        item.addEventListener('click', async e => {
-          e.preventDefault();
-          const isDone = item.classList.toggle('done');
-          if (id) {
-            try { await GC.setProgress('dwo', id, isDone); } catch {}
-          }
-          updateSidebarCounters();
-        });
-      }
-    });
-
-    // Banner locked jika tamu
-    if (isLocked) {
-      let banner = document.getElementById('gc-locked-banner');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'gc-locked-banner';
-        banner.className = 'gc-locked-banner';
-        banner.innerHTML = `
-          🔒 <strong>Mode Tamu</strong> — Klik item apapun untuk aktifkan checklist dengan kode gratis.
-          <button onclick="GCModal.showAuth(() => location.reload())">Minta Kode →</button>
-        `;
-        document.body.appendChild(banner);
-      }
-    }
-  }
-
-  // ── INIT PAGE (pop-up hanya jika belum pernah pilih mode) ──
-  async function initPage() {
-    const result = await GC.init();
-    updateNavBtn();
-
-    // Pop-up HANYA muncul jika user belum pernah pilih mode sama sekali
-    // (bukan guest, bukan login) — ini halaman guide, wajar tanya
-    if (result.mode === 'none') {
-      GCModal.showAuth(() => {
-        initChecklist();
-        updateSidebarCounters();
-        updateNavBtn();
+    function goTo(idx) {
+      current = (idx + total) % total;
+      const slides = document.getElementById('gc-slides');
+      if (!slides) return;
+      slides.style.transform = `translateX(-${current * 100}%)`;
+      document.querySelectorAll('.gc-slider-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
       });
-    } else {
-      initChecklist();
-      updateSidebarCounters();
+      resetTimer();
+    }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(next, INTERVAL);
+    }
+
+    // Swipe support (touch)
+    let touchStartX = 0;
+    const slider = document.getElementById('gc-slider');
+    if (slider) {
+      slider.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      slider.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+      });
+      // Pause on hover
+      slider.addEventListener('mouseenter', () => clearInterval(timer));
+      slider.addEventListener('mouseleave', resetTimer);
+    }
+
+    resetTimer();
+    return { goTo, next, prev };
+  })();
+
+  // ── BERITA DI SLIDE 2 (RSS via allorigins proxy) ──
+  async function loadSlideNews() {
+    const sources = [
+      { name: 'Gamebrott', url: 'https://gamebrott.com/feed' },
+      { name: 'Hybrid.co.id', url: 'https://hybrid.co.id/feed' },
+      { name: 'Gamefinity', url: 'https://gamefinity.id/feed' },
+    ];
+    const container = document.getElementById('gc-slide-news');
+    if (!container) return;
+
+    try {
+      // Ambil 1 artikel dari tiap sumber secara paralel
+      const results = await Promise.allSettled(
+        sources.map(async src => {
+          const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(src.url)}`;
+          const res = await fetch(proxy, { signal: AbortSignal.timeout(6000) });
+          const data = await res.json();
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(data.contents, 'text/xml');
+          const item = xml.querySelector('item');
+          return {
+            source: src.name,
+            title: item?.querySelector('title')?.textContent?.trim() || '—',
+            link: item?.querySelector('link')?.textContent?.trim() || '#',
+          };
+        })
+      );
+
+      const items = results
+        .filter(r => r.status === 'fulfilled')
+        .map(r => r.value);
+
+      if (items.length === 0) throw new Error('no items');
+
+      container.innerHTML = `
+        <div class="gc-slide-news-grid">
+          ${items.map(item => `
+            <a href="${item.link}" target="_blank" rel="noopener" class="gc-slide-news-item">
+              <div class="gc-slide-news-source">${item.source}</div>
+              <div class="gc-slide-news-title">${item.title}</div>
+            </a>
+          `).join('')}
+        </div>
+      `;
+    } catch {
+      // Fallback jika semua RSS gagal
+      container.innerHTML = `
+        <div class="gc-slide-news-grid">
+          <a href="news/" class="gc-slide-news-item">
+            <div class="gc-slide-news-source">Gaming Compass</div>
+            <div class="gc-slide-news-title">Lihat semua berita game terbaru →</div>
+          </a>
+        </div>
+      `;
     }
   }
 
-  initPage();
+  // Load berita setelah halaman siap, async agar tidak blokir
+  if (document.readyState === 'complete') loadSlideNews();
+  else window.addEventListener('load', loadSlideNews);
 </script>
 </body>
 </html>
