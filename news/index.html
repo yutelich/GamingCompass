@@ -193,25 +193,24 @@ function parseRSS(xmlText, src) {
   } catch(e) { console.warn('parseRSS:', e.message); return []; }
 }
 
+var CF_WORKER = 'https://gc-rss-proxy.yudithputra-smi.workers.dev/';
+
 async function fetchSource(src) {
-  var proxies = [
-    {u:'https://api.allorigins.win/get?url=', json:true},
-    {u:'https://api.allorigins.win/raw?url=', json:false},
-  ];
-  for (var i = 0; i < proxies.length; i++) {
-    try {
-      var ctrl = new AbortController();
-      var t = setTimeout(function(){ ctrl.abort(); }, 12000);
-      var res = await fetch(proxies[i].u + encodeURIComponent(src.url), {signal:ctrl.signal});
-      clearTimeout(t);
-      if (!res.ok) continue;
-      var xmlText = proxies[i].json ? (await res.json()).contents : await res.text();
-      if (!xmlText || xmlText.indexOf('<') === -1) continue;
-      var arts = parseRSS(xmlText, src);
-      if (arts.length > 0) { console.log('['+src.name+'] OK via proxy '+i+': '+arts.length+' items'); return arts; }
-    } catch(e) { console.warn('['+src.name+'] proxy '+i+':', e.message); }
+  try {
+    var ctrl = new AbortController();
+    var t = setTimeout(function(){ ctrl.abort(); }, 15000);
+    var res = await fetch(CF_WORKER + '?url=' + encodeURIComponent(src.url), {signal:ctrl.signal});
+    clearTimeout(t);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var xmlText = await res.text();
+    if (!xmlText || xmlText.indexOf('<') === -1) throw new Error('Response bukan XML');
+    var arts = parseRSS(xmlText, src);
+    console.log('['+src.name+'] OK: '+arts.length+' artikel');
+    return arts;
+  } catch(e) {
+    console.warn('['+src.name+'] gagal:', e.message);
+    return [];
   }
-  return [];
 }
 
 function renderSkeleton() {
