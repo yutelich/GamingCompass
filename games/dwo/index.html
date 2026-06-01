@@ -473,6 +473,17 @@
   </span>
 </footer>
 
+<!-- Trakteer — disembunyikan, ditampilkan saat modal muncul -->
+<div id="gc-trakteer-fixed" style="display:flex;justify-content:center;margin-top:0.5rem"></div>
+<script type='text/javascript' src='https://edge-cdn.trakteer.id/js/embed/trbtn.min.js?v=14-05-2025'></script>
+<script type='text/javascript'>
+  window.addEventListener('load', function() {
+    if (typeof trbtn !== 'undefined') {
+      var id = trbtn.init('Dukung di Trakteer','#04B7A6','https://trakteer.id/yudith2/tip','https://trakteer.id/images/mix/coffee.png','36');
+      trbtn.draw(id, document.getElementById('gc-trakteer-fixed'));
+    }
+  });
+</script>
 <script src="../../assets/js/core.js"></script>
 <script src="../../assets/js/modal.js"></script>
 <script src="../../assets/js/tracker.js"></script>
