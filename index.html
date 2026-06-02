@@ -210,90 +210,131 @@
   }
   .gc-how-desc { font-size: 0.83rem; color: var(--c-text-2); line-height: 1.55; }
 
-  /* ── MOBILE SLIDER FIX ────────────────────────── */
+  /* ── MOBILE SLIDER ─────────────────────────────── */
   @media (max-width: 640px) {
-    /* Wrapper: hapus padding, full bleed */
-    .gc-slider {
-      padding: 0 !important;
-      margin: 0.75rem 0 0 !important;
-      max-width: 100% !important;
-    }
-    .gc-slider-viewport {
-      border-radius: 0 !important;
-      overflow: hidden !important;
-    }
-    .gc-slider-inner { padding: 0 !important; }
-
-    /* Slides container */
-    .gc-slides { width: 100%; }
-
-    /* Tiap slide: vertikal stack */
-    .gc-slide {
-      height: auto !important;
-      min-height: 0 !important;
-      flex-direction: column !important;
-      align-items: stretch !important;
-      border-radius: 0 !important;
-    }
-
-    /* Bg image: 16:9 aspect ratio, tidak terpotong */
-    .gc-slide-bg {
-      position: relative !important;
-      inset: auto !important;
-      width: 100% !important;
-      height: 0 !important;
-      padding-bottom: 50% !important;
-      flex-shrink: 0 !important;
-    }
-    .gc-slide-bg > * {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    /* Gradient: hilangkan agar teks tidak tertutup */
-    .gc-slide-gradient { display: none !important; }
-
-    /* Konten: di bawah gambar */
-    .gc-slide-content {
-      position: relative !important;
-      background: var(--c-surface) !important;
-      border-top: 1px solid var(--c-border) !important;
-      padding: 1rem 1.25rem 1.25rem !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    .gc-slide-title {
-      font-size: 1.25rem !important;
-      color: var(--c-text) !important;
-    }
-    .gc-slide-desc {
-      color: var(--c-text-2) !important;
-      font-size: 0.8rem !important;
-      margin-bottom: 0.6rem !important;
-    }
-    .gc-slide-label { color: var(--c-accent) !important; }
-
-    /* News grid: 1 kolom */
-    .gc-slide-news-grid {
-      grid-template-columns: 1fr !important;
-      gap: 0.4rem !important;
-    }
-    .gc-slide-news-item { padding: 0.5rem 0.7rem !important; }
-
-    /* Controls: hilangkan arrow, dots di bawah */
-    .gc-slider-arrow { display: none !important; }
-    .gc-slider-controls {
-      position: static !important;
-      display: flex !important;
-      justify-content: center !important;
-      padding: 0.6rem 0 !important;
-      background: var(--c-surface) !important;
-      transform: none !important;
-    }
-    .gc-slider-dot { width: 8px !important; height: 8px !important; }
-    .gc-slider-dot.active { width: 22px !important; }
+    /* Sembunyikan slider desktop, tampilkan slider mobile */
+    .gc-slider { display: none !important; }
+    .gc-slider-mobile { display: block !important; }
+  }
+  /* Mobile slider: hidden di desktop */
+  .gc-slider-mobile {
+    display: none;
+    margin-top: 0.75rem;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+  .gc-slider-mobile-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+    width: 100%;
+  }
+  .gc-slide-mobile {
+    min-width: 100vw;
+    width: 100vw;
+    flex-shrink: 0;
+    background: var(--c-surface);
+  }
+  .gc-slide-mobile-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+    background: var(--c-surface-2);
+  }
+  .gc-slide-mobile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .gc-slide-mobile-body {
+    padding: 1rem 1.25rem 1.25rem;
+    border-top: 1px solid var(--c-border);
+  }
+  .gc-slide-mobile-label {
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .gc-slide-mobile-label::before {
+    content: '';
+    width: 14px; height: 2px;
+    background: var(--c-accent);
+    display: inline-block;
+  }
+  .gc-slide-mobile-title {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--c-text);
+    margin-bottom: 0.35rem;
+  }
+  .gc-slide-mobile-desc {
+    font-size: 0.8rem;
+    color: var(--c-text-2);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .gc-slide-mobile-news {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+  }
+  .gc-slide-mobile-news-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 0.7rem;
+    text-decoration: none;
+  }
+  .gc-slide-mobile-news-src {
+    font-family: var(--font-head);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 0.15rem;
+  }
+  .gc-slide-mobile-news-ttl {
+    font-size: 0.8rem;
+    color: var(--c-text);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .gc-slider-mobile-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0 0.25rem;
+    background: var(--c-surface);
+  }
+  .gc-slider-mobile-dot {
+    width: 8px; height: 8px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.25);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .gc-slider-mobile-dot.active {
+    background: var(--c-accent);
+    width: 22px;
   }
 </style>
 </head>
@@ -382,6 +423,54 @@
   <div class="gc-slider-controls">
     <button class="gc-slider-dot active" onclick="GCSlider.goTo(0)"></button>
     <button class="gc-slider-dot" onclick="GCSlider.goTo(1)"></button>
+  </div>
+</div>
+
+<!-- ── MOBILE SLIDER (hanya tampil di mobile ≤640px) ──────────── -->
+<div class="gc-slider-mobile" id="gc-slider-mobile">
+  <div class="gc-slider-mobile-track" id="gc-mobile-track">
+
+    <!-- Mobile Slide 1: Guide DWO -->
+    <div class="gc-slide-mobile">
+      <div class="gc-slide-mobile-img">
+        <div id="sgdb-mobile-hero-placeholder"
+             style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800,#8b1a1a);position:absolute;inset:0"></div>
+        <img id="sgdb-mobile-hero-img" src="" alt="Dynasty Warriors Origins"
+             style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="gc-slide-mobile-body">
+        <div class="gc-slide-mobile-label">Guide Terbaru</div>
+        <div class="gc-slide-mobile-title">Dynasty Warriors: Origins</div>
+        <div class="gc-slide-mobile-desc">Switch 2 · DLC Visions of Four Heroes · 3 Jalur · 8 Ending</div>
+        <a href="games/dwo/" class="btn btn-primary" style="font-size:0.82rem;padding:0.5rem 1rem">Buka Guide →</a>
+      </div>
+    </div>
+
+    <!-- Mobile Slide 2: Berita -->
+    <div class="gc-slide-mobile">
+      <div class="gc-slide-mobile-img">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0f1a,#0d1f3c);position:absolute;inset:0"></div>
+        <img id="slide2-trending-img-mobile" src="" alt=""
+             style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.3"
+             onerror="this.style.display='none'">
+      </div>
+      <div class="gc-slide-mobile-body">
+        <div class="gc-slide-mobile-label">Berita Terkini</div>
+        <div class="gc-slide-mobile-title">Seputar Dunia Game</div>
+        <div class="gc-slide-mobile-news" id="gc-mobile-news">
+          <div style="height:50px;background:rgba(255,255,255,0.05);border-radius:6px;animation:shimmer 1.4s infinite"></div>
+        </div>
+        <a href="news/" class="btn btn-outline" style="font-size:0.82rem;padding:0.5rem 1rem">Lihat Semua Berita →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dots -->
+  <div class="gc-slider-mobile-dots">
+    <button class="gc-slider-mobile-dot active" onclick="mobileGoTo(0)"></button>
+    <button class="gc-slider-mobile-dot" onclick="mobileGoTo(1)"></button>
   </div>
 </div>
 
@@ -590,6 +679,8 @@
           `).join('')}
         </div>
       `;
+      // Sync ke mobile slider juga
+      if (typeof applyMobileNews === 'function') applyMobileNews(items);
     } catch {
       // Fallback jika semua RSS gagal
       container.innerHTML = `
@@ -668,6 +759,8 @@
             heroImgEl.src = heroSrc;
             heroImgEl.style.display = 'block';
             if (heroPlaceholderEl) heroPlaceholderEl.style.opacity = '0.3';
+            // Sync ke mobile hero juga
+            if (game.id === 'dwo' && typeof applyMobileHero === 'function') applyMobileHero(heroSrc);
             console.log('[SGDB] hero ' + game.id + ': OK');
           }
         } catch(e) {
@@ -719,9 +812,9 @@
 
   function applyTrending(game) {
     if (!game) return;
-    // Hanya update slide 2 background dengan gambar game trending
     var s2src = game.thumb || game.image;
     if (s2src) {
+      // Desktop slide 2
       var s2img = document.getElementById('slide2-trending-img');
       if (s2img) {
         var preload = new Image();
@@ -731,8 +824,71 @@
         };
         preload.src = s2src;
       }
+      // Mobile slide 2
+      applyTrendingMobile(s2src);
     }
     console.log('[Trending] slide 2 bg:', game.name);
+  }
+
+  // ── MOBILE SLIDER JS ─────────────────────────────────────────────
+  var mobileCurrent = 0;
+  var mobileTotal = 2;
+  var mobileTimer = null;
+
+  function mobileGoTo(idx) {
+    mobileCurrent = (idx + mobileTotal) % mobileTotal;
+    var track = document.getElementById('gc-mobile-track');
+    if (track) track.style.transform = 'translateX(-' + (mobileCurrent * 100) + 'vw)';
+    document.querySelectorAll('.gc-slider-mobile-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === mobileCurrent);
+    });
+    clearInterval(mobileTimer);
+    mobileTimer = setInterval(function() { mobileGoTo(mobileCurrent + 1); }, 6000);
+  }
+
+  // Swipe support untuk mobile slider
+  (function() {
+    var el = document.getElementById('gc-slider-mobile');
+    if (!el) return;
+    var startX = 0;
+    el.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) mobileGoTo(mobileCurrent + (diff > 0 ? 1 : -1));
+    });
+    mobileTimer = setInterval(function() { mobileGoTo(mobileCurrent + 1); }, 6000);
+  })();
+
+  // Update mobile slide 2 background dari trending
+  function applyTrendingMobile(imgSrc) {
+    var mobileS2 = document.getElementById('slide2-trending-img-mobile');
+    if (mobileS2 && imgSrc) {
+      mobileS2.src = imgSrc;
+      mobileS2.style.display = 'block';
+    }
+  }
+
+  // Update mobile SGDB hero (slide 1)
+  function applyMobileHero(src) {
+    var img = document.getElementById('sgdb-mobile-hero-img');
+    var ph = document.getElementById('sgdb-mobile-hero-placeholder');
+    if (img && src) {
+      img.src = src;
+      img.style.display = 'block';
+      if (ph) ph.style.opacity = '0';
+    }
+  }
+
+  // Update mobile news (slide 2)
+  function applyMobileNews(items) {
+    var el = document.getElementById('gc-mobile-news');
+    if (!el || !items || !items.length) return;
+    el.innerHTML = items.slice(0, 2).map(function(item) {
+      return '<a href="' + item.link + '" target="_blank" rel="noopener" class="gc-slide-mobile-news-item">' +
+        '<div class="gc-slide-mobile-news-src">' + item.source + '</div>' +
+        '<div class="gc-slide-mobile-news-ttl">' + item.title + '</div>' +
+      '</a>';
+    }).join('');
   }
 
   // Load semua setelah halaman siap
