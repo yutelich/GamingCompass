@@ -26,6 +26,139 @@
   /* Section tabs */
   .gc-tab-section { display: none; }
   .gc-tab-section.active { display: block; }
+  /* ── TIPS COLLAPSE ──────────────────────────── */
+  .tip-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.4rem 0 0 2rem;
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-text-3);
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 3px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tip-toggle:hover { color: var(--c-gold); border-color: var(--c-gold-dim); }
+  .tip-toggle.open { color: var(--c-gold); background: var(--c-surface-3); }
+  .tip-toggle .arr { transition: transform 0.2s; display: inline-block; }
+  .tip-toggle.open .arr { transform: rotate(90deg); }
+
+  .tip-panel {
+    display: none;
+    margin: 0.5rem 0 0.5rem 2rem;
+    border-left: 2px solid var(--c-gold-dim);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    background: rgba(201,168,76,0.04);
+    overflow: hidden;
+  }
+  .tip-panel.open { display: block; }
+  .tip-panel-inner { padding: 0.75rem 1rem; }
+
+  /* Spoiler overlay */
+  .spoiler-wrap { position: relative; margin-bottom: 0.75rem; }
+  .spoiler-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--c-surface-3);
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    z-index: 2;
+    transition: opacity 0.2s;
+    padding: 0.75rem;
+  }
+  .spoiler-overlay:hover { background: var(--c-surface-2); }
+  .spoiler-overlay.hidden { display: none; }
+  .spoiler-label {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-gold);
+  }
+  .spoiler-sub { font-size: 0.72rem; color: var(--c-text-3); }
+  .spoiler-content { filter: blur(4px); transition: filter 0.3s; user-select: none; }
+  .spoiler-content.revealed { filter: none; user-select: auto; }
+
+  /* Tip info rows */
+  .tip-row { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--c-text-2); line-height: 1.5; }
+  .tip-row:last-child { margin-bottom: 0; }
+  .tip-icon { flex-shrink: 0; font-size: 0.9rem; margin-top: 0.1rem; }
+
+  /* YouTube / Google search link */
+  .tip-search-links { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+  .tip-search-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .tip-search-btn.yt { background: rgba(255,0,0,0.12); color: #ff4444; border: 1px solid rgba(255,0,0,0.25); }
+  .tip-search-btn.yt:hover { background: rgba(255,0,0,0.2); }
+  .tip-search-btn.gg { background: rgba(66,133,244,0.12); color: #4285f4; border: 1px solid rgba(66,133,244,0.25); }
+  .tip-search-btn.gg:hover { background: rgba(66,133,244,0.2); }
+
+  /* ── MOBILE RESPONSIVE ─────────────────────── */
+  @media (max-width: 640px) {
+    /* Hero banner: aspect ratio fixed, tidak terpotong */
+    .gc-game-hero { margin-top: 0 !important; border-radius: 0; }
+    .gc-game-hero-bg { aspect-ratio: 16/9; position: relative; }
+    .gc-game-hero-bg img { opacity: 0.75 !important; }
+    .gc-game-hero-gradient { display: none; }
+    .gc-game-hero-content { 
+      position: relative;
+      background: var(--c-surface);
+      border-top: 1px solid var(--c-border);
+      padding: 1rem 1.25rem;
+    }
+    .gc-game-hero-content h1 { font-size: 1.4rem; }
+    .gc-game-hero-content .gc-game-hero-meta { font-size: 0.78rem; }
+
+    /* Layout: sidebar di bawah content di mobile */
+    .gc-game-layout { flex-direction: column; }
+    .gc-game-sidebar {
+      width: 100% !important;
+      position: static !important;
+      order: -1; /* Sidebar di atas di mobile */
+      border-radius: var(--radius);
+      margin: 0.75rem 1rem;
+    }
+
+    /* Tab nav: scroll horizontal */
+    .gc-game-tabs { 
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 1rem;
+    }
+    .gc-game-tabs::-webkit-scrollbar { display: none; }
+    .gc-tab-btn { 
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+  }
 </style>
 </head>
 <body>
@@ -45,8 +178,10 @@
 
   <!-- HERO BANNER -->
   <div class="gc-game-hero" style="margin-top:1.5rem">
-    <div class="gc-game-hero-bg">
-      <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)"></div>
+    <div class="gc-game-hero-bg" style="background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)">
+      <img id="sgdb-hero-banner" src="" alt=""
+           style="width:100%;height:100%;object-fit:cover;display:none;opacity:0.75"
+           onerror="this.style.display='none'">
     </div>
     <div class="gc-game-hero-gradient"></div>
     <div class="gc-game-hero-content">
@@ -224,6 +359,7 @@
             <div class="gc-tip">⚠ <strong>Battle of Changban</strong> — Zhao Yun dekat spawn point. Langsung rush ke sana begitu battle mulai.</div>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh9"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush langsung ke posisi Zhao Yun</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh10"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh yang mengepung Zhao Yun sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi:</strong> Battle of Changban — belok kanan dari titik spawn</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka</span><span class="spoiler-sub">Posisi musuh</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">🗺</span><span>Zhao Yun dikepung ~4–6 prajurit + 1 officer. Kalahkan officer dulu, lalu escort Liu Bei ke utara dan lawan Bailuan untuk buka jalan kabur.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Satu-satunya syarat True Ending Shu. Selesai, lanjutkan battle biasa.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Zhao+Yun+Changban+True+Ending" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh11"><span class="check-box"></span><span class="check-text">Lanjutkan escort Liu Bei ke titik kabur</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">Kalahkan Bailuan (penyihir kabut yang memblokir jalan)</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh13"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Changban</span></label>
@@ -249,6 +385,7 @@
             <div class="gc-tip">⚠ <strong>Escape from Wan Castle</strong> — Tinggalkan objektif utama sementara, rush ke Dian Wei.</div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Tinggalkan objektif utama → rush ke posisi Dian Wei</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w2"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh di sekitar Dian Wei sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi:</strong> Escape from Wan Castle — sisi barat benteng, dekat pintu gerbang</span></div><div class="tip-row"><span class="tip-icon">⏱</span><span><strong>Timing:</strong> Naiki kuda segera, langsung belok kiri — abaikan objective dulu</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka</span><span class="spoiler-sub">Detail langkah & posisi</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">🗺</span><span>Dian Wei ada di dekat pintu gerbang barat. Ada 5–7 prajurit + 1 officer — kalahkan officer dulu. Gunakan Musou untuk area clear cepat.</span></div><div class="tip-row"><span class="tip-icon">⏰</span><span>Kamu punya ~60–90 detik. Setelah Dian Wei aman, kembali ke objective.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Gunakan difficulty Historian — musuh mati lebih cepat saat perlu speed.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Dian+Wei+Wan+Castle+True+Ending+Wei" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w3"><span class="check-box"></span><span class="check-text">Kembali ke objektif utama setelah Dian Wei aman</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w4"><span class="check-box"></span><span class="check-text">Selesaikan Escape from Wan Castle</span></label>
             <div class="gc-sub-title">Objektif Utama Ch.4</div>
@@ -278,6 +415,7 @@
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w16"><span class="check-box"></span><span class="check-text">⭐ ⚠ Ikuti jejak asap di tepi peta → temukan gua di sudut peta</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w17"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → trigger boss battle: phantom Zhang Jiao</span><span class="badge badge-critical">Krusial</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w18"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Jiao phantom sebelum Huang Gai mencapai armada Cao Cao</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail Boss</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi gua:</strong> Sudut barat daya peta Chibi — ikuti asap putih di tepi peta</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler Boss — Tap untuk buka</span><span class="spoiler-sub">Pattern Zhang Jiao Phantom</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">👾</span><span><strong>3 fase:</strong> (1) Tongkat berputar — dodge samping. (2) Petir — jauhi lingkaran merah. (3) HP 30% — pakai Musou segera.</span></div><div class="tip-row"><span class="tip-icon">💡</span><span>Parry untuk buka counter. Kesulitan? Turunkan ke Easy — tidak pengaruhi ending.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Setelah phantom kalah, ikuti jalan keluar gua untuk cegah Huang Gai bakar armada.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Chibi+phantom+boss+True+Ending+Wei" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w19"><span class="check-box"></span><span class="check-text">Setelah phantom kalah → batu runtuh → cegah Huang Gai</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w20"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi</span></label>
             <div class="gc-sub-title">Lanjutan & Ending</div>
@@ -324,6 +462,7 @@
             <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu12"><span class="check-box"></span><span class="check-text">⭐ ⚠ Ikuti jejak asap di tepi peta → temukan gua di sudut peta</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu13"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → trigger boss battle: phantom Zhang Jiao</span><span class="badge badge-critical">Krusial</span></label>
             <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu14"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Jiao phantom sebelum Sun Jian terbunuh</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail Boss</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi gua:</strong> Sudut barat daya peta — sama persis dengan jalur Wei</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler Boss — Tap untuk buka</span><span class="spoiler-sub">Pattern & langkah setelah boss</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">👾</span><span>Pattern boss sama dengan jalur Wei. Parry untuk counter, hindari lingkaran petir merah.</span></div><div class="tip-row"><span class="tip-icon">🏇</span><span><strong>Beda dari Wei:</strong> setelah phantom kalah, segera tunggangi kuda ke selatan menuju Sun Jian untuk trigger cutscene. Jangan diam di gua.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Setelah cutscene Sun Jian selamat muncul, True Ending Wu terjamin.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Sun+Jian+Chibi+True+Ending+Wu" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
             <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu15"><span class="check-box"></span><span class="check-text">Setelah phantom kalah → tunggangi kuda ke selatan → Sun Jian selamat</span></label>
             <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu16"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi</span></label>
             <div class="gc-sub-title">Lanjutan & Ending</div>
@@ -625,6 +764,41 @@
     }
   }
 
+  // ── TIP TOGGLE ───────────────────────────────
+  function toggleTip(btn) {
+    btn.classList.toggle('open');
+    var panel = btn.nextElementSibling;
+    if (panel) panel.classList.toggle('open');
+  }
+
+  function revealSpoiler(overlay) {
+    overlay.classList.add('hidden');
+    var content = overlay.nextElementSibling;
+    if (content) content.classList.add('revealed');
+  }
+
+  function ytLink(query) {
+    return 'https://www.youtube.com/results?search_query=' + encodeURIComponent('Dynasty Warriors Origins ' + query);
+  }
+
+  // ── STEAMGRIDDB — Hero Banner ─────────────────
+  async function loadHeroBanner() {
+    try {
+      var res = await fetch('https://gc-rss-proxy.yudithputra-smi.workers.dev/sgdb?id=5453515&type=heroes');
+      var data = await res.json();
+      if (data.success && data.images && data.images.length > 0) {
+        var img = document.getElementById('sgdb-hero-banner');
+        if (img) {
+          img.src = data.images[0].url;
+          img.style.display = 'block';
+          console.log('[SGDB] hero banner: OK');
+        }
+      }
+    } catch(e) {
+      console.warn('[SGDB] hero banner:', e.message);
+    }
+  }
+
   // ── INIT PAGE (pop-up hanya jika belum pernah pilih mode) ──
   async function initPage() {
     const result = await GC.init();
@@ -645,6 +819,7 @@
   }
 
   initPage();
+  loadHeroBanner();
 </script>
 </body>
 </html>
