@@ -207,10 +207,76 @@
   }
   .gc-how-desc { font-size: 0.83rem; color: var(--c-text-2); line-height: 1.55; }
 
+  /* ── MOBILE SLIDER FIX ────────────────────────── */
   @media (max-width: 640px) {
-    .gc-slide { height: 420px; }
-    .gc-slide-news-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    /* Slider wrapper — full bleed di mobile */
+    .gc-slider {
+      padding: 0;
+      margin: 1rem 0 0;
+      border-radius: 0;
+    }
+    .gc-slider-inner { padding: 0; }
+
+    /* Slide: stack vertikal di mobile — gambar atas, konten bawah */
+    .gc-slide {
+      height: auto;
+      min-height: 0;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    /* Gambar hero: 16:9 di atas */
+    .gc-slide-bg {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      flex-shrink: 0;
+    }
+    .gc-slide-bg img,
+    .gc-slide-bg > div {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Gradient: hanya di bawah gambar, tidak menutupi teks */
+    .gc-slide-gradient {
+      display: none;
+    }
+
+    /* Konten: di bawah gambar dengan background solid */
+    .gc-slide-content {
+      position: relative;
+      background: var(--c-surface);
+      border-top: 1px solid var(--c-border);
+      padding: 1rem 1.25rem 1.5rem;
+      z-index: 1;
+    }
+
+    /* Teks konten — sesuaikan ukuran */
+    .gc-slide-title { font-size: 1.35rem; color: var(--c-text); }
+    .gc-slide-desc { color: var(--c-text-2); font-size: 0.82rem; margin-bottom: 0.75rem; }
+    .gc-slide-label { color: var(--c-accent); }
+
+    /* News grid: 1 kolom */
+    .gc-slide-news-grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    /* Sembunyikan arrow, tampilkan dots lebih besar */
     .gc-slider-arrow { display: none; }
+    .gc-slider-controls {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      justify-content: center;
+      padding: 0.75rem 0 0.25rem;
+      background: var(--c-surface);
+    }
+    .gc-slider-dot { width: 8px; height: 8px; }
+    .gc-slider-dot.active { width: 24px; }
   }
 </style>
 </head>
@@ -251,8 +317,12 @@
 
     <!-- Slide 1: Featured Game -->
     <div class="gc-slide">
-      <div class="gc-slide-bg">
-        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)"></div>
+      <div class="gc-slide-bg" id="sgdb-hero-dwo">
+        <!-- Gambar dari SteamGridDB dimuat via JS, fallback ke gradient -->
+        <div id="sgdb-hero-placeholder-dwo" style="width:100%;height:100%;background:linear-gradient(135deg,#1a0800 0%,#4a1500 40%,#8b1a1a 100%)"></div>
+        <img id="sgdb-hero-img-dwo" src="" alt=""
+             style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;opacity:0.85"
+             onerror="this.style.display='none'">
       </div>
       <div class="gc-slide-gradient"></div>
       <div class="gc-slide-content">
@@ -299,7 +369,12 @@
   <div class="gc-game-grid">
     <a href="games/dwo/" class="gc-game-card">
       <div class="gc-game-card-cover">
-        <div class="gc-game-card-cover-placeholder"
+        <img id="sgdb-cover-dwo"
+             src=""
+             alt="Dynasty Warriors: Origins"
+             style="width:100%;height:100%;object-fit:cover;display:none"
+             onerror="this.style.display='none';document.getElementById('sgdb-placeholder-dwo').style.display='flex'">
+        <div id="sgdb-placeholder-dwo" class="gc-game-card-cover-placeholder"
              style="background:linear-gradient(135deg,#1a0800,#8b1a1a)">⚔️</div>
       </div>
       <div class="gc-game-card-info">
@@ -447,9 +522,7 @@
   // ── BERITA DI SLIDE 2 (RSS via allorigins proxy) ──
   async function loadSlideNews() {
     const sources = [
-      { name: 'Gamebrott', url: 'https://gamebrott.com/feed' },
-      { name: 'Hybrid.co.id', url: 'https://hybrid.co.id/feed' },
-      { name: 'Gamefinity', url: 'https://gamefinity.id/feed' },
+      { name: 'Gamebrott', url: 'https://gamebrott.com/category/berita/feed' },
     ];
     const container = document.getElementById('gc-slide-news');
     if (!container) return;
@@ -458,7 +531,7 @@
       // Ambil 1 artikel dari tiap sumber secara paralel
       const results = await Promise.allSettled(
         sources.map(async src => {
-          const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(src.url)}`;
+          const proxy = `https://gc-rss-proxy.yudithputra-smi.workers.dev/?url=${encodeURIComponent(src.url)}`;
           const res = await fetch(proxy, { signal: AbortSignal.timeout(6000) });
           const data = await res.json();
           const parser = new DOMParser();
@@ -501,9 +574,88 @@
     }
   }
 
+  // ── STEAMGRIDDB — Auto-fetch cover art ───────────────────────────
+  const CF_WORKER = 'https://gc-rss-proxy.yudithputra-smi.workers.dev';
+
+  // Config per game: { slug, query, sgdbId (opsional — lebih akurat) }
+  const GAME_ART = [
+    { id: 'dwo', query: 'Dynasty Warriors Origins', sgdbId: 5453515 },
+    // Tambah game baru di sini:
+    // { id: 'game2', query: 'Nama Game', sgdbId: null },
+  ];
+
+  async function fetchGameArt(game) {
+    try {
+      // Pakai sgdbId langsung jika ada (lebih akurat, skip search step)
+      const params = game.sgdbId
+        ? `id=${game.sgdbId}&type=grids`
+        : `game=${encodeURIComponent(game.query)}&type=grids`;
+
+      const res = await fetch(`${CF_WORKER}/sgdb?${params}`);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (!data.success || !data.images || data.images.length === 0) return null;
+
+      // Pilih gambar terbaik — prefer thumb untuk card (lebih kecil, lebih cepat)
+      return data.images[0].thumb || data.images[0].url;
+    } catch(e) {
+      console.warn('[SGDB] ' + game.id + ':', e.message);
+      return null;
+    }
+  }
+
+  async function loadAllGameArt() {
+    for (var i = 0; i < GAME_ART.length; i++) {
+      var game = GAME_ART[i];
+      var imgEl = document.getElementById('sgdb-cover-' + game.id);
+      var placeholderEl = document.getElementById('sgdb-placeholder-' + game.id);
+      if (!imgEl) continue;
+
+      // Fetch grid (portrait) untuk card
+      var artUrl = await fetchGameArt(game);
+      if (artUrl) {
+        imgEl.src = artUrl;
+        imgEl.style.display = 'block';
+        if (placeholderEl) placeholderEl.style.display = 'none';
+        console.log('[SGDB] grid ' + game.id + ': OK');
+      } else {
+        if (placeholderEl) placeholderEl.style.display = 'flex';
+        console.warn('[SGDB] ' + game.id + ': gagal, pakai placeholder');
+      }
+
+      // Fetch hero (landscape) untuk featured slider
+      var heroImgEl = document.getElementById('sgdb-hero-img-' + game.id);
+      var heroPlaceholderEl = document.getElementById('sgdb-hero-placeholder-' + game.id);
+      if (heroImgEl) {
+        try {
+          var heroParams = game.sgdbId
+            ? 'id=' + game.sgdbId + '&type=heroes'
+            : 'game=' + encodeURIComponent(game.query) + '&type=heroes';
+          var heroRes = await fetch(CF_WORKER + '/sgdb?' + heroParams);
+          var heroData = await heroRes.json();
+          if (heroData.success && heroData.images && heroData.images.length > 0) {
+            heroImgEl.src = heroData.images[0].url;
+            heroImgEl.style.display = 'block';
+            if (heroPlaceholderEl) heroPlaceholderEl.style.opacity = '0.3';
+            console.log('[SGDB] hero ' + game.id + ': OK');
+          }
+        } catch(e) {
+          console.warn('[SGDB] hero ' + game.id + ':', e.message);
+        }
+      }
+    }
+  }
+
   // Load berita setelah halaman siap, async agar tidak blokir
-  if (document.readyState === 'complete') loadSlideNews();
-  else window.addEventListener('load', loadSlideNews);
+  if (document.readyState === 'complete') {
+    loadSlideNews();
+    loadAllGameArt();
+  } else {
+    window.addEventListener('load', function() {
+      loadSlideNews();
+      loadAllGameArt();
+    });
+  }
 </script>
 </body>
 </html>
