@@ -15,12 +15,15 @@
   /* ── HERO SLIDER ─────────────────────────────── */
   .gc-slider {
     position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
     margin: 1.5rem auto 0;
     max-width: 1100px;
     padding: 0 1.5rem;
     box-sizing: content-box;
+  }
+  .gc-slider-viewport {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    position: relative;
   }
   .gc-slider-inner { padding: 0 1.5rem; }
   .gc-slides {
@@ -209,74 +212,88 @@
 
   /* ── MOBILE SLIDER FIX ────────────────────────── */
   @media (max-width: 640px) {
-    /* Slider wrapper — full bleed di mobile */
+    /* Wrapper: hapus padding, full bleed */
     .gc-slider {
-      padding: 0;
-      margin: 1rem 0 0;
-      border-radius: 0;
+      padding: 0 !important;
+      margin: 0.75rem 0 0 !important;
+      max-width: 100% !important;
     }
-    .gc-slider-inner { padding: 0; }
+    .gc-slider-viewport {
+      border-radius: 0 !important;
+      overflow: hidden !important;
+    }
+    .gc-slider-inner { padding: 0 !important; }
 
-    /* Slide: stack vertikal di mobile — gambar atas, konten bawah */
+    /* Slides container */
+    .gc-slides { width: 100%; }
+
+    /* Tiap slide: vertikal stack */
     .gc-slide {
-      height: auto;
-      min-height: 0;
-      flex-direction: column;
-      align-items: stretch;
+      height: auto !important;
+      min-height: 0 !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      border-radius: 0 !important;
     }
 
-    /* Gambar hero: 16:9 di atas */
+    /* Bg image: 16:9 aspect ratio, tidak terpotong */
     .gc-slide-bg {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      flex-shrink: 0;
+      position: relative !important;
+      inset: auto !important;
+      width: 100% !important;
+      height: 0 !important;
+      padding-bottom: 50% !important;
+      flex-shrink: 0 !important;
     }
-    .gc-slide-bg img,
-    .gc-slide-bg > div {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Gradient: hanya di bawah gambar, tidak menutupi teks */
-    .gc-slide-gradient {
-      display: none;
+    .gc-slide-bg > * {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
     }
 
-    /* Konten: di bawah gambar dengan background solid */
+    /* Gradient: hilangkan agar teks tidak tertutup */
+    .gc-slide-gradient { display: none !important; }
+
+    /* Konten: di bawah gambar */
     .gc-slide-content {
-      position: relative;
-      background: var(--c-surface);
-      border-top: 1px solid var(--c-border);
-      padding: 1rem 1.25rem 1.5rem;
-      z-index: 1;
+      position: relative !important;
+      background: var(--c-surface) !important;
+      border-top: 1px solid var(--c-border) !important;
+      padding: 1rem 1.25rem 1.25rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
-
-    /* Teks konten — sesuaikan ukuran */
-    .gc-slide-title { font-size: 1.35rem; color: var(--c-text); }
-    .gc-slide-desc { color: var(--c-text-2); font-size: 0.82rem; margin-bottom: 0.75rem; }
-    .gc-slide-label { color: var(--c-accent); }
+    .gc-slide-title {
+      font-size: 1.25rem !important;
+      color: var(--c-text) !important;
+    }
+    .gc-slide-desc {
+      color: var(--c-text-2) !important;
+      font-size: 0.8rem !important;
+      margin-bottom: 0.6rem !important;
+    }
+    .gc-slide-label { color: var(--c-accent) !important; }
 
     /* News grid: 1 kolom */
     .gc-slide-news-grid {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
+      grid-template-columns: 1fr !important;
+      gap: 0.4rem !important;
     }
+    .gc-slide-news-item { padding: 0.5rem 0.7rem !important; }
 
-    /* Sembunyikan arrow, tampilkan dots lebih besar */
-    .gc-slider-arrow { display: none; }
+    /* Controls: hilangkan arrow, dots di bawah */
+    .gc-slider-arrow { display: none !important; }
     .gc-slider-controls {
-      position: relative;
-      bottom: auto;
-      right: auto;
-      justify-content: center;
-      padding: 0.75rem 0 0.25rem;
-      background: var(--c-surface);
+      position: static !important;
+      display: flex !important;
+      justify-content: center !important;
+      padding: 0.6rem 0 !important;
+      background: var(--c-surface) !important;
+      transform: none !important;
     }
-    .gc-slider-dot { width: 8px; height: 8px; }
-    .gc-slider-dot.active { width: 24px; }
+    .gc-slider-dot { width: 8px !important; height: 8px !important; }
+    .gc-slider-dot.active { width: 22px !important; }
   }
 </style>
 </head>
@@ -310,6 +327,7 @@
 
 <!-- ── FEATURED SLIDER ─────────────────────────── -->
 <div class="gc-slider" id="gc-slider">
+  <div class="gc-slider-viewport">
   <button class="gc-slider-arrow prev" onclick="GCSlider.prev()" aria-label="Sebelumnya">‹</button>
   <button class="gc-slider-arrow next" onclick="GCSlider.next()" aria-label="Berikutnya">›</button>
 
@@ -358,6 +376,7 @@
     </div>
 
   </div>
+  </div><!-- end viewport -->
 
   <!-- Dots -->
   <div class="gc-slider-controls">
@@ -388,18 +407,24 @@
         </div>
       </div>
     </a>
-    <!-- Coming Soon: gambar dari game trending via SGDB -->
+    <!-- Coming Soon: gambar blur dari game trending, overlay "Coming Soon" -->
     <div class="gc-game-card" style="cursor:default;pointer-events:none" id="card-trending">
-      <div class="gc-game-card-cover">
+      <div class="gc-game-card-cover" style="position:relative;overflow:hidden">
+        <!-- Gambar blur -->
         <img id="trending-cover" src="" alt=""
-             style="width:100%;height:100%;object-fit:cover;display:none">
+             style="width:100%;height:100%;object-fit:cover;display:none;filter:blur(4px) brightness(0.45);transform:scale(1.08)">
         <div id="trending-placeholder" class="gc-game-card-cover-placeholder"
-             style="background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3))">🎮</div>
+             style="background:linear-gradient(135deg,#111,#222)">🎮</div>
+        <!-- Overlay "Coming Soon" -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;z-index:2;pointer-events:none">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,0.8)">Coming Soon</div>
+          <div style="font-family:var(--font-head);font-size:0.62rem;font-weight:700;color:var(--c-accent);letter-spacing:0.14em;text-transform:uppercase;opacity:0.9" id="trending-badge">Guide Berikutnya</div>
+        </div>
       </div>
       <div class="gc-game-card-info">
         <div class="gc-game-card-title" id="trending-title">Coming Soon</div>
         <div class="gc-game-card-meta" id="trending-meta">Guide berikutnya</div>
-        <div style="font-size:0.65rem;color:var(--c-text-3);margin-top:0.25rem">🔥 Sedang ramai</div>
+        <div style="font-size:0.65rem;color:var(--c-accent);margin-top:0.25rem;font-weight:600">🔥 Sedang ramai dibicarakan</div>
       </div>
     </div>
   </div>
@@ -642,7 +667,9 @@
           var heroRes = await fetch(CF_WORKER + '/sgdb?' + heroParams);
           var heroData = await heroRes.json();
           if (heroData.success && heroData.images && heroData.images.length > 0) {
-            heroImgEl.src = heroData.images[0].url;
+            // Pakai thumb untuk slider (lebih ringan), url hanya kalau thumb kosong
+            var heroSrc = heroData.images[0].thumb || heroData.images[0].url;
+            heroImgEl.src = heroSrc;
             heroImgEl.style.display = 'block';
             if (heroPlaceholderEl) heroPlaceholderEl.style.opacity = '0.3';
             console.log('[SGDB] hero ' + game.id + ': OK');
@@ -696,23 +723,32 @@
 
   function applyTrending(game) {
     if (!game) return;
-    // Update Coming Soon card
     var titleEl = document.getElementById('trending-title');
     var metaEl = document.getElementById('trending-meta');
+    var badgeEl = document.getElementById('trending-badge');
     var coverEl = document.getElementById('trending-cover');
     var placeholderEl = document.getElementById('trending-placeholder');
     if (titleEl) titleEl.textContent = game.name;
     if (metaEl) metaEl.textContent = game.platform + ' · ' + game.year;
-    if (coverEl && game.thumb) {
-      coverEl.src = game.thumb;
-      coverEl.style.display = 'block';
-      if (placeholderEl) placeholderEl.style.display = 'none';
+    if (badgeEl) badgeEl.textContent = '🔥 ' + game.name;
+    // Pakai thumb (lebih kecil, lebih cepat) untuk card blur
+    var imgSrc = game.thumb || game.image;
+    if (coverEl && imgSrc) {
+      // Preload dulu sebelum tampilkan
+      var preload = new Image();
+      preload.onload = function() {
+        coverEl.src = imgSrc;
+        coverEl.style.display = 'block';
+        if (placeholderEl) placeholderEl.style.display = 'none';
+      };
+      preload.src = imgSrc;
     }
-    // Slide 2 background
-    if (game.image) {
+    // Slide 2 background — pakai thumb juga agar lebih ringan
+    var s2src = game.thumb || game.image;
+    if (s2src) {
       var s2img = document.getElementById('slide2-trending-img');
       if (s2img) {
-        s2img.src = game.image;
+        s2img.src = s2src;
         s2img.style.display = 'block';
       }
     }
