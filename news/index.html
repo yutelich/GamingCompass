@@ -4,57 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Berita Game Indonesia — Gaming Compass</title>
-<meta name="description" content="Kumpulan berita game terbaru dari Indonesia. Update harian dari Gamebrott dan Hybrid.co.id.">
+<meta name="description" content="Kumpulan berita game terbaru dari Indonesia. Update harian dari Gamebrott.">
 <link rel="stylesheet" href="../assets/css/main.css">
 <style>
   .news-header{max-width:1100px;margin:2rem auto 0;padding:0 1.5rem}
   .news-header-title{font-family:var(--font-head);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1;margin-bottom:0.5rem}
   .news-header-title span{color:var(--c-accent)}
-  .news-header-sub{color:var(--c-text-2);font-size:0.9rem;margin-bottom:1.5rem}
-  .news-layout{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem}
-  .news-hero{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:border-color 0.2s,box-shadow 0.2s;margin-bottom:0.5rem}
+  .news-header-sub{color:var(--c-text-2);font-size:0.9rem;margin-bottom:2rem}
+  .news-wrap{max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem}
+  .news-hero{display:grid;grid-template-columns:1fr 1fr;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);overflow:hidden;text-decoration:none;transition:border-color 0.2s,box-shadow 0.2s;margin-bottom:1.5rem}
   .news-hero:hover{border-color:var(--c-border-2);box-shadow:var(--shadow-lg)}
-  .nhi{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden}
+  .nhi{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden;position:relative}
   .nhi img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
   .news-hero:hover .nhi img{transform:scale(1.03)}
+  .nhi-credit{position:absolute;bottom:0.4rem;right:0.5rem;font-size:0.6rem;color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.5);padding:2px 6px;border-radius:3px}
   .nhb{padding:2rem;display:flex;flex-direction:column;justify-content:center}
   .nhs{font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-accent);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem}
   .nht{font-family:var(--font-head);font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:800;line-height:1.2;color:var(--c-text);margin-bottom:0.75rem}
   .nhe{font-size:0.88rem;color:var(--c-text-2);line-height:1.6;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .nhd{font-size:0.75rem;color:var(--c-text-3)}
-  .news-main{min-width:0}
-  .news-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
   .nc{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:border-color 0.2s,transform 0.2s}
   .nc:hover{border-color:var(--c-border-2);transform:translateY(-2px)}
-  .nci{aspect-ratio:16/9;background:var(--c-surface-2);overflow:hidden;flex-shrink:0}
+  .nci{aspect-ratio:4/3;background:var(--c-surface-2);overflow:hidden;flex-shrink:0}
   .nci img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
   .nc:hover .nci img{transform:scale(1.04)}
-  .ncb{padding:0.85rem 1rem 1rem;flex:1;display:flex;flex-direction:column}
-  .ncsrc{font-family:var(--font-head);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem}
-  .s-gb{color:#e74c3c}.s-kg{color:#f39c12}.s-hy{color:#3498db}
-  .nctl{font-family:var(--font-head);font-size:0.92rem;font-weight:700;line-height:1.3;color:var(--c-text);margin-bottom:auto;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .ncdt{font-size:0.72rem;color:var(--c-text-3);margin-top:0.6rem}
-  .nl-section{grid-column:1/-1;margin-top:1rem}
-  .nl-title{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--c-border);display:flex;align-items:center;gap:0.5rem}
-  .nl-item{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:0.65rem 0.75rem;border-radius:var(--radius-sm);text-decoration:none;transition:background 0.15s;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .ncb{padding:0.75rem 1rem 1rem;flex:1;display:flex;flex-direction:column}
+  .ncsrc{font-family:var(--font-head);font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.35rem;color:#e74c3c}
+  .nctl{font-family:var(--font-head);font-size:0.88rem;font-weight:700;line-height:1.3;color:var(--c-text);margin-bottom:auto;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ncdt{font-size:0.72rem;color:var(--c-text-3);margin-top:0.5rem}
+  .nl-section{margin-top:1.5rem}
+  .nl-title{font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--c-border)}
+  .nl-item{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:0.6rem 0.5rem;border-radius:var(--radius-sm);text-decoration:none;transition:background 0.15s;border-bottom:1px solid rgba(255,255,255,0.04)}
   .nl-item:last-child{border-bottom:none}
   .nl-item:hover{background:var(--c-surface)}
-  .nl-item-left{flex:1;min-width:0}
-  .nl-item-title{font-size:0.88rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .nl-item:hover .nl-item-title{color:var(--c-text)}
-  .nl-item-date{font-size:0.72rem;color:var(--c-text-3);white-space:nowrap;margin-top:0.2rem;flex-shrink:0}
+  .nl-src{font-family:var(--font-head);font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e74c3c;margin-bottom:0.15rem}
+  .nl-ttl{font-size:0.88rem;color:var(--c-text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .nl-item:hover .nl-ttl{color:var(--c-text)}
+  .nl-dt{font-size:0.72rem;color:var(--c-text-3);white-space:nowrap;flex-shrink:0;margin-top:0.15rem}
   .nupd{font-size:0.75rem;color:var(--c-text-3);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem}
   .nudot{width:6px;height:6px;border-radius:50%;background:var(--c-green);animation:bl 2s infinite}
   @keyframes bl{0%,100%{opacity:1}50%{opacity:0.3}}
-  .nempty{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--c-text-3)}
+  .nempty{text-align:center;padding:3rem 1rem;color:var(--c-text-3)}
   .nrbtn{margin-top:1rem;font-family:var(--font-head);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.5rem 1.25rem;border-radius:var(--radius-sm);border:1px solid var(--c-border-2);background:var(--c-surface);color:var(--c-text-2);cursor:pointer;transition:all 0.15s}
   .nrbtn:hover{background:var(--c-surface-2);color:var(--c-text)}
   .skel{background:linear-gradient(90deg,var(--c-surface) 25%,var(--c-surface-2) 50%,var(--c-surface) 75%);background-size:200% 100%;animation:sk 1.4s infinite;border-radius:var(--radius-sm)}
   @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
-  /* Gallery card compact — gambar lebih kecil, judul pendek */
-  .nc-compact .nci{aspect-ratio:4/3}
-  .nc-compact .nctl{-webkit-line-clamp:2;font-size:0.85rem}
-  @media(max-width:900px){.news-hero{grid-template-columns:1fr}.nhb{padding:1.25rem}}
+  #hero-wrap a{display:grid;grid-template-columns:1fr 1fr}
+  @media(max-width:900px){.news-hero,#hero-wrap a{grid-template-columns:1fr}.nhb{padding:1.25rem}.news-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:600px){.news-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -72,61 +69,36 @@
 
 <div class="news-header">
   <div class="news-header-title">Berita <span>Game</span> Indonesia</div>
-  <div class="news-header-sub">Agregasi berita terbaru dari portal game Indonesia terpercaya &middot; Diperbarui otomatis</div>
-
+  <div class="news-header-sub">Agregasi berita game terbaru &middot; Sumber: Gamebrott &middot; Diperbarui otomatis</div>
 </div>
 
-<div class="news-layout">
-  <div id="hero-wrap" style="grid-column:1/-1"></div>
-  <main class="news-main">
-    <div class="nupd" id="nupd" style="display:none"><span class="nudot"></span><span id="nupd-txt"></span></div>
-    <div class="news-grid" id="news-grid"></div>
-  </main>
-
+<div class="news-wrap">
+  <div class="nupd" id="nupd" style="display:none"><span class="nudot"></span><span id="nupd-txt"></span></div>
+  <div id="hero-wrap"></div>
+  <div class="news-grid" id="news-grid"></div>
+  <div id="list-wrap"></div>
 </div>
 
 <footer class="gc-footer">
   <strong>Gaming Compass</strong> &mdash; <a href="../">Home</a> &middot; <a href="../games/dwo/">Guide DWO</a>
-  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &mdash; hak cipta milik penerbit masing-masing. Artikel difilter untuk konten gaming.</span>
+  <span class="gc-disclaimer">Berita bersumber dari Gamebrott &mdash; hak cipta milik penerbit. Artikel difilter untuk konten gaming.</span>
 </footer>
 
 <script>
-// Cloudflare Worker proxy milik sendiri — reliable, no timeout
 var CF = 'https://gc-rss-proxy.yudithputra-smi.workers.dev/?url=';
+var RSS_URL = 'https://gamebrott.com/category/berita/feed';
+var FALLBACK_IMG = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=1200&auto=format&fit=crop';
+var FALLBACK_CREDIT = 'Photo: Javier Martinez / Unsplash';
 
-// Sumber RSS — hasil test: hanya Gamebrott berita yang reliable & gaming-focused (70% score)
-var SOURCES = [
-  {id:'gamebrott', name:'Gamebrott', url:'https://gamebrott.com/category/berita/feed', color:'#e74c3c', cls:'s-gb'},
-];
+var NON_GAME_KW = ['smartphone','earphone','earbuds','tws ','kamera mirrorless','dslr','oppo find','samsung galaxy a','xiaomi redmi','vivo v','realme c','iphone 16','macbook','powerbank','kulkas','ac ruangan','printer','router wifi','tv oled'];
+var GAME_KW = ['game','gaming','gamer','esport','ps5','ps4','ps3','xbox','nintendo','switch','steam','playstation','valorant','mobile legend','mlbb','pubg','free fire','genshin','rpg','fps','moba','mmorpg','indie','dlc','patch','konsol','pc game'];
 
-// Keyword filter — buang artikel yang jelas bukan tentang game
-var NON_GAME_KW = [
-  'smartphone','earphone','earbuds','tws ','truly wireless','headphone bukan gaming',
-  'kamera mirrorless','kamera dslr','laptop non gaming','oppo find','samsung galaxy a',
-  'xiaomi redmi','vivo v','realme c','iphone','macbook','charger','powerbank',
-  'kulkas','ac ruangan','printer','router wifi','tv oled','monitor non gaming',
-  'mobil listrik','motor listrik'
-];
-var GAME_KW = [
-  'game','gaming','gamer','esport','ps5','ps4','xbox','nintendo','switch','steam',
-  'playstation','valorant','mobile legend','mlbb','pubg','free fire','genshin',
-  'rpg','fps','moba','mmorpg','indie game','dlc','patch notes','review game',
-  'trailer game','konsol','pc game'
-];
-
-function isGamingArticle(title, excerpt) {
-  var text = (title + ' ' + excerpt).toLowerCase();
-  // Langsung buang jika ada keyword non-game yang kuat
-  var isNonGame = NON_GAME_KW.some(function(k){ return text.indexOf(k) !== -1; });
-  if (isNonGame) return false;
-  // Terima jika ada keyword game
-  var isGame = GAME_KW.some(function(k){ return text.indexOf(k) !== -1; });
-  if (isGame) return true;
-  // Default: terima (agar tidak terlalu banyak yang dibuang)
+function isGaming(title, excerpt) {
+  var t = (title + ' ' + excerpt).toLowerCase();
+  if (NON_GAME_KW.some(function(k){ return t.indexOf(k) !== -1; })) return false;
+  if (GAME_KW.some(function(k){ return t.indexOf(k) !== -1; })) return true;
   return true;
 }
-
-var allArticles = [];
 
 function stripHtml(s) {
   var d = document.createElement('div');
@@ -146,231 +118,219 @@ function fmtDate(s) {
   } catch(e) { return s; }
 }
 
-function imgTag(src, alt) {
-  if (!src) return '<div style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3));display:flex;align-items:center;justify-content:center;font-size:2rem">&#127918;</div>';
-  return '<img src="'+src+'" alt="'+(alt||'')+'" loading="lazy" onerror="this.parentElement.innerHTML=\'<div style=&quot;width:100%;height:100%;background:var(--c-surface-3);display:flex;align-items:center;justify-content:center;font-size:2rem&quot;>&#127918;</div>\'">';
-}
-
-function extractImg(item, descHtml, contentHtml) {
+function extractImg(item, dHtml, cHtml) {
   var enc = item.querySelector('enclosure[type^="image"]');
   if (enc) return enc.getAttribute('url');
   var mc = item.querySelector('content');
   if (mc && mc.getAttribute('url')) return mc.getAttribute('url');
-  var thumb = item.querySelector('thumbnail');
-  if (thumb && thumb.getAttribute('url')) return thumb.getAttribute('url');
-  var srcs = [descHtml, contentHtml];
-  for (var i=0; i<srcs.length; i++) {
-    if (!srcs[i]) continue;
-    var m = srcs[i].match(/<img[^>]+src=["']([^"']+)["']/i);
-    if (m && m[1] && m[1].indexOf('http')===0 && !/pixel|track|1x1|beacon/i.test(m[1])) return m[1];
+  var sources = [dHtml, cHtml];
+  for (var i = 0; i < sources.length; i++) {
+    if (!sources[i]) continue;
+    var m = sources[i].match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (m && m[1] && m[1].indexOf('http') === 0 && !/pixel|track|1x1|beacon/i.test(m[1])) return m[1];
   }
   return null;
 }
 
-function parseRSS(xmlText, src) {
-  try {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(xmlText, 'application/xml');
-    var err = doc.querySelector('parsererror');
-    if (err) {
-      // Try text/xml as fallback
-      doc = parser.parseFromString(xmlText, 'text/xml');
-      err = doc.querySelector('parsererror');
-      if (err) throw new Error('XML parse failed');
-    }
-    var items = Array.from(doc.querySelectorAll('item')).slice(0,15);
-    if (!items.length) throw new Error('No items found');
-    return items.map(function(item) {
-      var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : '';
-      var linkEl = item.querySelector('link');
-      var link = '';
-      if (linkEl) {
-        link = linkEl.textContent.trim();
-        if (!link) link = linkEl.getAttribute('href') || '';
-      }
-      if (!link) { var g = item.querySelector('guid'); if (g) link = g.textContent.trim(); }
-      var date = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent.trim() : '';
-      var descEl = item.querySelector('description');
-      var dHtml = descEl ? descEl.textContent : '';
-      var cEl = item.querySelector('encoded') || item.querySelector('content');
-      var cHtml = cEl ? cEl.textContent : '';
-      var excerpt = stripHtml(dHtml || cHtml).slice(0,200);
-      var img = extractImg(item, dHtml, cHtml);
-      return {
-        source:src.id, sourceName:src.name, sourceColor:src.color, sourceCls:src.cls,
-        title:title, link:link||'#', date:date, excerpt:excerpt, image:img
-      };
-    });
-  } catch(e) {
-    console.warn('['+src.name+'] parseRSS:', e.message);
-    return [];
-  }
+function safeImg(src, cls) {
+  // Gunakan data-src untuk avoid quote conflict di onerror
+  var el = document.createElement('img');
+  el.src = src;
+  el.alt = '';
+  el.loading = 'lazy';
+  el.className = cls || '';
+  el.addEventListener('error', function() { this.src = FALLBACK_IMG; });
+  return el.outerHTML;
 }
 
-async function fetchSource(src) {
-  try {
-    var ctrl = new AbortController();
-    var t = setTimeout(function(){ ctrl.abort(); }, 15000);
-    var res = await fetch(CF + encodeURIComponent(src.url), {signal:ctrl.signal});
-    clearTimeout(t);
-    if (!res.ok) throw new Error('HTTP '+res.status);
-    var xml = await res.text();
-    var arts = parseRSS(xml, src);
-    // Filter artikel non-game
-    var filtered = arts.filter(function(a){
-      return isGamingArticle(a.title, a.excerpt);
-    });
-    var removed = arts.length - filtered.length;
-    console.log('['+src.name+'] OK: '+arts.length+' artikel raw, '+filtered.length+' setelah filter'+(removed?' ('+removed+' non-game dibuang)':''));
-    // Tag array dengan metadata untuk debug
-    filtered._src_total = arts.length;
-    filtered._src_removed = removed;
-    return filtered;
-  } catch(e) {
-    console.warn('['+src.name+'] gagal:', e.message);
-    return [];
+function parseRSS(xmlText) {
+  var parser = new DOMParser();
+  var doc = parser.parseFromString(xmlText, 'application/xml');
+  if (doc.querySelector('parsererror')) {
+    doc = parser.parseFromString(xmlText, 'text/xml');
+    if (doc.querySelector('parsererror')) throw new Error('XML parse error');
   }
+  var items = Array.from(doc.querySelectorAll('item')).slice(0, 20);
+  if (!items.length) throw new Error('No items');
+  return items.map(function(item) {
+    var title = item.querySelector('title') ? item.querySelector('title').textContent.trim() : '';
+    var linkEl = item.querySelector('link');
+    var link = linkEl ? (linkEl.textContent.trim() || linkEl.getAttribute('href') || '') : '';
+    if (!link) { var g = item.querySelector('guid'); if (g) link = g.textContent.trim(); }
+    var date = item.querySelector('pubDate') ? item.querySelector('pubDate').textContent.trim() : '';
+    var dEl = item.querySelector('description'), dHtml = dEl ? dEl.textContent : '';
+    var cEl = item.querySelector('encoded') || item.querySelector('content'), cHtml = cEl ? cEl.textContent : '';
+    var excerpt = stripHtml(dHtml || cHtml).slice(0, 200);
+    return { title: title, link: link || '#', date: date, excerpt: excerpt, image: extractImg(item, dHtml, cHtml) };
+  }).filter(function(a) { return isGaming(a.title, a.excerpt); });
 }
-
-function renderSkeleton() {
-  var g = document.getElementById('news-grid'), html='';
-  for (var i=0;i<6;i++) {
-    html+='<div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden">'+
-      '<div class="skel" style="aspect-ratio:16/9"></div>'+
-      '<div style="padding:0.85rem 1rem;display:flex;flex-direction:column;gap:0.5rem">'+
-        '<div class="skel" style="height:12px;width:40%"></div>'+
-        '<div class="skel" style="height:14px"></div>'+
-        '<div class="skel" style="height:14px;width:85%"></div>'+
-        '<div class="skel" style="height:11px;width:30%;margin-top:0.4rem"></div>'+
-      '</div></div>';
-  }
-  g.innerHTML = html;
-}
-
-var DEFAULT_HERO_IMG = 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2371&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-var DEFAULT_HERO_CREDIT = 'Photo: Javier Martinez / Unsplash';
 
 function renderHero(a) {
   var w = document.getElementById('hero-wrap');
-  if (!a) { w.innerHTML=''; return; }
-  // Gunakan default image jika tidak ada gambar
-  var heroImg = a.image || DEFAULT_HERO_IMG;
+  if (!a) { w.innerHTML = ''; return; }
+
+  var heroImg = a.image || FALLBACK_IMG;
   var isDefault = !a.image;
-  w.innerHTML='<a href="'+a.link+'" target="_blank" rel="noopener" class="news-hero">'+
-    '<div class="nhi" style="position:relative">'+
-      '<img src="'+heroImg+'" alt="'+a.title+'" loading="lazy" onerror="this.src=''+DEFAULT_HERO_IMG+''">'+
-      (isDefault ? '<span style="position:absolute;bottom:0.4rem;right:0.5rem;font-size:0.6rem;color:rgba(255,255,255,0.4);background:rgba(0,0,0,0.4);padding:2px 6px;border-radius:3px">'+DEFAULT_HERO_CREDIT+'</span>' : '')+
-    '</div>'+
-    '<div class="nhb">'+
-      '<div class="nhs"><span style="width:8px;height:8px;border-radius:50%;background:'+a.sourceColor+';display:inline-block"></span>'+a.sourceName+'</div>'+
-      '<div class="nht">'+a.title+'</div>'+
-      (a.excerpt?'<div class="nhe">'+a.excerpt+'...</div>':'')+
-      '<div class="nhd">'+fmtDate(a.date)+'</div>'+
-    '</div>'+
-  '</a>';
+
+  // Build menggunakan DOM untuk hindari masalah quote
+  var link = document.createElement('a');
+  link.href = a.link;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.className = 'news-hero';
+
+  var nhi = document.createElement('div');
+  nhi.className = 'nhi';
+
+  var img = document.createElement('img');
+  img.src = heroImg;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.addEventListener('error', function() { this.src = FALLBACK_IMG; });
+  nhi.appendChild(img);
+
+  if (isDefault) {
+    var credit = document.createElement('span');
+    credit.className = 'nhi-credit';
+    credit.textContent = FALLBACK_CREDIT;
+    nhi.appendChild(credit);
+  }
+
+  var nhb = document.createElement('div');
+  nhb.className = 'nhb';
+  nhb.innerHTML =
+    '<div class="nhs"><span style="width:8px;height:8px;border-radius:50%;background:#e74c3c;display:inline-block"></span>Gamebrott</div>' +
+    '<div class="nht">' + a.title + '</div>' +
+    (a.excerpt ? '<div class="nhe">' + a.excerpt + '...</div>' : '') +
+    '<div class="nhd">' + fmtDate(a.date) + '</div>';
+
+  link.appendChild(nhi);
+  link.appendChild(nhb);
+  w.innerHTML = '';
+  w.appendChild(link);
 }
 
 function renderGrid(arts) {
   var g = document.getElementById('news-grid');
+  var l = document.getElementById('list-wrap');
+
   if (!arts.length) {
-    g.innerHTML='<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
+    g.innerHTML = '';
+    l.innerHTML = '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#128205;</div><div>Tidak ada berita saat ini.</div><button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
     return;
   }
 
-  var withImg = arts.filter(function(a){return !!a.image;});
-  var noImg   = arts.filter(function(a){return !a.image;});
-  var html = '';
+  var withImg = arts.filter(function(a) { return !!a.image; });
+  var noImg = arts.filter(function(a) { return !a.image; });
 
-  // Gallery: artikel bergambar — compact, judul + source saja (tanpa excerpt)
-  if (withImg.length) {
-    html += withImg.map(function(a) {
-      return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nc nc-compact">'+
-        '<div class="nci">'+imgTag(a.image,a.title)+'</div>'+
-        '<div class="ncb">'+
-          '<div class="ncsrc '+a.sourceCls+'">'+a.sourceName+'</div>'+
-          '<div class="nctl">'+a.title+'</div>'+
-          '<div class="ncdt">'+fmtDate(a.date)+'</div>'+
-        '</div></a>';
-    }).join('');
-  }
+  // Gallery grid — artikel bergambar
+  g.innerHTML = withImg.map(function(a) {
+    return '<a href="' + a.link + '" target="_blank" rel="noopener" class="nc">' +
+      '<div class="nci"><img src="' + a.image + '" alt="" loading="lazy"></div>' +
+      '<div class="ncb">' +
+        '<div class="ncsrc">Gamebrott</div>' +
+        '<div class="nctl">' + a.title + '</div>' +
+        '<div class="ncdt">' + fmtDate(a.date) + '</div>' +
+      '</div>' +
+    '</a>';
+  }).join('');
 
-  // List teks: artikel tanpa gambar
+  // List teks — artikel tanpa gambar
   if (noImg.length) {
-    html += '<div class="nl-section"><div class="nl-title">Berita Lainnya</div>'+
-      noImg.map(function(a){
-        return '<a href="'+a.link+'" target="_blank" rel="noopener" class="nl-item">'+
-          '<div class="nl-item-left">'+
-            '<span class="ncsrc '+a.sourceCls+'" style="display:block;margin-bottom:0.1rem">'+a.sourceName+'</span>'+
-            '<span class="nl-item-title">'+a.title+'</span>'+
-          '</div>'+
-          '<span class="nl-item-date">'+fmtDate(a.date)+'</span>'+
+    l.innerHTML = '<div class="nl-section"><div class="nl-title">Berita Lainnya</div>' +
+      noImg.map(function(a) {
+        return '<a href="' + a.link + '" target="_blank" rel="noopener" class="nl-item">' +
+          '<div>' +
+            '<div class="nl-src">Gamebrott</div>' +
+            '<div class="nl-ttl">' + a.title + '</div>' +
+          '</div>' +
+          '<div class="nl-dt">' + fmtDate(a.date) + '</div>' +
         '</a>';
-      }).join('')+'</div>';
+      }).join('') +
+    '</div>';
+  } else {
+    l.innerHTML = '';
   }
-
-  g.innerHTML = html;
 }
 
-
-
-function filterNews(src, btn) {
-  activeFilter = src;
-  document.querySelectorAll('.nfb').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  var filtered = src==='all' ? allArticles : allArticles.filter(function(a){return a.source===src;});
-  var withImg = filtered.filter(function(a){return !!a.image;});
-  var hero = withImg[0] || filtered[0] || null;
-  var rest = filtered.filter(function(a){return a!==hero;});
-  renderHero(hero);
-  renderGrid(rest);
+function renderSkeleton() {
+  document.getElementById('hero-wrap').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:1.5rem">' +
+      '<div class="skel" style="aspect-ratio:16/9"></div>' +
+      '<div style="padding:2rem;display:flex;flex-direction:column;gap:0.75rem">' +
+        '<div class="skel" style="height:12px;width:40%"></div>' +
+        '<div class="skel" style="height:20px"></div>' +
+        '<div class="skel" style="height:20px;width:85%"></div>' +
+        '<div class="skel" style="height:14px;width:60%"></div>' +
+      '</div>' +
+    '</div>';
+  var g = document.getElementById('news-grid'), html = '';
+  for (var i = 0; i < 6; i++) {
+    html += '<div style="background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden">' +
+      '<div class="skel" style="aspect-ratio:4/3"></div>' +
+      '<div style="padding:0.75rem 1rem;display:flex;flex-direction:column;gap:0.5rem">' +
+        '<div class="skel" style="height:11px;width:35%"></div>' +
+        '<div class="skel" style="height:14px"></div>' +
+        '<div class="skel" style="height:14px;width:80%"></div>' +
+      '</div>' +
+    '</div>';
+  }
+  g.innerHTML = html;
+  document.getElementById('list-wrap').innerHTML = '';
 }
 
 async function loadNews() {
   renderSkeleton();
-  document.getElementById('hero-wrap').innerHTML = '';
+  try {
+    var ctrl = new AbortController();
+    var t = setTimeout(function() { ctrl.abort(); }, 15000);
+    var res = await fetch(CF + encodeURIComponent(RSS_URL), { signal: ctrl.signal });
+    clearTimeout(t);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var xml = await res.text();
+    var arts = parseRSS(xml);
 
-  var results = await Promise.allSettled(SOURCES.map(fetchSource));
-  var items = [];
-  results.forEach(function(r){if(r.status==='fulfilled') items=items.concat(r.value);});
-  items.sort(function(a,b){
-    var da=a.date?new Date(a.date):new Date(0);
-    var db=b.date?new Date(b.date):new Date(0);
-    return db-da;
-  });
-  allArticles = items;
+    var updEl = document.getElementById('nupd');
+    var updTxt = document.getElementById('nupd-txt');
+    updEl.style.display = 'flex';
 
-  var updEl = document.getElementById('nupd');
-  var updTxt = document.getElementById('nupd-txt');
-  updEl.style.display = 'flex';
+    if (!arts.length) {
+      updTxt.textContent = 'Tidak ada artikel';
+      document.getElementById('hero-wrap').innerHTML = '';
+      document.getElementById('news-grid').innerHTML = '';
+      document.getElementById('list-wrap').innerHTML =
+        '<div class="nempty"><div style="font-size:2rem">&#9888;&#65039;</div><div>Gagal memuat berita.</div>' +
+        '<button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
+      return;
+    }
 
-  if (!allArticles.length) {
-    updTxt.textContent = 'Gagal memuat berita';
-    document.getElementById('news-grid').innerHTML =
-      '<div class="nempty"><div style="font-size:2rem;margin-bottom:0.75rem">&#9888;&#65039;</div>'+
-      '<div>Gagal memuat berita. Coba lagi beberapa saat.</div>'+
+    var now = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    updTxt.textContent = arts.length + ' artikel game \u00b7 ' + now;
+    console.log('Loaded: ' + arts.length + ' artikel setelah filter');
+
+    // Hero: artikel bergambar pertama, fallback ke terbaru
+    var withImg = arts.filter(function(a) { return !!a.image; });
+    var hero = withImg[0] || arts[0];
+    var rest = arts.filter(function(a) { return a !== hero; });
+
+    renderHero(hero);
+    renderGrid(rest);
+
+  } catch(e) {
+    console.error('loadNews error:', e.message);
+    document.getElementById('nupd').style.display = 'flex';
+    document.getElementById('nupd-txt').textContent = 'Gagal memuat';
+    document.getElementById('hero-wrap').innerHTML = '';
+    document.getElementById('news-grid').innerHTML = '';
+    document.getElementById('list-wrap').innerHTML =
+      '<div class="nempty"><div style="font-size:2rem">&#9888;&#65039;</div>' +
+      '<div>Gagal memuat berita. Periksa koneksi.</div>' +
       '<button class="nrbtn" onclick="loadNews()">&#x21BA; Coba Lagi</button></div>';
-    return;
   }
-
-  var now = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-  var totalFetched = results.reduce(function(acc,r){ return acc + (r.status==='fulfilled' ? r.value.length : 0); }, 0);
-  var filtered_count = allArticles.length;
-  var removed_count = 0;
-  results.forEach(function(r){
-    if(r.status==='fulfilled') removed_count += r.value._raw_count || 0;
-  });
-  updTxt.textContent = filtered_count+' artikel game \u00b7 '+now;
-
-  var filtered = activeFilter==='all' ? allArticles : allArticles.filter(function(a){return a.source===activeFilter;});
-  var withImg = filtered.filter(function(a){return !!a.image;});
-  var hero = withImg[0] || filtered[0] || null;
-  var rest = filtered.filter(function(a){return a!==hero;});
-  renderHero(hero);
-  renderGrid(rest);
 }
 
 loadNews();
-setInterval(loadNews, 10*60*1000);
+setInterval(loadNews, 10 * 60 * 1000);
 </script>
 </body>
 </html>
