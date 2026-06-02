@@ -333,10 +333,13 @@
       </div>
     </div>
 
-    <!-- Slide 2: Berita Terkini -->
+    <!-- Slide 2: Berita Terkini + background game trending -->
     <div class="gc-slide">
       <div class="gc-slide-bg">
         <div style="width:100%;height:100%;background:linear-gradient(135deg,#0a0f1a 0%,#0d1f3c 50%,#0a1628 100%)"></div>
+        <img id="slide2-trending-img" src="" alt=""
+             style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:none;opacity:0.25"
+             onerror="this.style.display='none'">
       </div>
       <div class="gc-slide-gradient"></div>
       <div class="gc-slide-content">
@@ -385,13 +388,18 @@
         </div>
       </div>
     </a>
-    <div class="gc-game-card" style="opacity:0.4;cursor:default;pointer-events:none">
+    <!-- Coming Soon: gambar dari game trending via SGDB -->
+    <div class="gc-game-card" style="cursor:default;pointer-events:none" id="card-trending">
       <div class="gc-game-card-cover">
-        <div class="gc-game-card-cover-placeholder" style="background:var(--c-surface-2)">🎮</div>
+        <img id="trending-cover" src="" alt=""
+             style="width:100%;height:100%;object-fit:cover;display:none">
+        <div id="trending-placeholder" class="gc-game-card-cover-placeholder"
+             style="background:linear-gradient(135deg,var(--c-surface-2),var(--c-surface-3))">🎮</div>
       </div>
       <div class="gc-game-card-info">
-        <div class="gc-game-card-title">Coming Soon</div>
-        <div class="gc-game-card-meta">Guide berikutnya</div>
+        <div class="gc-game-card-title" id="trending-title">Coming Soon</div>
+        <div class="gc-game-card-meta" id="trending-meta">Guide berikutnya</div>
+        <div style="font-size:0.65rem;color:var(--c-text-3);margin-top:0.25rem">🔥 Sedang ramai</div>
       </div>
     </div>
   </div>
@@ -646,14 +654,80 @@
     }
   }
 
-  // Load berita setelah halaman siap, async agar tidak blokir
+  // ── TRENDING GAME — untuk Coming Soon card + Slide 2 background ──
+  // Cache 7 hari di localStorage
+  const TRENDING_CACHE_KEY = 'gc_trending_cache';
+  const TRENDING_CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 7 hari ms
+
+  async function loadTrending() {
+    try {
+      // Cek cache dulu
+      const cached = localStorage.getItem(TRENDING_CACHE_KEY);
+      if (cached) {
+        const { data, ts } = JSON.parse(cached);
+        if (Date.now() - ts < TRENDING_CACHE_TTL && data && data.games && data.games.length > 0) {
+          applyTrending(data.games[0]);
+          console.log('[Trending] dari cache, refresh ' + Math.round((TRENDING_CACHE_TTL - (Date.now() - ts)) / 86400000) + ' hari lagi');
+          return;
+        }
+      }
+      // Fetch baru
+      const res = await fetch(CF_WORKER + '/trending?count=2');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (data.success && data.games && data.games.length > 0) {
+        // Simpan ke cache
+        localStorage.setItem(TRENDING_CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+        applyTrending(data.games[0]);
+        // Slide 2 pakai game ke-2 jika ada
+        if (data.games.length > 1 && data.games[1].image) {
+          var s2img = document.getElementById('slide2-trending-img');
+          if (s2img) {
+            s2img.src = data.games[1].image;
+            s2img.style.display = 'block';
+          }
+        }
+        console.log('[Trending] fetched:', data.games.map(function(g){return g.name;}).join(', '));
+      }
+    } catch(e) {
+      console.warn('[Trending] gagal:', e.message);
+    }
+  }
+
+  function applyTrending(game) {
+    if (!game) return;
+    // Update Coming Soon card
+    var titleEl = document.getElementById('trending-title');
+    var metaEl = document.getElementById('trending-meta');
+    var coverEl = document.getElementById('trending-cover');
+    var placeholderEl = document.getElementById('trending-placeholder');
+    if (titleEl) titleEl.textContent = game.name;
+    if (metaEl) metaEl.textContent = game.platform + ' · ' + game.year;
+    if (coverEl && game.thumb) {
+      coverEl.src = game.thumb;
+      coverEl.style.display = 'block';
+      if (placeholderEl) placeholderEl.style.display = 'none';
+    }
+    // Slide 2 background
+    if (game.image) {
+      var s2img = document.getElementById('slide2-trending-img');
+      if (s2img) {
+        s2img.src = game.image;
+        s2img.style.display = 'block';
+      }
+    }
+  }
+
+  // Load semua setelah halaman siap
   if (document.readyState === 'complete') {
     loadSlideNews();
     loadAllGameArt();
+    loadTrending();
   } else {
     window.addEventListener('load', function() {
       loadSlideNews();
       loadAllGameArt();
+      loadTrending();
     });
   }
 </script>
