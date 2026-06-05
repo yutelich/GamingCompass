@@ -277,13 +277,6 @@
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s2"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Guangzong — kalahkan Zhang Jiao</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s3"><span class="check-box"></span><span class="check-text">Pelajari sistem Battle Arts, Musou, dan Bond (tutorial wajib)</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s4"><span class="check-box"></span><span class="check-text">Eksplorasi peta overworld dasar — kunjungi Inn, beli senjata, terima Request Missions</span></label>
-            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Battle of Hulao Gate (Ch.2)</button>
-            <div class="tip-panel"><div class="tip-panel-inner">
-              <div class="tip-row"><span class="tip-icon">⚠️</span><span><strong>Lu Bu sangat kuat</strong> di Ch.2 — tujuan utama bukan mengalahkannya, tapi survive dan selesaikan objective.</span></div>
-              <div class="tip-row"><span class="tip-icon">🎯</span><span>Kalahkan <strong>Zhang Liao</strong> di area barat dulu → reward: <strong>Twin Pikes</strong> (senjata terkuat early game). Defeating him grants you this weapon automatically.</span></div>
-              <div class="tip-row"><span class="tip-icon">🗡️</span><span>Setelah Zhang Liao kalah, kalahkan <strong>Jia Xu</strong> → Lu Bu masuk. Gunakan survival tactic — dodge, counter saat opening, jangan terlalu agresif.</span></div>
-              <div class="tip-row"><span class="tip-icon">💡</span><span>Lu Bu bisa dikalahkan di Ch.2 untuk bonus reward, tapi tidak wajib. Post-game: dia bisa di-rematch di replay Battle of Hulao Gate untuk unlock sebagai companion.</span></div>
-            </div></div>
             <div class="gc-sub-title">Khusus Jika DLC Aktif</div>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s5"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar di barat laut peta di battle Zhang Jiao → temukan "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s6"><span class="check-box"></span><span class="check-text">⭐ ⚠ Habiskan HP Zhang Jiao → pilih "Spare and Listen" saat prompt muncul</span><span class="badge badge-miss">Missable</span></label>
@@ -302,7 +295,14 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-s-ch2">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s7"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama Chapter 2</span></label>
+            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s7"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Hulao Gate — pertahankan vs Lu Bu (battle utama Ch.2)</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Battle of Hulao Gate</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">⚠️</span><span><strong>Lu Bu sangat kuat</strong> di Ch.2 — tujuan utama bukan mengalahkannya, tapi survive dan selesaikan objective.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span>Kalahkan <strong>Zhang Liao</strong> di area barat dulu → reward otomatis: <strong>Twin Pikes</strong> (senjata terkuat early game).</span></div>
+              <div class="tip-row"><span class="tip-icon">🗡️</span><span>Setelah Zhang Liao kalah, kalahkan <strong>Jia Xu</strong> → Lu Bu masuk. Gunakan survival tactic — dodge, counter saat opening, tidak perlu agresif.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Lu Bu bisa dikalahkan di Ch.2 untuk bonus reward, tapi tidak wajib. Post-game: rematch via Story Mode di Inn untuk unlock Lu Bu sebagai companion.</span></div>
+            </div></div>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s8"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.2 (ikon oranye di peta)</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s9"><span class="check-box"></span><span class="check-text">Mulai membangun Bond dengan officer yang tersedia</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s10"><span class="check-box"></span><span class="check-text">Upgrade senjata dan equipment sebelum masuk Ch.3</span></label>
@@ -385,7 +385,7 @@
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh9"><span class="check-box"></span><span class="check-text">Main battle normal — bersatu kembali dengan Liu Bei, kawal pasukan + rakyat</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh10"><span class="check-box"></span><span class="check-text">Kalahkan Yu Jin di jalur kabur Liu Bei (jika tidak, Liu Bei bisa dikalahkan)</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh11"><span class="check-box"></span><span class="check-text">⭐ ⚠ Saat pasukan besar Cao Cao muncul di arena utara — JANGAN kawal Liu Bei kabur dulu</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Liao & officer Wei yang mengejar Liu Bei di area utara</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Liao & officer Wei lain yang mengejar Liu Bei — biarkan Liu Bei aman dulu</span><span class="badge badge-critical">Krusial</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh13"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Cao Cao di arena melingkar utara sebelum Liu Bei mencapai titik kabur</span><span class="badge badge-critical">Krusial</span></label>
             <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
 <div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Battle of Changban (Ch.5 Shu) — Termudah dari semua true ending</span></div>
@@ -687,7 +687,7 @@
           <div class="gc-chapter-body">
             <div class="gc-sub-title">🔴 Dong Zhuo</div>
             <div class="gc-tip">Unlock setelah clear Zhang Jiao + reach Ch.3 main game. Premis: bantu Dong Zhuo menguasai Han dynasty.</div>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d7"><span class="check-box"></span><span class="check-text">Battle 1: Kalahkan Zhang Rang sebelum mencapai titik kabur (kalahkan Dong Zhuo tidak diizinkan kalah)</span></label>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d7"><span class="check-box"></span><span class="check-text">Battle 1: Kalahkan Zhang Rang sebelum mencapai titik kabur (jangan biarkan Dong Zhuo dikalahkan)</span></label>
             <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Dong Zhuo Campaign</button>
             <div class="tip-panel"><div class="tip-panel-inner">
               <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Battle 1:</strong> Kalahkan Zhang Rang sebelum ia mencapai titik kabur. Langsung rush ke Zhang Rang dari awal — abaikan musuh kecil.</span></div>
