@@ -260,6 +260,7 @@
         <button class="gc-tab" onclick="showTab('post',this)">Post-Game</button>
         <button class="gc-tab" onclick="showTab('dlc',this)" style="color:#c084fc">DLC</button>
         <button class="gc-tab" onclick="showTab('endings',this)">Ending</button>
+        <button class="gc-tab" onclick="showTab('senjata',this)" style="color:var(--c-gold)">⚔️ Senjata</button>
       </div>
 
       <!-- ══ SHARED ══ -->
@@ -275,10 +276,23 @@
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s1"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Zhuo County (tutorial pertempuran)</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s2"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Guangzong — kalahkan Zhang Jiao</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s3"><span class="check-box"></span><span class="check-text">Pelajari sistem Battle Arts, Musou, dan Bond (tutorial wajib)</span></label>
-            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s4"><span class="check-box"></span><span class="check-text">Eksplorasi peta overworld dasar</span></label>
+            <label class="check-item" data-group="shared"><input type="checkbox" data-id="s4"><span class="check-box"></span><span class="check-text">Eksplorasi peta overworld dasar — kunjungi Inn, beli senjata, terima Request Missions</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Battle of Hulao Gate (Ch.2)</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">⚠️</span><span><strong>Lu Bu sangat kuat</strong> di Ch.2 — tujuan utama bukan mengalahkannya, tapi survive dan selesaikan objective.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span>Kalahkan <strong>Zhang Liao</strong> di area barat dulu → reward: <strong>Twin Pikes</strong> (senjata terkuat early game). Defeating him grants you this weapon automatically.</span></div>
+              <div class="tip-row"><span class="tip-icon">🗡️</span><span>Setelah Zhang Liao kalah, kalahkan <strong>Jia Xu</strong> → Lu Bu masuk. Gunakan survival tactic — dodge, counter saat opening, jangan terlalu agresif.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Lu Bu bisa dikalahkan di Ch.2 untuk bonus reward, tapi tidak wajib. Post-game: dia bisa di-rematch di replay Battle of Hulao Gate untuk unlock sebagai companion.</span></div>
+            </div></div>
             <div class="gc-sub-title">Khusus Jika DLC Aktif</div>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s5"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar di barat laut peta di battle Zhang Jiao → temukan "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s6"><span class="check-box"></span><span class="check-text">⭐ ⚠ Habiskan HP Zhang Jiao → pilih "Spare and Listen" saat prompt muncul</span><span class="badge badge-miss">Missable</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips "Spare and Listen"</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">📋</span><span><strong>Syarat muncul prompt:</strong> Kamu HARUS memiliki <strong>"Way of Peace Scripture"</strong> di inventory (dari hancurkan altar barat laut map Ch.1)</span></div>
+              <div class="tip-row"><span class="tip-icon">⚠️</span><span>Jika Scripture tidak ada di inventory → prompt "Spare and Listen" tidak akan muncul → tidak bisa unlock DLC route Zhang Jiao</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Ini hanya relevan jika kamu punya DLC. Tanpa DLC, cukup habiskan HP Zhang Jiao dan selesaikan battle seperti biasa.</span></div>
+            </div></div>
           </div>
         </div>
 
@@ -309,6 +323,13 @@
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s13"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.3</span></label>
             <label class="check-item" data-group="shared"><input type="checkbox" data-id="s14"><span class="check-box"></span><span class="check-text">Kerjakan Request Missions dari officer faksimu (ikon biru)</span></label>
             <div class="gc-sub-title">🌿 Quest Yuanhua — Search for Memories (aktif Ch.3–Ch.4)</div>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Quest Yuanhua</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">⭐</span><span><strong>Reward akhir: Musou Rage</strong> — skill baru yang sangat powerful. Jangan lewatkan quest ini di semua jalur.</span></div>
+              <div class="tip-row"><span class="tip-icon">🗺️</span><span>Herb bisa dikumpulkan di <strong>overworld map</strong> (ikon hijau) — tidak perlu masuk battle khusus.</span></div>
+              <div class="tip-row"><span class="tip-icon">⏰</span><span>Herb 3, 4, dan 5 baru muncul di Ch.4 — jangan khawatir jika belum bisa dikumpulkan di Ch.3.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Setelah kumpulkan Thistle of the Dawn (herb ke-5), pergi ke <strong>Desa Sakura dekat Ye</strong> untuk trigger cutscene final dan unlock Musou Rage.</span></div>
+            </div></div>
             <table class="gc-table">
               <tr><th>#</th><th>Herb</th><th>Lokasi</th><th>Ch.</th><th>Reward</th></tr>
               <tr><td>0</td><td><em>Cutscene</em></td><td>Battle awal Ch.3 — otomatis</td><td>3</td><td>Bravery Increase</td></tr>
@@ -339,6 +360,10 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-sh-ch4">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
+            <div class="gc-tip" style="display:flex;align-items:center;gap:0.6rem">
+              ⚔️ <span>Tips senjata untuk jalur ini? </span>
+              <button onclick="showTab('senjata', document.querySelector('[onclick*=senjata]'))" style="font-family:var(--font-head);font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-gold);background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:2px 8px;cursor:pointer">Lihat Tab Senjata ⚔️</button>
+            </div>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh1"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama Ch.4 jalur Shu</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh2"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh3"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
@@ -356,13 +381,28 @@
           </div>
           <div class="gc-chapter-body">
             <div class="gc-sub-title">⭐ Aksi Krusial — True Ending Shu</div>
-            <div class="gc-tip">⚠ <strong>Battle of Changban</strong> — Zhao Yun dekat spawn point. Langsung rush ke sana begitu battle mulai.</div>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh9"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush langsung ke posisi Zhao Yun</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh10"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh yang mengepung Zhao Yun sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
-            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi:</strong> Battle of Changban — belok kanan dari titik spawn</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka</span><span class="spoiler-sub">Posisi musuh</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">🗺</span><span>Zhao Yun dikepung ~4–6 prajurit + 1 officer. Kalahkan officer dulu, lalu escort Liu Bei ke utara dan lawan Bailuan untuk buka jalan kabur.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Satu-satunya syarat True Ending Shu. Selesai, lanjutkan battle biasa.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Zhao+Yun+Changban+True+Ending" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh11"><span class="check-box"></span><span class="check-text">Lanjutkan escort Liu Bei ke titik kabur</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">Kalahkan Bailuan (penyihir kabut yang memblokir jalan)</span></label>
-            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh13"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Changban</span></label>
+            <div class="gc-tip">⚠ <strong>Battle of Changban</strong> — Termudah dari 3 true ending. Tidak ada time limit ketat, tapi perlu level & senjata tinggi.</div>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh9"><span class="check-box"></span><span class="check-text">Main battle normal — bersatu kembali dengan Liu Bei, kawal pasukan + rakyat</span></label>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh10"><span class="check-box"></span><span class="check-text">Kalahkan Yu Jin di jalur kabur Liu Bei (jika tidak, Liu Bei bisa dikalahkan)</span></label>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh11"><span class="check-box"></span><span class="check-text">⭐ ⚠ Saat pasukan besar Cao Cao muncul di arena utara — JANGAN kawal Liu Bei kabur dulu</span><span class="badge badge-miss">Missable</span></label>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh12"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Liao & officer Wei yang mengejar Liu Bei di area utara</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh13"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Cao Cao di arena melingkar utara sebelum Liu Bei mencapai titik kabur</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
+<div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Battle of Changban (Ch.5 Shu) — Termudah dari semua true ending</span></div>
+<div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Tanda berhasil:</strong> Layar menampilkan <strong>"Fate Altered"</strong> setelah Cao Cao jatuh</span></div>
+<div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka langkah detail</span><span class="spoiler-sub">Urutan optimal & tips Cao Cao</span></div><div class="spoiler-content">
+<div class="tip-row"><span class="tip-icon">1️⃣</span><span>Main seperti biasa — gunakan Zhang Fei atau Zhao Yun untuk tembus ke Liu Bei</span></div>
+<div class="tip-row"><span class="tip-icon">2️⃣</span><span>Setelah bersatu, <strong>kalahkan Yu Jin</strong> di jalur kabur Liu Bei — biarkan Liu Bei maju tapi pastikan ia tidak diserang</span></div>
+<div class="tip-row"><span class="tip-icon">3️⃣</span><span>Kalahkan Bailuan → kabut terangkat. Saat <strong>pasukan besar Cao Cao muncul di arena lingkaran utara</strong> → ini trigger-nya</span></div>
+<div class="tip-row"><span class="tip-icon">4️⃣</span><span><strong>Putar balik ke utara</strong> — jangan ikuti Liu Bei ke titik kabur dulu</span></div>
+<div class="tip-row"><span class="tip-icon">5️⃣</span><span>Fokus ke <strong>Cao Cao langsung</strong> setelah softening pasukannya — kalahkan ia sebelum Liu Bei keluar peta</span></div>
+<div class="tip-row"><span class="tip-icon">✨</span><span><strong>"Fate Altered"</strong> muncul → selesaikan battle, lanjutkan Ch.5 seperti biasa → True Ending Shu</span></div>
+</div></div>
+<div class="tip-row"><span class="tip-icon">💡</span><span><strong>Tips:</strong> Turunkan ke <strong>Historian/Easy</strong> — tidak pengaruhi ending. Bisa replay via Story Mode di Inn. Gunakan senjata terbaik yang ada.</span></div>
+<div class="tip-search-links">
+<a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Changban+True+Ending+Shu+Cao+Cao" target="_blank" rel="noopener" class="tip-search-btn yt">▶ YouTube</a>
+<a href="https://www.google.com/search?q=Dynasty+Warriors+Origins+Battle+of+Changban+true+ending+Shu+cara" target="_blank" rel="noopener" class="tip-search-btn gg">🔍 Google</a>
+</div></div></div>
             <div class="gc-sub-title">Lanjutan & Ending</div>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh14"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi (Shu perspective)</span></label>
             <label class="check-item" data-group="shu"><input type="checkbox" data-id="sh15"><span class="check-box"></span><span class="check-text">Selesaikan battle final jalur Shu</span></label>
@@ -381,11 +421,31 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-w-ch4">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
+            <div class="gc-tip" style="display:flex;align-items:center;gap:0.6rem">
+              ⚔️ <span>Tips senjata untuk jalur ini? </span>
+              <button onclick="showTab('senjata', document.querySelector('[onclick*=senjata]'))" style="font-family:var(--font-head);font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-gold);background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:2px 8px;cursor:pointer">Lihat Tab Senjata ⚔️</button>
+            </div>
             <div class="gc-sub-title">⭐ Aksi Krusial #1 — Selamatkan Dian Wei</div>
             <div class="gc-tip">⚠ <strong>Escape from Wan Castle</strong> — Tinggalkan objektif utama sementara, rush ke Dian Wei.</div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Tinggalkan objektif utama → rush ke posisi Dian Wei</span><span class="badge badge-miss">Missable</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w2"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh di sekitar Dian Wei sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
-            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi:</strong> Escape from Wan Castle — sisi barat benteng, dekat pintu gerbang</span></div><div class="tip-row"><span class="tip-icon">⏱</span><span><strong>Timing:</strong> Naiki kuda segera, langsung belok kiri — abaikan objective dulu</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka</span><span class="spoiler-sub">Detail langkah & posisi</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">🗺</span><span>Dian Wei ada di dekat pintu gerbang barat. Ada 5–7 prajurit + 1 officer — kalahkan officer dulu. Gunakan Musou untuk area clear cepat.</span></div><div class="tip-row"><span class="tip-icon">⏰</span><span>Kamu punya ~60–90 detik. Setelah Dian Wei aman, kembali ke objective.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Gunakan difficulty Historian — musuh mati lebih cepat saat perlu speed.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Dian+Wei+Wan+Castle+True+Ending+Wei" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
+<div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Escape from Wan Castle (Ch.4 Wei) — ada hidden time limit ~8 menit</span></div>
+<div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Tanda berhasil:</strong> Saat lawan Huche'er, ia berkata <em>"Oh? Kamu di sini untuk menyelamatkan pengawal Cao Cao?"</em> → kamu on track</span></div>
+<div class="tip-row"><span class="tip-icon">❌</span><span><strong>Tanda gagal:</strong> Dian Wei berkata <em>"Ha! Bring it on! I'll take you all on at once!"</em> → sudah terlambat, restart</span></div>
+<div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka langkah detail</span><span class="spoiler-sub">Step-by-step urutan optimal</span></div><div class="spoiler-content">
+<div class="tip-row"><span class="tip-icon">1️⃣</span><span>Tangkap <strong>base timur laut</strong> (top-right) terlebih dahulu — lakukan SEBELUM cutscene pemanah menyalakan api ke Wan Castle</span></div>
+<div class="tip-row"><span class="tip-icon">2️⃣</span><span>Setelah base timur laut aman, tangkap <strong>base barat laut</strong> (top-left) — ini memicu tangga naik ke benteng untuk Cao Cao</span></div>
+<div class="tip-row"><span class="tip-icon">3️⃣</span><span>Hadapi <strong>bala bantuan musuh</strong> di sisi kanan bawah peta — jangan biarkan mereka menekan pasukan Cao Cao</span></div>
+<div class="tip-row"><span class="tip-icon">4️⃣</span><span>Masuk benteng lewat tangga → kalahkan <strong>3 officer di halaman tengah</strong> (pakai True Musou companion untuk area clear cepat)</span></div>
+<div class="tip-row"><span class="tip-icon">5️⃣</span><span>Terakhir: kalahkan <strong>Huche'er di sudut tenggara</strong> benteng — biarkan dia terakhir agar dialog trigger muncul</span></div>
+<div class="tip-row"><span class="tip-icon">✨</span><span>Jika benar: layar menampilkan <strong>"Fate Altered"</strong> dan Dian Wei berkata <em>"Hmm... musuhnya semakin sedikit"</em> → selesaikan battle seperti biasa</span></div>
+</div></div>
+<div class="tip-row"><span class="tip-icon">💡</span><span><strong>Tips:</strong> Turunkan difficulty ke <strong>Historian</strong> — Dian Wei tetap bisa diselamatkan. Senjata Grade 7–8 sangat membantu kecepatan. Bisa replay via Story Mode di Inn setelah clear normal ending.</span></div>
+<div class="tip-search-links">
+<a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+save+Dian+Wei+Wan+Castle+guide" target="_blank" rel="noopener" class="tip-search-btn yt">▶ YouTube</a>
+<a href="https://www.google.com/search?q=Dynasty+Warriors+Origins+cara+selamatkan+Dian+Wei+Wan+Castle" target="_blank" rel="noopener" class="tip-search-btn gg">🔍 Google</a>
+</div></div></div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w3"><span class="check-box"></span><span class="check-text">Kembali ke objektif utama setelah Dian Wei aman</span></label>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w4"><span class="check-box"></span><span class="check-text">Selesaikan Escape from Wan Castle</span></label>
             <div class="gc-sub-title">Objektif Utama Ch.4</div>
@@ -408,7 +468,17 @@
             <div class="gc-sub-title">⭐ Aksi Krusial #2 — Selamatkan Guo Jia</div>
             <div class="gc-tip">⚠ <strong>Battle of Mt. Bailang</strong> — Rush ke sisi utara peta begitu battle mulai.</div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w13"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush ke sisi utara peta</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w14"><span class="check-box"></span><span class="check-text">⭐ Temukan Guo Jia, kalahkan officer yang mengancamnya sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="wei"><input type="checkbox" data-id="w14"><span class="check-box"></span><span class="check-text">⭐ Temukan & selamatkan Guo Jia di utara sebelum ia mati</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
+<div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Battle of Mt. Bailang (Ch.5 Wei) — lebih mudah dari Wan Castle</span></div>
+<div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka langkah detail</span><span class="spoiler-sub">Lokasi Guo Jia & urutan optimal</span></div><div class="spoiler-content">
+<div class="tip-row"><span class="tip-icon">1️⃣</span><span>Begitu battle mulai, <strong>abaikan semua objective lain</strong> — langsung rush ke <strong>sisi utara peta</strong></span></div>
+<div class="tip-row"><span class="tip-icon">2️⃣</span><span>Guo Jia ada di area utara dalam kondisi terancam — kalahkan semua officer di sekitarnya</span></div>
+<div class="tip-row"><span class="tip-icon">3️⃣</span><span>Jika berhasil: <strong>"Fate Altered"</strong> muncul → Guo Jia selamat dan nanti ia akan memberikan petunjuk di Battle of Chibi</span></div>
+<div class="tip-row"><span class="tip-icon">⚠️</span><span><strong>Penting:</strong> Di Battle of Chibi setelah ini, <strong>Guo Jia HARUS dijadikan companion</strong> agar ia memberikan petunjuk lokasi gua</span></div>
+</div></div>
+<div class="tip-row"><span class="tip-icon">💡</span><span>Lebih mudah dari Wan Castle — tidak ada time limit ketat. Fokus langsung ke utara dari awal.</span></div>
+</div></div>
             <label class="check-item" data-group="wei"><input type="checkbox" data-id="w15"><span class="check-box"></span><span class="check-text">Selesaikan sisa objektif → selesaikan Battle of Mt. Bailang</span></label>
             <div class="gc-sub-title">⭐ Aksi Krusial #3 — Cegah Huang Gai (Paling Kompleks!)</div>
             <div class="gc-tip">⚠ <strong>Battle of Chibi (Wei path)</strong> — Bisa turunkan difficulty ke Easy khusus battle ini.</div>
@@ -428,27 +498,79 @@
 
       <!-- ══ WU ══ -->
       <div class="gc-tab-section" id="tab-wu">
-        <div class="gc-tip" style="margin-bottom:1.25rem">🟡 <strong>Jalur Wu — Sun Jian.</strong> Tingkat sedang. True Ending butuh <strong>2 syarat</strong>.</div>
+        <div class="gc-tip" style="margin-bottom:1.25rem">🟡 <strong>Jalur Wu — Sun Jian.</strong> Tingkat sedang. True Ending butuh <strong>2 syarat</strong>: Selamatkan Sun Jian (Ch.3) + Sun Ce (Ch.4).</div>
+
+        <!-- Chapter 3 Wu -->
         <div class="gc-chapter open">
           <div class="gc-chapter-header" onclick="toggleChapter(this)">
-            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wu"></span>Chapter 4 — Wu</div>
+            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wu"></span>Chapter 3 — Wu (Syarat True Ending #1)</div>
+            <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-wu-ch3">0/0</span><span class="gc-chevron">▼</span></div>
+          </div>
+          <div class="gc-chapter-body">
+            <div class="gc-sub-title">⭐ Aksi Krusial #1 — Selamatkan Sun Jian</div>
+            <div class="gc-tip">⚠ <strong>Battle of Xiangyang (Ch.3)</strong> — Bisa dilakukan sebelum atau sesudah clear normal ending via Story Mode di Inn.</div>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Segera rush ke sisi barat peta — lebih cepat dari pasukan utama</span><span class="badge badge-miss">Missable</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu2"><span class="check-box"></span><span class="check-text">⭐ Ambil base tengah di jalur barat → belok kiri ke jalur barat jauh</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu3"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Phantom Zhang Jiao di jalur barat untuk hancurkan batu penghalang</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu4"><span class="check-box"></span><span class="check-text">⭐ Capai Sun Jian sebelum Huang Gai → "Fate Altered" muncul</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
+<div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Battle of Xiangyang (Ch.3 Wu) — Syarat True Ending #1</span></div>
+<div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Tanda berhasil:</strong> <strong>"Fate Altered"</strong> muncul setelah mencapai Sun Jian — battle langsung berakhir</span></div>
+<div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka langkah detail</span><span class="spoiler-sub">Rute & posisi Phantom Zhang Jiao</span></div><div class="spoiler-content">
+<div class="tip-row"><span class="tip-icon">1️⃣</span><span>Segera rush ke <strong>barat jauh peta</strong> — lewati jalur yang sama dengan pasukan utama tapi harus <strong>jauh lebih cepat</strong></span></div>
+<div class="tip-row"><span class="tip-icon">2️⃣</span><span>Ambil <strong>base tengah di jalur barat</strong> → belok kiri → lanjut ke selatan menuju Sun Jian</span></div>
+<div class="tip-row"><span class="tip-icon">3️⃣</span><span>Ada <strong>batu besar memblokir jalan</strong> — kalahkan <strong>Phantom Zhang Jiao</strong> yang menjaganya untuk menghancurkan batu</span></div>
+<div class="tip-row"><span class="tip-icon">4️⃣</span><span>Setelah batu hancur, rush ke Sun Jian — <strong>harus tiba sebelum Huang Gai</strong></span></div>
+<div class="tip-row"><span class="tip-icon">✨</span><span><strong>"Fate Altered"</strong> muncul → Sun Jian selamat → battle otomatis berakhir</span></div>
+</div></div>
+<div class="tip-row"><span class="tip-icon">💡</span><span>Phantom Zhang Jiao di sini lebih lemah dari boss aslinya. Gunakan Musou untuk clear cepat. Turunkan ke Historian jika perlu speed.</span></div>
+<div class="tip-search-links">
+<a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+save+Sun+Jian+Xiangyang+true+ending+Wu" target="_blank" rel="noopener" class="tip-search-btn yt">▶ YouTube</a>
+<a href="https://www.google.com/search?q=Dynasty+Warriors+Origins+cara+selamatkan+Sun+Jian+Xiangyang" target="_blank" rel="noopener" class="tip-search-btn gg">🔍 Google</a>
+</div></div></div>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu5"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama lainnya Ch.3 jalur Wu</span></label>
+          </div>
+        </div>
+
+        <!-- Chapter 4 Wu -->
+        <div class="gc-chapter">
+          <div class="gc-chapter-header" onclick="toggleChapter(this)">
+            <div class="gc-chapter-title"><span class="gc-faction-dot dot-wu"></span>Chapter 4 — Wu (Syarat True Ending #2)</div>
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-wu-ch4">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #1 — Selamatkan Sun Ce</div>
-            <div class="gc-tip">⚠ <strong>Battle of Shouchun</strong> — Rush ke Sun Ce sebelum timer habis.</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu1"><span class="check-box"></span><span class="check-text">⭐ ⚠ Begitu battle mulai → rush langsung ke posisi Sun Ce</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu2"><span class="check-box"></span><span class="check-text">⭐ Kalahkan semua musuh yang menyerang Sun Ce sebelum timer habis</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu3"><span class="check-box"></span><span class="check-text">Selesaikan sisa objektif → selesaikan Battle of Shouchun</span></label>
-            <div class="gc-sub-title">Objektif Utama Ch.4</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu4"><span class="check-box"></span><span class="check-text">Selesaikan semua battle utama lainnya Ch.4 jalur Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu5"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu6"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu7"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn → serahkan ke Yuanhua</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu8"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu9"><span class="check-box"></span><span class="check-text">Selesaikan Optional Missions Ch.4</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu10"><span class="check-box"></span><span class="check-text">Selesaikan Request Missions officer Wu (ikon biru)</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu11"><span class="check-box"></span><span class="check-text">Tingkatkan Bond: Sun Ce, Zhou Yu, Gan Ning</span></label>
+            <div class="gc-tip" style="display:flex;align-items:center;gap:0.6rem">
+              ⚔️ <span>Tips senjata untuk jalur ini? </span>
+              <button onclick="showTab('senjata', document.querySelector('[onclick*=senjata]'))" style="font-family:var(--font-head);font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-gold);background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:2px 8px;cursor:pointer">Lihat Tab Senjata ⚔️</button>
+            </div>
+            <div class="gc-sub-title">⭐ Aksi Krusial #2 — Selamatkan Sun Ce</div>
+            <div class="gc-tip">⚠ <strong>Suppression of Wu (Ch.4)</strong> — Pastikan Sun Quan tetap hidup selama proses ini.</div>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu6"><span class="check-box"></span><span class="check-text">Tangkap 2 base tengah peta untuk jaga morale & lindungi Sun Quan</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu7"><span class="check-box"></span><span class="check-text">⭐ ⚠ Saat Sun Ce masuk hutan barat dan menghilang — segera ikuti ke barat</span><span class="badge badge-miss">Missable</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu8"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Phantom Yan Baihu di hutan → lanjut ke gua tersembunyi</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu9"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → kalahkan Bailuan (boss) → "Fate Altered" muncul</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Langkah Detail</button><div class="tip-panel"><div class="tip-panel-inner">
+<div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Battle:</strong> Suppression of Wu (Ch.4 Wu) — Syarat True Ending #2</span></div>
+<div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler — Tap untuk buka langkah detail</span><span class="spoiler-sub">Lokasi gua & cara temukan Bailuan</span></div><div class="spoiler-content">
+<div class="tip-row"><span class="tip-icon">1️⃣</span><span>Awal battle: tangkap <strong>2 base tengah</strong> untuk tingkatkan morale — mencegah Sun Quan kalah saat kamu pergi nanti</span></div>
+<div class="tip-row"><span class="tip-icon">2️⃣</span><span>Sekitar <strong>3 menit setelah battle mulai</strong>, Sun Ce akan bergerak ke hutan barat dan menghilang dari peta</span></div>
+<div class="tip-row"><span class="tip-icon">3️⃣</span><span>Segera ikuti Sun Ce ke <strong>hutan barat daya</strong> — kalahkan Phantom Yan Baihu yang ada di sana</span></div>
+<div class="tip-row"><span class="tip-icon">4️⃣</span><span>Cari <strong>gua tersembunyi</strong> di dinding barat area lingkaran hutan — gunakan <strong>Sacred Eye (Eyes of Sacred Bird)</strong> jika susah menemukannya</span></div>
+<div class="tip-row"><span class="tip-icon">5️⃣</span><span>Masuk gua → ikuti lorong ke selatan → lawan <strong>Bailuan</strong> (boss sulit). Gunakan Perfect Parry + Assault Attack + Battle Arts terbaik</span></div>
+<div class="tip-row"><span class="tip-icon">✨</span><span>Bailuan kalah → <strong>"Fate Altered"</strong> muncul → Sun Ce selamat → selesaikan battle seperti biasa</span></div>
+</div></div>
+<div class="tip-row"><span class="tip-icon">💡</span><span>Bailuan adalah boss yang cukup sulit — bawa companion, gunakan grade 7+ weapon. Sun Quan harus tetap hidup selama proses ini.</span></div>
+<div class="tip-search-links">
+<a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+save+Sun+Ce+Suppression+of+Wu+Bailuan+cave" target="_blank" rel="noopener" class="tip-search-btn yt">▶ YouTube</a>
+<a href="https://www.google.com/search?q=Dynasty+Warriors+Origins+cara+selamatkan+Sun+Ce+Suppression+Wu" target="_blank" rel="noopener" class="tip-search-btn gg">🔍 Google</a>
+</div></div></div>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu10"><span class="check-box"></span><span class="check-text">Selesaikan sisa Suppression of Wu (jaga Sun Quan hidup)</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu11"><span class="check-box"></span><span class="check-text">Kumpulkan Arborgreen → serahkan ke Yuanhua</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu12"><span class="check-box"></span><span class="check-text">Kumpulkan Herb ke-4 → serahkan ke Yuanhua</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu13"><span class="check-box"></span><span class="check-text">Kumpulkan Thistle of the Dawn → serahkan ke Yuanhua</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu14"><span class="check-box"></span><span class="check-text">⭐ Kembali ke desa sakura → unlock Musou Rage</span><span class="badge badge-critical">Krusial</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu15"><span class="check-box"></span><span class="check-text">Selesaikan Optional & Request Missions Ch.4 Wu</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu16"><span class="check-box"></span><span class="check-text">Tingkatkan Bond: Sun Ce, Sun Quan, Zhou Yu, Gan Ning</span></label>
           </div>
         </div>
         <div class="gc-chapter">
@@ -457,18 +579,12 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-wu-ch5">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
-            <div class="gc-sub-title">⭐ Aksi Krusial #2 — Selamatkan Sun Jian</div>
-            <div class="gc-tip">⚠ <strong>Battle of Chibi (Wu path)</strong> — Mekanisme sama dengan Wei: ikuti asap → gua → phantom boss.</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu12"><span class="check-box"></span><span class="check-text">⭐ ⚠ Ikuti jejak asap di tepi peta → temukan gua di sudut peta</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu13"><span class="check-box"></span><span class="check-text">⭐ Masuk gua → trigger boss battle: phantom Zhang Jiao</span><span class="badge badge-critical">Krusial</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu14"><span class="check-box"></span><span class="check-text">⭐ Kalahkan Zhang Jiao phantom sebelum Sun Jian terbunuh</span><span class="badge badge-critical">Krusial</span></label>
-            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips & Detail Boss</button><div class="tip-panel"><div class="tip-panel-inner"><div class="tip-row"><span class="tip-icon">📍</span><span><strong>Lokasi gua:</strong> Sudut barat daya peta — sama persis dengan jalur Wei</span></div><div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler Boss — Tap untuk buka</span><span class="spoiler-sub">Pattern & langkah setelah boss</span></div><div class="spoiler-content"><div class="tip-row"><span class="tip-icon">👾</span><span>Pattern boss sama dengan jalur Wei. Parry untuk counter, hindari lingkaran petir merah.</span></div><div class="tip-row"><span class="tip-icon">🏇</span><span><strong>Beda dari Wei:</strong> setelah phantom kalah, segera tunggangi kuda ke selatan menuju Sun Jian untuk trigger cutscene. Jangan diam di gua.</span></div></div></div><div class="tip-row"><span class="tip-icon">✅</span><span>Setelah cutscene Sun Jian selamat muncul, True Ending Wu terjamin.</span></div><div class="tip-search-links"><a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Sun+Jian+Chibi+True+Ending+Wu" target="_blank" rel="noopener" class="tip-search-btn yt">▶ Cari di YouTube</a></div></div></div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu15"><span class="check-box"></span><span class="check-text">Setelah phantom kalah → tunggangi kuda ke selatan → Sun Jian selamat</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu16"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi</span></label>
-            <div class="gc-sub-title">Lanjutan & Ending</div>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu17"><span class="check-box"></span><span class="check-text">Selesaikan battle final jalur Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu18"><span class="check-box"></span><span class="check-text">Saksikan Standard Ending Wu</span></label>
-            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu19"><span class="check-box"></span><span class="check-text">⭐ Saksikan True Ending Wu — Trophy: "The True Path to Harmony"</span><span class="badge badge-critical">Krusial</span></label>
+            <div class="gc-tip">✅ <strong>Syarat True Ending Wu sudah terpenuhi</strong> jika Sun Jian (Ch.3) dan Sun Ce (Ch.4) sudah diselamatkan. Ch.5 Wu tidak memerlukan aksi khusus — selesaikan battle seperti biasa.</div>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu17"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Sanjiangkou (tidak ada kondisi khusus)</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu18"><span class="check-box"></span><span class="check-text">Selesaikan Battle of Chibi (Wu path — tidak ada kondisi khusus untuk True Ending)</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu19"><span class="check-box"></span><span class="check-text">Selesaikan battle final Ch.5 jalur Wu</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu20"><span class="check-box"></span><span class="check-text">Saksikan Standard Ending Wu</span></label>
+            <label class="check-item" data-group="wu"><input type="checkbox" data-id="wu21"><span class="check-box"></span><span class="check-text">⭐ Saksikan True Ending Wu — Trophy: "The True Path to Harmony"</span><span class="badge badge-critical">Krusial</span></label>
           </div>
         </div>
       </div>
@@ -483,7 +599,21 @@
           <div class="gc-chapter-body">
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p1"><span class="check-box"></span><span class="check-text">Buka Story Tab di Inn → replay kampanye faksi lain</span></label>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p2"><span class="check-box"></span><span class="check-text">Saksikan semua 6 ending utama (3 standard + 3 true)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p3"><span class="check-box"></span><span class="check-text">Saksikan Guardians of Peace secret ending 🔒</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p3"><span class="check-box"></span><span class="check-text">⭐ Saksikan Guardians of Peace secret ending 🔒</span><span class="badge badge-critical">Krusial</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Cara Unlock Guardians of Peace Ending</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Syarat:</strong> (1) Selesaikan semua 6 ending (3 standard + 3 true ending) + (2) Max Peace Level semua provinsi + (3) Selesaikan Dream Battle</span></div>
+              <div class="spoiler-wrap"><div class="spoiler-overlay" onclick="revealSpoiler(this)"><span class="spoiler-label">⚠ Spoiler Ending — Tap untuk buka</span><span class="spoiler-sub">Isi cutscene Guardians of Peace</span></div><div class="spoiler-content">
+                <div class="tip-row"><span class="tip-icon">🎬</span><span>Setelah semua syarat terpenuhi dan selesaikan ending manapun, credits akan diikuti cutscene bunga peach blossom → kamera zoom ke Guardian's Jade</span></div>
+                <div class="tip-row"><span class="tip-icon">🗺️</span><span>Kamu akan dibawa ke World Map dan diminta kembali ke <strong>reruntuhan desa Ziluan</strong>. Di sana, Bailuan muncul dan berbicara damai tentang impian Zhuhe.</span></div>
+                <div class="tip-row"><span class="tip-icon">✨</span><span>Setelah ending ini unlock, ia akan selalu muncul di akhir game — terlepas apakah kamu dapat regular atau true ending.</span></div>
+              </div></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span><strong>Tips farming Peace:</strong> Cara tercepat adalah selesaikan semua optional missions dan character requests dari setiap faksi via Story Mode di Inn — lebih efisien dari grinding skirmishes.</span></div>
+              <div class="tip-search-links">
+                <a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+Guardians+of+Peace+secret+ending+unlock" target="_blank" rel="noopener" class="tip-search-btn yt">▶ YouTube</a>
+                <a href="https://www.google.com/search?q=Dynasty+Warriors+Origins+Guardians+of+Peace+ending+syarat" target="_blank" rel="noopener" class="tip-search-btn gg">🔍 Google</a>
+              </div>
+            </div></div>
           </div>
         </div>
         <div class="gc-chapter">
@@ -505,18 +635,23 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-p-col">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
+            <div class="gc-tip" style="display:flex;align-items:center;gap:0.6rem">
+              ⚔️ <span>Panduan lengkap semua senjata:</span>
+              <button onclick="showTab('senjata', document.querySelector('[onclick*=senjata]'))" style="font-family:var(--font-head);font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--c-gold);background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:2px 8px;cursor:pointer">Lihat Tab Senjata ⚔️</button>
+            </div>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p8"><span class="check-box"></span><span class="check-text">Kalahkan Lu Bu di Battle of Hulao Gate (difficulty bebas)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p9"><span class="check-box"></span><span class="check-text">Clear game minimal 1x → Lu Bu & Red Hare unlocked</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p10"><span class="check-box"></span><span class="check-text">Upgrade senjata ke Rank 11 (dibuka setelah clear main story)</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p9"><span class="check-box"></span><span class="check-text">Clear game minimal 1x → Lu Bu & Red Hare unlocked sebagai companion</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p10"><span class="check-box"></span><span class="check-text">Beli senjata Grade 7 (Epic) di shop — tersedia setelah clear main story, harga 70.000 gold</span></label>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p11"><span class="check-box"></span><span class="check-text">Kumpulkan semua Battle Arts</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p12"><span class="check-box"></span><span class="check-text">Kumpulkan semua weapon traits</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p12"><span class="check-box"></span><span class="check-text">Kumpulkan semua weapon traits via Reforge system</span></label>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p13"><span class="check-box"></span><span class="check-text">Kumpulkan semua Accessories</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p14"><span class="check-box"></span><span class="check-text">Kumpulkan semua Old Coin rewards</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p14"><span class="check-box"></span><span class="check-text">Kumpulkan semua Old Coin rewards dari challenge</span></label>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p15"><span class="check-box"></span><span class="check-text">Kumpulkan semua kuda (termasuk Red Hare)</span></label>
-            <label class="check-item" data-group="post"><input type="checkbox" data-id="p16"><span class="check-box"></span><span class="check-text">Max Bond semua officer dari semua faksi (via Story Tab replay)</span></label>
+            <label class="check-item" data-group="post"><input type="checkbox" data-id="p16"><span class="check-box"></span><span class="check-text">Max Bond semua officer dari semua faksi (via Story Tab replay di Inn)</span></label>
             <label class="check-item" data-group="post"><input type="checkbox" data-id="p17"><span class="check-box"></span><span class="check-text">Selesaikan semua Request Missions dari semua faksi</span></label>
           </div>
         </div>
+
       </div>
 
       <!-- ══ DLC ══ -->
@@ -528,12 +663,20 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-d-zhang">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d1"><span class="check-box"></span><span class="check-text">Install DLC & akses dari Penginapan</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d2"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar barat laut Ch.1 DLC → "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d3"><span class="check-box"></span><span class="check-text">⭐ ⚠ Pilih "Spare and Listen" saat HP Zhang Jiao habis</span><span class="badge badge-miss">Missable</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d4"><span class="check-box"></span><span class="check-text">Unlock senjata Bow (otomatis battle pertama)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d5"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Zhang Jiao → Trophy #1</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d6"><span class="check-box"></span><span class="check-text">[UC] Menangkan battle dengan 9+ Yellow Turban officer masih hidup</span></label>
+            <div class="gc-tip">🟣 Akses DLC dari Inn mulai Ch.2 main game. Disarankan clear main game dulu untuk level & senjata yang lebih kuat. Stats, level, dan weapon terbawa dari main game.</div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d1"><span class="check-box"></span><span class="check-text">Install DLC & akses dari Penginapan → pilih tidur → pilih Visions of Four Heroes</span></label>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d2"><span class="check-box"></span><span class="check-text">⭐ ⚠ Hancurkan altar tersembunyi di sudut barat laut map Ch.1 DLC → dapat "Way of Peace Scripture"</span><span class="badge badge-miss">Missable</span></label>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d3"><span class="check-box"></span><span class="check-text">⭐ ⚠ Saat HP Zhang Jiao habis → pilih "Spare and Listen" (butuh Way of Peace Scripture di inventory)</span><span class="badge badge-miss">Missable</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Kampanye Zhang Jiao</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">📖</span><span><strong>Premis:</strong> "What if" Zhang Jiao berhasil — kamu membantu Yellow Turban Rebellion meraih kemenangan. Zhuhe adalah partner utama.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Challenge UC:</strong> Menangkan "True Final Battle Against Yellow Turbans" dengan <strong>9+ Yellow Turban officer masih hidup</strong>. Fokus heal ally, jangan biarkan officer kalah.</span></div>
+              <div class="tip-row"><span class="tip-icon">🏹</span><span><strong>Senjata Bow</strong> unlock otomatis di battle pertama DLC. Training Ground untuk Bow tersedia setelah clear Zhang Jiao campaign.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Zhang Jiao campaign harus diselesaikan dulu sebelum bisa akses Dong Zhuo, Yuan Shao, atau Lu Bu.</span></div>
+            </div></div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d4"><span class="check-box"></span><span class="check-text">Unlock senjata Bow (otomatis di battle pertama DLC)</span></label>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d5"><span class="check-box"></span><span class="check-text">Selesaikan semua battle kampanye Zhang Jiao → Trophy #1</span></label>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d6"><span class="check-box"></span><span class="check-text">⭐ [UC] Menangkan True Final Battle dengan 9+ Yellow Turban officer masih hidup → Old Coin reward</span></label>
           </div>
         </div>
         <div class="gc-chapter">
@@ -542,11 +685,42 @@
             <div class="gc-chapter-meta"><span class="gc-chapter-counter" id="mp-d-rest">0/0</span><span class="gc-chevron">▼</span></div>
           </div>
           <div class="gc-chapter-body">
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d7"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Dong Zhuo</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d8"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Yuan Shao</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d9"><span class="check-box"></span><span class="check-text">Unlock senjata Rope Dart (battle ke-3 Yuan Shao)</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d10"><span class="check-box"></span><span class="check-text">Selesaikan kampanye Lu Bu</span></label>
-            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d11"><span class="check-box"></span><span class="check-text">⭐ Selesaikan True Ending DLC (butuh semua 4 kampanye)</span><span class="badge badge-critical">Krusial</span></label>
+            <div class="gc-sub-title">🔴 Dong Zhuo</div>
+            <div class="gc-tip">Unlock setelah clear Zhang Jiao + reach Ch.3 main game. Premis: bantu Dong Zhuo menguasai Han dynasty.</div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d7"><span class="check-box"></span><span class="check-text">Battle 1: Kalahkan Zhang Rang sebelum mencapai titik kabur (kalahkan Dong Zhuo tidak diizinkan kalah)</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Dong Zhuo Campaign</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Battle 1:</strong> Kalahkan Zhang Rang sebelum ia mencapai titik kabur. Langsung rush ke Zhang Rang dari awal — abaikan musuh kecil.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Battle 2 (Expeditionary Forces):</strong> Kalahkan Yuan Shao, Cao Cao, dan Sun Jian. Fokus satu per satu — mulai dari yang HP rendah.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Diaochan menjadi companion baru di Dong Zhuo campaign. Manfaatkan True Musou-nya untuk area clear.</span></div>
+            </div></div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d8"><span class="check-box"></span><span class="check-text">Selesaikan semua battle kampanye Dong Zhuo</span></label>
+
+            <div class="gc-sub-title">🟡 Yuan Shao</div>
+            <div class="gc-tip">Unlock setelah clear Zhang Jiao + reach Ch.5 main game. Premis: bantu Yuan Shao menang melawan Cao Cao di Guandu.</div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d9"><span class="check-box"></span><span class="check-text">Unlock senjata Rope Dart (otomatis saat campaign Yuan Shao)</span></label>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Yuan Shao Campaign</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">🪢</span><span><strong>Rope Dart</strong> adalah senjata jarak-menengah baru dengan moveset unik — cocok untuk penarik musuh dari jarak jauh + area damage.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span>Fokus jaga Yuan Shao tetap hidup sepanjang battle — morale army sangat penting di kampanye ini.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Training Ground untuk Rope Dart tersedia setelah unlock senjata ini di Yuan Shao campaign.</span></div>
+            </div></div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d10_1"><span class="check-box"></span><span class="check-text">Selesaikan semua battle kampanye Yuan Shao</span></label>
+
+            <div class="gc-sub-title">⚫ Lu Bu</div>
+            <div class="gc-tip">Unlock setelah clear Zhang Jiao + reach Ch.5 main game. Premis: bantu Lu Bu di Battle of Xiapi — hindari pengepungan total.</div>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Lu Bu Campaign</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">⚔️</span><span><strong>Premis:</strong> Battle of Xiapi dari perspektif Lu Bu — pertahankan benteng dari pengepungan Cao Cao + Liu Bei.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span>Untuk trophy: selesaikan Battle of Xiapi dengan <strong>zero allied officer retreats</strong> — jaga semua ally hidup sepanjang battle.</span></div>
+              <div class="tip-row"><span class="tip-icon">🏇</span><span>Lu Bu sebagai companion di kampanye ini sangat overpowered — manfaatkan True Musou-nya untuk boss fight.</span></div>
+              <div class="tip-row"><span class="tip-icon">💡</span><span>Disarankan mainkan Lu Bu campaign terakhir untuk efisiensi trophy hunting (PSNProfiles recommendation).</span></div>
+            </div></div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d10"><span class="check-box"></span><span class="check-text">Selesaikan semua battle kampanye Lu Bu</span></label>
+
+            <div class="gc-sub-title">⭐ True Ending DLC</div>
+            <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d11"><span class="check-box"></span><span class="check-text">⭐ Selesaikan semua 4 kampanye → unlock True Ending DLC — "Visions Fulfilled"</span><span class="badge badge-critical">Krusial</span></label>
+            <div class="gc-tip">💡 True Ending DLC terbuka otomatis setelah clear semua 4 kampanye. Tidak ada kondisi missable tambahan — cukup selesaikan semua kampanye.</div>
           </div>
         </div>
         <div class="gc-chapter">
@@ -572,6 +746,83 @@
             <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d26"><span class="check-box"></span><span class="check-text">Kalahkan musuh dengan Unit Action di overworld → Trophy #9</span></label>
             <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d27"><span class="check-box"></span><span class="check-text">Selesaikan semua Strategic Battles DLC</span></label>
             <label class="check-item" data-group="dlc"><input type="checkbox" data-id="d28"><span class="check-box"></span><span class="check-text">Trophy #10–12: cek in-game DLC achievement list</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SENJATA ══ -->
+      <div class="gc-tab-section" id="tab-senjata">
+        <div class="gc-tip" style="margin-bottom:1.25rem">⚔️ <strong>Panduan Senjata DWO.</strong> Grade 1–6 dari shop/drop &middot; Grade 7 Epic dari post-game shop &middot; Grade 8 Luan dari Ultimate Warrior challenges.</div>
+
+        <div class="gc-chapter open">
+          <div class="gc-chapter-header" onclick="toggleChapter(this)">
+            <div class="gc-chapter-title"><span class="gc-faction-dot" style="background:var(--c-gold)"></span>Sistem Senjata &amp; Reforge</div>
+            <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+          </div>
+          <div class="gc-chapter-body">
+            <table class="gc-table">
+              <tr><th>Grade</th><th>Nama</th><th>Cara Dapat</th><th>Attack</th></tr>
+              <tr><td>1–4</td><td>Normal</td><td>Shop awal, enemy drop</td><td>—</td></tr>
+              <tr><td>5–6</td><td>Normal+</td><td>Shop mid-game, challenge reward</td><td>—</td></tr>
+              <tr><td>7</td><td><strong>Epic</strong></td><td>Post-game shop (70.000 gold), NG+ drop officer</td><td>~450–500</td></tr>
+              <tr><td>8</td><td><strong>Luan ⭐</strong></td><td>Ultimate Warrior challenge (post-game only)</td><td><strong>624</strong></td></tr>
+            </table>
+            <div class="gc-sub-title">Reforge System</div>
+            <div class="gc-tip">💡 Reforge = gabungkan 2 senjata Grade 7 sejenis &rarr; transfer 1 trait terbaik ke senjata utama. Selalu cari Grade 7 dengan <strong>6 slot trait</strong> sebagai base weapon.</div>
+            <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Optimasi Senjata</button>
+            <div class="tip-panel"><div class="tip-panel-inner">
+              <div class="tip-row"><span class="tip-icon">🔨</span><span><strong>Step 1:</strong> Cari Grade 7 dengan <strong>6 slot trait</strong> — ini yang paling penting.</span></div>
+              <div class="tip-row"><span class="tip-icon">🔨</span><span><strong>Step 2:</strong> Kumpulkan Grade 7 sejenis dengan trait bagus &rarr; Reforge satu per satu ke base weapon.</span></div>
+              <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Prioritas trait:</strong> Damage boost &gt; Musou gain &gt; Fortitude break &gt; Attack speed.</span></div>
+              <div class="tip-row"><span class="tip-icon">⭐</span><span>Grade 8 Luan sudah punya trait bawaan kuat — tidak perlu di-Reforge, langsung pakai.</span></div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="gc-chapter open">
+          <div class="gc-chapter-header" onclick="toggleChapter(this)">
+            <div class="gc-chapter-title"><span class="gc-faction-dot" style="background:var(--c-gold)"></span>Senjata Luan Grade 8 (Ultimate)</div>
+            <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+          </div>
+          <div class="gc-chapter-body">
+            <div class="gc-tip">⚠️ Semua senjata Luan hanya bisa didapat di <strong>Ultimate Warrior difficulty</strong> — hanya tersedia setelah clear main game 1x. Cek challenge di Inn &rarr; Story panel &rarr; pilih battle &rarr; tekan Square/X.</div>
+            <table class="gc-table">
+              <tr><th>Senjata</th><th>Jenis</th><th>Battle</th><th>Kondisi Challenge</th></tr>
+              <tr><td><strong>Luan Halberd</strong></td><td>Halberd</td><td>Battle of Hulao Gate (Ch.2)</td><td>Kalahkan Lu Bu — Ultimate Warrior</td></tr>
+              <tr><td><strong>Luan Twin Pikes</strong></td><td>Twin Pikes</td><td>Battle of Xiapi (Ch.4)</td><td>Kalahkan Zhang Liao tanpa gunakan flood attack</td></tr>
+              <tr><td><strong>Luan Sword</strong></td><td>Sword</td><td>Yellow Turban Final Battle (Ch.1)</td><td>Selesaikan dalam batas waktu</td></tr>
+              <tr><td>Luan Staff</td><td>Staff</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Lance</td><td>Lance</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Crescent Blade</td><td>Crescent Blade</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Chakram</td><td>Chakram</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Fists</td><td>Fists</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Podao</td><td>Podao</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td>Luan Spear</td><td>Spear</td><td colspan="2">Cek Inn Story panel (Challenge reward)</td></tr>
+              <tr><td><em>Luan Bow (DLC)</em></td><td>Bow</td><td colspan="2">DLC Zhang Jiao — Ultimate Warrior</td></tr>
+              <tr><td><em>Luan Rope Dart (DLC)</em></td><td>Rope Dart</td><td colspan="2">DLC Yuan Shao — Ultimate Warrior</td></tr>
+            </table>
+            <div style="margin-top:0.75rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+              <a href="https://www.youtube.com/results?search_query=Dynasty+Warriors+Origins+all+grade+8+luan+weapons" target="_blank" rel="noopener" class="tip-search-btn yt" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-head);font-size:0.68rem;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:var(--radius-sm);text-decoration:none">&#9654; YouTube</a>
+              <a href="https://game8.co/games/Dynasty-Warriors-Origins/archives/494491" target="_blank" rel="noopener" class="tip-search-btn gg" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-head);font-size:0.68rem;font-weight:700;text-transform:uppercase;padding:3px 10px;border-radius:var(--radius-sm);text-decoration:none">&#128214; Game8</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="gc-chapter">
+          <div class="gc-chapter-header" onclick="toggleChapter(this)">
+            <div class="gc-chapter-title"><span class="gc-faction-dot" style="background:var(--c-gold)"></span>Rekomendasi per Playstyle</div>
+            <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+          </div>
+          <div class="gc-chapter-body">
+            <table class="gc-table">
+              <tr><th>Playstyle</th><th>Senjata</th><th>Alasan</th></tr>
+              <tr><td>⚡ Cepat &amp; agresif</td><td>Sword / Twin Pikes / Fists</td><td>Combo cepat, hit banyak</td></tr>
+              <tr><td>💪 Damage besar</td><td>Halberd / Podao / Crescent Blade</td><td>Damage/hit tinggi, bagus vs boss</td></tr>
+              <tr><td>🔄 Area control</td><td>Staff / Chakram / Lance</td><td>Wide sweep, baik keroyokan</td></tr>
+              <tr><td>🎯 Jarak (DLC)</td><td>Bow</td><td>Range attack unik</td></tr>
+              <tr><td>🪢 Fleksibel (DLC)</td><td>Rope Dart</td><td>Hybrid jarak + tarik musuh</td></tr>
+            </table>
+            <div class="gc-tip" style="margin-top:0.75rem">💡 <strong>Early-mid game terbaik:</strong> Twin Pikes (dari Zhang Liao reward Ch.2). Ganti ke Grade 7/8 setelah post-game unlock.</div>
           </div>
         </div>
       </div>
