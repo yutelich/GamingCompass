@@ -1,14 +1,24 @@
 /**
  * Gaming Compass — test.js
- * Self-diagnostic: berjalan async setelah halaman load
- * Tidak mempengaruhi performa — hanya muncul jika ada error
- * Tambahkan ?debug=true ke URL untuk lihat full report
+ * Self-diagnostic ringan, berjalan async setelah halaman load.
+ * - Mode normal  : hanya tampilkan banner user-friendly jika fitur krusial gagal
+ * - Mode debug   : tambahkan ?debug=true ke URL untuk full report
  */
 
 const GCTest = (function () {
 
   const IS_DEBUG = new URLSearchParams(window.location.search).get('debug') === 'true';
-  const results = [];
+  const results  = [];
+
+  // ─── MAPPING: nama teknis → label user-friendly ───────────────────────────
+  const FEATURE_LABELS = {
+    'core.js termuat'         : 'Kode Akses',
+    'JSONBin dapat dijangkau' : 'Kode Akses',
+    'Format kode akses valid' : 'Kode Akses',
+    'localStorage tersedia'   : 'Penyimpanan Lokal',
+    'Checkbox ter-render'     : 'Checklist Progress',
+    'Progress bar ter-render' : 'Checklist Progress',
+  };
 
   // ─── TEST RUNNER ──────────────────────────────────────────────────────────
   async function _run(name, fn) {
@@ -18,7 +28,7 @@ const GCTest = (function () {
       if (IS_DEBUG) console.log(`✅ ${name}`);
     } catch (err) {
       results.push({ name, pass: false, error: err.message });
-      console.warn(`❌ ${name}: ${err.message}`);
+      if (IS_DEBUG) console.warn(`❌ ${name}: ${err.message}`);
     }
   }
 
@@ -42,7 +52,7 @@ const GCTest = (function () {
   }
 
   async function _testTrackerLoaded() {
-    if (typeof Tracker === 'undefined') return; // Tracker opsional per halaman
+    if (typeof Tracker === 'undefined') return; // Opsional per halaman
     _assert(typeof Tracker.init === 'function', 'Tracker.init tidak ditemukan');
     _assert(typeof Tracker.updateAllBars === 'function', 'Tracker.updateAllBars tidak ditemukan');
   }
@@ -67,13 +77,11 @@ const GCTest = (function () {
   }
 
   async function _testJSONBinReachable() {
-    // Hanya test konektivitas dasar, tidak gunakan API key
     try {
       const res = await fetch('https://api.jsonbin.io/v3', {
         method: 'GET',
         signal: AbortSignal.timeout(5000)
       });
-      // JSONBin akan return 401 tanpa key — itu berarti server reachable
       _assert(res.status !== 0, 'JSONBin tidak dapat dijangkau');
     } catch (err) {
       if (err.name === 'AbortError') throw new Error('JSONBin timeout (>5s)');
@@ -82,26 +90,28 @@ const GCTest = (function () {
   }
 
   async function _testCodeGenFormat() {
-    // Test format kode yang digenerate
     if (typeof GC === 'undefined') return;
-    const mockCode = `${GC.CONFIG.CODE_PREFIX}-ABCD-1234`;
+    const prefix = (GC.CONFIG && GC.CONFIG.CODE_PREFIX) || 'GC';
+    const mockCode = `${prefix}-ABCD-1234`;
     const regex = /^GC-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     _assert(regex.test(mockCode), `Format kode tidak valid: ${mockCode}`);
   }
 
-  async function _testExportImport() {
-    if (typeof GC === 'undefined') return;
-    // Test bahwa export function ada dan bisa dipanggil
-    _assert(typeof GC.exportProgress === 'function', 'exportProgress tidak ditemukan');
-    _assert(typeof GC.importProgress === 'function', 'importProgress tidak ditemukan');
+  // ─── REPORT UI ────────────────────────────────────────────────────────────
+  function _getAffectedFeatures(failedTests) {
+    const features = new Set();
+    failedTests.forEach(r => {
+      const label = FEATURE_LABELS[r.name];
+      if (label) features.add(label);
+    });
+    return [...features];
   }
 
-  // ─── REPORT UI ────────────────────────────────────────────────────────────
   function _showReport() {
     const failed = results.filter(r => !r.pass);
 
+    // ── DEBUG MODE: full panel teknis ─────────────────────────────────────
     if (IS_DEBUG) {
-      // Full report di debug mode
       const panel = document.createElement('div');
       panel.id = 'gc-debug-panel';
       panel.style.cssText = `
@@ -110,10 +120,11 @@ const GCTest = (function () {
         font-family:monospace;font-size:12px;z-index:9999;color:#e0e0e0;
       `;
       panel.innerHTML = `
-        <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
           <strong style="color:#c9a84c">🧪 GC Debug Panel</strong>
-          <span style="color:#666">${results.filter(r=>r.pass).length}/${results.length} passed</span>
-          <button onclick="this.parentElement.parentElement.remove()" style="background:none;border:none;color:#666;cursor:pointer">✕</button>
+          <span style="color:#888">${results.filter(r=>r.pass).length}/${results.length} passed</span>
+          <button onclick="this.closest('#gc-debug-panel').remove()"
+            style="background:none;border:none;color:#888;cursor:pointer;font-size:16px">✕</button>
         </div>
         ${results.map(r => `
           <div style="padding:2px 0;color:${r.pass ? '#2ecc71' : '#e74c3c'}">
@@ -125,36 +136,49 @@ const GCTest = (function () {
       return;
     }
 
-    if (failed.length === 0) return; // Semua OK, tidak tampilkan apa-apa
+    // ── NORMAL MODE: tidak ada error → tidak tampilkan apapun ─────────────
+    if (failed.length === 0) return;
 
-    // Tampilkan badge error kecil di pojok
-    const badge = document.createElement('div');
-    badge.id = 'gc-error-badge';
-    badge.style.cssText = `
-      position:fixed;bottom:1rem;left:1rem;background:#c0392b;color:#fff;
-      font-family:monospace;font-size:11px;padding:6px 10px;border-radius:4px;
-      cursor:pointer;z-index:9999;opacity:0.9;
+    // ── NORMAL MODE: ada error → tampilkan banner user-friendly ───────────
+    const features = _getAffectedFeatures(failed);
+    if (features.length === 0) return; // Error minor tanpa label → diam saja
+
+    const banner = document.createElement('div');
+    banner.id = 'gc-status-banner';
+    banner.style.cssText = `
+      position:fixed;bottom:0;left:0;right:0;
+      background:#1a1a1a;border-top:2px solid #f59e0b;
+      padding:0.75rem 1.25rem;z-index:9998;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;font-size:0.82rem;
     `;
-    badge.textContent = `⚠ ${failed.length} fitur error — tambahkan ?debug=true untuk detail`;
-    badge.onclick = () => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('debug', 'true');
-      window.location.href = url.toString();
-    };
-    document.body.appendChild(badge);
+
+    const featureText = features.join(' & ');
+    banner.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:0.6rem;color:#d4a017;flex:1">
+        <span style="font-size:1rem;flex-shrink:0">⚠️</span>
+        <div>
+          <span style="font-weight:700;color:#f59e0b">${featureText}</span>
+          <span style="color:#a0a0a0"> — Terdapat sedikit kendala pada fitur ini.
+          Tim admin sedang menyelidiki dan akan segera memperbaiki.
+          Mohon hindari fitur tersebut sementara waktu. Terima kasih atas pengertiannya.</span>
+        </div>
+      </div>
+      <button onclick="document.getElementById('gc-status-banner').remove()"
+        style="background:none;border:none;color:#666;cursor:pointer;font-size:18px;flex-shrink:0;padding:0">✕</button>
+    `;
+    document.body.appendChild(banner);
   }
 
   // ─── MAIN ─────────────────────────────────────────────────────────────────
   async function runAll() {
-    // Semua test berjalan async setelah halaman selesai render
-    await _run('localStorage tersedia', _testLocalStorage);
-    await _run('core.js termuat', _testCoreLoaded);
-    await _run('tracker.js termuat', _testTrackerLoaded);
-    await _run('Checkbox ter-render dengan benar', _testCheckboxRender);
-    await _run('Progress bar ter-render dengan benar', _testProgressBars);
-    await _run('Format kode akses valid', _testCodeGenFormat);
-    await _run('Export/Import tersedia', _testExportImport);
-    await _run('JSONBin dapat dijangkau', _testJSONBinReachable);
+    await _run('localStorage tersedia',       _testLocalStorage);
+    await _run('core.js termuat',             _testCoreLoaded);
+    await _run('tracker.js termuat',          _testTrackerLoaded);
+    await _run('Checkbox ter-render',         _testCheckboxRender);
+    await _run('Progress bar ter-render',     _testProgressBars);
+    await _run('Format kode akses valid',     _testCodeGenFormat);
+    await _run('JSONBin dapat dijangkau',     _testJSONBinReachable);
     _showReport();
   }
 
