@@ -166,14 +166,7 @@ const GCModal = (function () {
     // Tap to copy on code display
     document.getElementById('gc-new-code')?.addEventListener('click', () => GCModal.copyCode(code));
 
-    // Inject Trakteer button ke slot
-    setTimeout(() => {
-      const slot = document.getElementById('gc-trakteer-slot');
-      const trakteerEl = document.getElementById('gc-trakteer-fixed');
-      if (slot && trakteerEl) {
-        slot.appendChild(trakteerEl.cloneNode(true));
-      }
-    }, 100);
+    // Trakteer ditampilkan via finishAuth setelah user klik "Mulai Gunakan"
   }
 
   // ─── ACTIONS ──────────────────────────────────────────────────────────────
@@ -216,8 +209,36 @@ const GCModal = (function () {
     _updateNavCode();
     if (typeof Tracker !== 'undefined') Tracker.init(window.GC_GAME_SLUG || 'unknown');
     if (_onAuthSuccess) _onAuthSuccess('code');
-    // Reload ringan untuk re-render checklist state
+    // Set flag — Trakteer akan ditampilkan setelah reload selesai
+    sessionStorage.setItem('gc_show_trakteer', '1');
+    // Reload untuk re-render checklist state
     window.location.reload();
+  }
+
+  function _showTrakteerFixed() {
+    // Tampilkan floating Trakteer button (dipanggil setelah halaman load)
+    const el = document.getElementById('gc-trakteer-fixed');
+    if (el) {
+      el.style.display = 'flex';
+      // Auto-hide setelah 8 detik dengan fade out
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.6s';
+        el.style.opacity = '0';
+        setTimeout(() => {
+          el.style.display = 'none';
+          el.style.opacity = '1';
+          el.style.transition = '';
+        }, 600);
+      }, 8000);
+    }
+  }
+
+  // Cek flag setelah halaman load — tampilkan Trakteer jika baru login
+  function _checkTrakteerFlag() {
+    if (sessionStorage.getItem('gc_show_trakteer')) {
+      sessionStorage.removeItem('gc_show_trakteer');
+      setTimeout(_showTrakteerFixed, 800); // Delay sedikit agar page selesai render
+    }
   }
 
   async function copyCode(code) {
@@ -289,6 +310,13 @@ const GCModal = (function () {
     }
     // mode 'code' atau 'guest' → langsung lanjut, tidak perlu modal
     return result;
+  }
+
+  // Auto-run: cek flag Trakteer setelah page load (hasil redirect dari login)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _checkTrakteerFlag);
+  } else {
+    _checkTrakteerFlag();
   }
 
   return {
