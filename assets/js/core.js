@@ -13,7 +13,8 @@
 const GC = (function () {
 
   // ─── CONFIG ───────────────────────────────────────────────────────────────
-  const CONFIG = {
+  // ── SATU-SATUNYA TEMPAT ISI API KEY — isi di sini, berlaku untuk semua halaman ──
+ const CONFIG = {
     JSONBIN_API_KEY: '$2a$10$VFA8BfmxCnPmR4nZk/qxd..3oQptVimsCT5/ZEF265dcwY8LIfJZK', // Ganti dengan Master Key JSONBin kamu
     JSONBIN_BASE: 'https://api.jsonbin.io/v3',
     // INDEX_BIN_ID: bin khusus yang menyimpan mapping { code -> binId }
