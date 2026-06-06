@@ -290,33 +290,12 @@ const GC = (function () {
   /**
    * Export progress sebagai JSON (untuk backup manual)
    */
-  function exportProgress() {
-    const blob = new Blob([JSON.stringify(_state.data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `gaming-compass-backup-${_state.code || 'guest'}.json`;
-    a.click();
-  }
 
   /**
    * Import progress dari file JSON (restore backup)
    * Setelah import, otomatis push ke JSONBin
    */
-  async function importProgress(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        try {
-          const data = JSON.parse(e.target.result);
-          const migrated = _migrateData(data);
-          _state.data = migrated;
-          if (_state.binId) await _updateBin(_state.binId, migrated);
-          resolve(migrated);
-        } catch (err) { reject(err); }
-      };
-      reader.readAsText(file);
-    });
-  }
+  
 
   // Getter state
   function getState() { return { ..._state }; }
@@ -333,8 +312,6 @@ const GC = (function () {
     getProgress,
     setProgress,
     setProgressBulk,
-    exportProgress,
-    importProgress,
     getState,
     isLoggedIn,
     isGuest,
