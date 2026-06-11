@@ -241,6 +241,147 @@
   .type-bug    { background: rgba(132,204,22,0.15); color: #a3e635; border: 1px solid rgba(132,204,22,0.3); }
 
   /* ── Mobile ─────────────────────────────────── */
+  /* ── Download TXT popup ─────────────────── */
+  .gc-download-bar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid rgba(74,222,128,0.25);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .gc-download-bar-text {
+    font-size: 0.82rem;
+    color: var(--c-text-2);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .gc-download-bar-text strong { color: #4ade80; }
+  .btn-download-txt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #4ade80;
+    color: #0a0a0a;
+    font-family: var(--font-head);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .btn-download-txt:hover { background: #86efac; transform: translateY(-1px); }
+  .btn-download-txt:active { transform: translateY(0); }
+
+  /* Download popup overlay */
+  #gc-dl-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  #gc-dl-overlay.open { display: flex; }
+  .gc-dl-modal {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.75rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  .gc-dl-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .gc-dl-title {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--c-text);
+    margin-bottom: 0.35rem;
+  }
+  .gc-dl-sub {
+    font-size: 0.82rem;
+    color: var(--c-text-3);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+  .gc-dl-countdown {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #4ade80;
+    margin-bottom: 0.5rem;
+  }
+  .gc-dl-progress-track {
+    background: var(--c-surface-2);
+    border-radius: 99px;
+    height: 4px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .gc-dl-progress-fill {
+    height: 100%;
+    background: #4ade80;
+    border-radius: 99px;
+    width: 0%;
+    transition: width 1s linear;
+  }
+  .gc-dl-divider {
+    border: none;
+    border-top: 1px solid var(--c-border);
+    margin: 1rem 0;
+  }
+  .gc-dl-donate-text {
+    font-size: 0.85rem;
+    color: var(--c-text-2);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .gc-dl-donate-text strong { color: var(--c-text); }
+  .btn-donate-trakteer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #04B7A6;
+    color: #fff;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background 0.2s;
+    margin-bottom: 0.6rem;
+  }
+  .btn-donate-trakteer:hover { background: #03a394; }
+  .gc-dl-skip {
+    font-size: 0.72rem;
+    color: var(--c-text-3);
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    padding: 0.25rem;
+  }
+  .gc-dl-skip:hover { color: var(--c-text-2); }
+
   @media (max-width: 640px) {
     .gc-game-hero { margin-top: 0 !important; border-radius: 0; }
     .gc-game-hero-bg { aspect-ratio: 16/9; position: relative; }
@@ -332,6 +473,40 @@
 
   <!-- MAIN CONTENT -->
   <main class="gc-content">
+
+    <!-- Download TXT Bar -->
+    <div class="gc-download-bar">
+      <div class="gc-download-bar-text">
+        🕹️ <strong>Butuh guide versi .txt untuk dipasang di console?</strong><br>
+        Download versi teks yang bisa dibuka langsung di GBA emulator, RetroArch, atau console apapun.
+      </div>
+      <button class="btn-download-txt" onclick="startDownload()">
+        ⬇ Download Guide .txt
+      </button>
+    </div>
+
+    <!-- Download Popup Overlay -->
+    <div id="gc-dl-overlay">
+      <div class="gc-dl-modal">
+        <span class="gc-dl-icon">📄</span>
+        <div class="gc-dl-title">Menyiapkan File...</div>
+        <div class="gc-dl-sub">Guide versi .txt sedang disiapkan.<br>Download akan dimulai dalam:</div>
+        <div class="gc-dl-countdown" id="dl-countdown">5</div>
+        <div class="gc-dl-progress-track">
+          <div class="gc-dl-progress-fill" id="dl-progress"></div>
+        </div>
+        <hr class="gc-dl-divider">
+        <div class="gc-dl-donate-text">
+          ☕ <strong>Suka dengan guide versi kami?</strong><br>
+          Dukung kami supaya terus bisa bikin guide game lainnya — gratis, bahasa Indonesia, untuk sesama gamer.
+        </div>
+        <a href="https://trakteer.id/yudith2/tip" target="_blank" rel="noopener" class="btn-donate-trakteer">
+          <img src="https://trakteer.id/images/mix/coffee.png" width="18" height="18" alt="">
+          Dukung Gaming Compass di Trakteer ☕
+        </a>
+        <button class="gc-dl-skip" onclick="skipDonate()">Lewati</button>
+      </div>
+    </div>
 
     <!-- Tab Nav -->
     <div class="gc-game-tabs" style="display:flex;flex-wrap:nowrap;gap:0.25rem;margin-bottom:1.5rem;overflow-x:auto;padding-bottom:0.25rem">
@@ -1367,6 +1542,77 @@ A47E0D4C 0A0000A6
   window.addEventListener('load', () => {
     loadHeroBanner();
     initNav();
+  });
+
+  // ── Download TXT logic ─────────────────────────────────────────
+  var dlTimer = null;
+  var dlSeconds = 5;
+
+  function startDownload() {
+    // Reset state
+    dlSeconds = 5;
+    var overlay = document.getElementById('gc-dl-overlay');
+    var countdown = document.getElementById('dl-countdown');
+    var progress = document.getElementById('dl-progress');
+    var title = document.querySelector('.gc-dl-title');
+    var sub = document.querySelector('.gc-dl-sub');
+
+    // Reset tampilan
+    countdown.textContent = '5';
+    progress.style.transition = 'none';
+    progress.style.width = '0%';
+    title.textContent = 'Menyiapkan File...';
+    sub.innerHTML = 'Guide versi .txt sedang disiapkan.<br>Download akan dimulai dalam:';
+    countdown.style.display = 'block';
+
+    overlay.classList.add('open');
+
+    // Trigger progress bar animation
+    setTimeout(function() {
+      progress.style.transition = 'width 5s linear';
+      progress.style.width = '100%';
+    }, 50);
+
+    // Countdown
+    dlTimer = setInterval(function() {
+      dlSeconds--;
+      countdown.textContent = dlSeconds;
+      if (dlSeconds <= 0) {
+        clearInterval(dlTimer);
+        // Trigger actual download
+        triggerDownload();
+        // Update modal UI ke "Selesai"
+        title.textContent = 'Download Dimulai! ✅';
+        sub.innerHTML = 'File <strong>guide-unbound.txt</strong> sedang diunduh.<br>Terima kasih sudah pakai guide Gaming Compass!';
+        countdown.style.display = 'none';
+      }
+    }, 1000);
+  }
+
+  function triggerDownload() {
+    var link = document.createElement('a');
+    link.href = 'guide-unbound.txt';
+    link.download = 'Pokemon-Unbound-Guide-GamingCompass.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function skipDonate() {
+    clearInterval(dlTimer);
+    var overlay = document.getElementById('gc-dl-overlay');
+    overlay.classList.remove('open');
+    // Kalau countdown belum habis, tetap trigger download
+    if (dlSeconds > 0) {
+      triggerDownload();
+    }
+  }
+
+  // Tutup overlay kalau klik di luar modal
+  document.getElementById('gc-dl-overlay')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      skipDonate();
+    }
   });
 </script>
 </body>
