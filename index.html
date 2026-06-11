@@ -525,6 +525,26 @@
         </div>
       </div>
     </a>
+    <!-- Pokemon Unbound card -->
+    <a href="games/unbound/" class="gc-game-card">
+      <div class="gc-game-card-cover">
+        <img id="sgdb-cover-unbound"
+             src=""
+             alt="Pokemon Unbound"
+             style="width:100%;height:100%;object-fit:cover;display:none"
+             onerror="this.style.display='none';document.getElementById('sgdb-placeholder-unbound').style.display='flex'">
+        <div id="sgdb-placeholder-unbound" class="gc-game-card-cover-placeholder"
+             style="background:linear-gradient(135deg,#1a0000,#8b0000)">⚡</div>
+      </div>
+      <div class="gc-game-card-info">
+        <div class="gc-game-card-title">Pokémon Unbound</div>
+        <div class="gc-game-card-meta">GBA · ROM Hack · v2.1.1.1</div>
+        <div class="gc-game-card-progress" id="progress-bar-unbound">
+          <div class="gc-game-card-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+    </a>
+
     <!-- Coming Soon: static blur image, no game info -->
     <div class="gc-game-card" style="cursor:default;pointer-events:none">
       <div class="gc-game-card-cover" style="position:relative;overflow:hidden">
@@ -729,8 +749,7 @@
   // Config per game: { slug, query, sgdbId (opsional — lebih akurat) }
   const GAME_ART = [
     { id: 'dwo', query: 'Dynasty Warriors Origins', sgdbId: 5453515 },
-    // Tambah game baru di sini:
-    // { id: 'game2', query: 'Nama Game', sgdbId: null },
+    { id: 'unbound', query: 'Pokemon Unbound GBA', sgdbId: null },
   ];
 
   async function fetchGameArt(game) {
