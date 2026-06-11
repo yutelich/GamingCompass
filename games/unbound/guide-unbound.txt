@@ -1,0 +1,440 @@
+================================================================
+  POKEMON UNBOUND — GUIDE LENGKAP BAHASA INDONESIA
+  by Gaming Compass | yutelich.github.io/GamingCompass
+  Versi: v2.1.1.1 | Update: Juni 2026
+================================================================
+
+Untuk guide interaktif lengkap dengan tips, spoiler toggle,
+dan update terbaru, kunjungi:
+https://yutelich.github.io/GamingCompass/games/unbound/
+
+================================================================
+  DAFTAR ISI
+================================================================
+  1. Info Dasar & Starter
+  2. Difficulty Mode
+  3. Fitur QoL Penting
+  4. Gym Guide (8 Gym + Gimmick)
+  5. Cheat Codes
+  6. Unlock Mega Evolution
+  7. Mission Guide & Milestone
+  8. Legendary (26 total)
+  9. Training & EV Guide
+  10. Post-Game
+
+================================================================
+  1. INFO DASAR & STARTER
+================================================================
+
+Pokemon Unbound adalah ROM hack GBA berbasis Pokemon Fire Red
+buatan Skeli. Region: Borrius. Gen 1-8. 800+ Pokemon.
+Versi terbaru: v2.1.1.1.
+
+PILIH STARTER:
+--------------
+[GIBLE] Dragon/Ground -> Garchomp
+  - TERBAIK OVERALL. Speed + Attack brutal, coverage luas.
+  - Mega Stone (Garchompite): Shadow Base 1F
+  - Cocok untuk player yang suka agresif.
+
+[BELDUM] Steel/Psychic -> Metagross
+  - Tank solid, tahan banyak type.
+  - Mega Stone: Shadow Base 1F (butuh Level 2 Keycard)
+    ATAU reward Mission #050: Portal Purge
+  - CATATAN di mode Insane: lokasi Mega Stone berbeda
+    (Crystal Peak, reward dari Marlon)
+  - Evolusi lambat: Beldum Lv20 -> Metang, Lv45 -> Metagross
+
+[LARVITAR] Rock/Ground -> Tyranitar
+  - PALING SUSAH di awal! 4x lemah Grass, tapi Gym 1 Grass.
+  - Mega Stone (Tyranitarite): Shadow Base 1F
+  - Hanya untuk yang suka challenge.
+
+================================================================
+  2. DIFFICULTY MODE
+================================================================
+
+VANILLA/CASUAL : Santai, untuk pemula
+DIFFICULT      : Trainer pakai held items, moveset lebih baik
+EXPERT         : AI cerdas, EV/IV dioptimasi, gym lebih brutal
+INSANE         : No items in battle, level scaling ketat,
+                 field effects tambahan. SANGAT UNFAIR.
+
+!! JANGAN langsung pilih Insane kalau baru pertama main !!
+
+LEVEL SCALING:
+  - Gym leader/boss: menyesuaikan ke Pokemon TERTINGGI di party
+  - Random trainer: menyesuaikan ke Pokemon TERENDAH di party
+  -> Jaga party supaya tidak terlalu jomplang levelnya!
+
+================================================================
+  3. FITUR QoL PENTING
+================================================================
+
+HM SYSTEM BARU  : Tidak perlu HM slave! Pokemon apapun bisa
+                  pakai HM di overworld.
+DEXNAV          : Chain encounter Pokemon spesifik - bagus
+                  untuk cari shiny atau farming EV.
+EXPERIENCE SHARE: Semua Pokemon di party dapat EXP otomatis.
+KARAKTER KUSTOM : 300+ kombinasi skin, rambut, outfit.
+DAILY EVENTS    : Butuh Real Time Clock (RTC) aktif di emulator.
+PHYS/SPEC SPLIT : Sistem Gen 4+ - moves lebih masuk akal.
+MAX RAIDS       : Ada mode raid seperti Sword/Shield.
+
+================================================================
+  4. GYM GUIDE (8 GYM + GIMMICK COUNTER)
+================================================================
+
+LEVEL CAP: G1:20 -> G2:26 -> G3:32 -> G4:36 ->
+           G5:45 -> G6:52 -> G7:58 -> G8:64
+
+------------------------------------------------------------
+GYM 1 | MIRSKLE | Dresco Town | Tipe: Grass | Level Cap: 20
+------------------------------------------------------------
+GIMMICK: FOG - akurasi semua Pokemon turun (termasuk punyamu)
+TEAM: Roselia, Tangela, Ludicolo, MEGA Sceptile
+
+COUNTER:
+  - Pakai move yang tidak kena efek akurasi:
+    Swift, Aerial Ace, atau move akurasi 100% yang kuat
+  - Fire type adalah counter terbaik
+  - Selesaikan battle cepat - Leftovers + Grassy Terrain
+    bikin musuh susah di-KO kalau kamu main lambat
+  - Punya Larvitar? Siapkan Fire type backup dari luar!
+
+------------------------------------------------------------
+GYM 2 | VEGA | Crater Town | Tipe: Dark | Level Cap: 26
+------------------------------------------------------------
+GIMMICK: DAMAGE OVER TIME - Pokemon non-Dark kamu kena
+         damage setiap akhir turn
+TEAM: Liepard, Honchkrow, Spiritomb, Pawniard, MEGA Absol
+
+COUNTER:
+  - Main AGRESIF - setiap turn yang dibuang = HP terkuras
+  - Fighting type sangat efektif vs sebagian besar timnya
+    (kecuali Spiritomb - pakai Fairy)
+  - Kalau punya Dark type sendiri, jadikan frontliner
+    (tidak kena efek damage)
+  - Bawa banyak healing items, jaga HP di atas 50%
+
+------------------------------------------------------------
+GYM 3 | ALICE | Blizzard City | Tipe: Flying | Level Cap: 32
+------------------------------------------------------------
+GIMMICK: TAILWIND - semua Flying musuh 2x lebih cepat,
+         damage ke Flying dikurangi
+TEAM: Skarmory, Dodrio, MEGA Pinsir, Gliscor, Crobat
+
+COUNTER:
+  - Rock dan Electric type adalah pilihan utama
+  - Ice type untuk Gliscor (Ground/Flying)
+  - Karena Tailwind, hampir pasti musuh lebih dulu serang
+  - Punya Trick Room? Setup di awal untuk balik speed advantage
+
+------------------------------------------------------------
+GYM 4 | MEL | Fallshore City | Tipe: Normal | Level Cap: 36
+------------------------------------------------------------
+!!!! GYM YANG PALING SERING BIKIN PLAYER BINGUNG !!!!
+
+GIMMICK: INVERSE BATTLE - SEMUA type matchup DIBALIK!
+TEAM: Porygon-Z, Swellow, MEGA Kangaskhan, Type:Null, Snorlax
+
+!!! JANGAN BAWA FIGHTING TYPE !!!
+Di Inverse Battle, Normal jadi KEBAL Fighting.
+Fighting malah jadi lemah. Banyak player mati konyol disini.
+
+COUNTER:
+  - Pakai GHOST-TYPE MOVES dari Pokemon non-Ghost
+    (Normal yang biasanya imun Ghost, di sini jadi lemah Ghost)
+  - Electric, Ice, Rock, Steel, Dark type juga efektif
+  - Cara mudah berpikir: bayangkan type chart dibalik total
+  - Porygon-Z adalah ancaman pertama - prioritaskan KO ini
+    pakai Ghost move atau Steel type
+
+------------------------------------------------------------
+GYM 5 | GALAVAN | Dehara City | Tipe: Elec/Steel | Lvl: 45
+------------------------------------------------------------
+GIMMICK: LEVITATE - SEMUA Pokemon musuh imun Ground!
+         Plus ini adalah DOUBLE BATTLE!
+TEAM: Magnezone, Togedemaru, Klinklang, MEGA Steelix, Emolga
+
+COUNTER:
+  - TRICK: Pakai move GRAVITY untuk cancel efek Levitate!
+    Dengan Gravity aktif, Ground moves kembali normal.
+  - Fire type sangat efektif vs Steel (Camerupt/Mega Camerupt)
+  - Grass dan Fighting type juga bisa
+  - Di Double Battle: setup dulu, prioritaskan KO Emolga
+    (lemah Rock dan Ice)
+
+------------------------------------------------------------
+GYM 6 | BIG MO | Antisis City | Tipe: Fighting | Lvl: 52
+------------------------------------------------------------
+GIMMICK: BAN - Flying, Fairy, dan Psychic DILARANG masuk!
+TEAM: Kommo-o, Pangoro, Bewear, MEGA Heracross, Toxicroak,
+      Lucario
+
+COUNTER:
+  - Poison type: efektif vs Kommo-o (Dragon/Fighting)
+    Crobat, Tentacruel, atau Gengar adalah pilihan bagus
+  - Ghost type tidak bisa kena Fighting moves normal
+  - Rencanakan team sebelum masuk! Kalau team kamu
+    full Flying/Fairy/Psychic, bakal masuk slot kosong
+
+------------------------------------------------------------
+GYM 7 | TESSY | Polder Town | Tipe: Poison | Level Cap: 58
+------------------------------------------------------------
+GIMMICK: TYPING CHANGE - Pokemon kamu berubah tipe sesuai
+         2 move pertama yang dipakai dalam battle!
+TEAM: Toxapex, Roserade, Salazzle, MEGA Venusaur,
+      Dragalge, Nihilego
+
+COUNTER:
+  - Pilih 2 move pertama dengan hati-hati untuk dapat
+    typing yang bagus. Contoh: Steel + Fire = coverage luas
+  - Ground type efektif vs Poison: Earthquake masih aman
+    dipakai sebagai move ke-2 setelah setup move
+  - Kalau bingung, pakai Normal type move dulu baru strong move
+
+------------------------------------------------------------
+GYM 8 | BENJAMIN | Redwood Village | Tipe: Bug | Lvl: 64
+------------------------------------------------------------
+GIMMICK: DEVOLUTION - Pokemon musuh revert ke pre-evo
+         saat kalah, lalu lanjut fight dengan 2 "nyawa"!
+TEAM: Leavanny, Scolipede, MEGA Scizor, Araquanid,
+      Volcarona, Lurantis
+
+COUNTER:
+  - Fire dan Flying type: counter utama Bug
+  - Volcarona SANGAT BERBAHAYA (Fire/Bug) - KO sebelum
+    dia sempat setup Quiver Dance
+  - Manfaatkan devolution: setelah revert ke pre-evo
+    biasanya jauh lebih lemah, bagus untuk healing/setup
+  - CATATAN: Mega Scizor tetap Mega setelah devolution!
+
+POST-GYM REMATCH:
+  - Setelah jadi Champion, rematch semua 8 gym leader
+    di Battleground (Seaport City)
+  - 4 leader tersedia per hari dengan team lebih kuat
+  - Menang = dapat Z-Crystal tipe mereka
+  - Leaders Gauntlet: kalahkan semua 8 berturut-turut!
+
+================================================================
+  5. CHEAT CODES (v2.1.1.1)
+================================================================
+
+!! WAJIB AKTIFKAN MASTER CODE DULU SEBELUM KODE LAIN !!
+
+MASTER CODE:
+  000014D1 000A
+  1003DAE6 0007
+
+INFINITE MONEY:
+  29C78059 96542194
+
+RARE CANDY (masuk ke PC):
+  82003884 0044
+
+  !! BUG: Rare Candy tidak bisa di-withdraw langsung !!
+  WORKAROUND (pakai Cube V3 di PC):
+  1. Cek PC -> Rare Candy ada di Poke Balls section Cube V3
+  2. Pilih Rare Candy -> "Give" -> kasih ke 6 Pokemon party
+  3. Pokemon List -> tiap Pokemon -> "Take" Rare Candy
+  4. Rare Candy sekarang ada di Items, bisa dipakai!
+
+MASTER BALL (masuk ke PC):
+  82003884 0001
+
+  !! Jangan save langsung setelah withdraw, test dulu !!
+
+WALK THROUGH WALLS (3 kode, aktifkan semua):
+  509197D3 542975F4
+  78DA95DF 44018CB4
+  A47E0D4C 0A0000A6
+
+  !! Matikan SEGERA setelah dipakai !!
+
+SHINY POKEMON (2 kode, aktifkan keduanya):
+  1670047D 04815C68
+  18452A7D DDE55BCC
+
+  CARA PAKAI YANG BENAR (urutan penting!):
+  1. Aktifkan kedua kode
+  2. Tangkap Pokemon yang mau kamu shiny-kan
+  3. SAVE game
+  4. NONAKTIFKAN kedua kode
+  5. Restart -> load save -> Pokemon sekarang shiny!
+
+FORMAT ITEM LAINNYA (ganti XXXX dengan kode item):
+  82003884 XXXX
+
+  Full Restore  : 0013  | Max Revive : 0019
+  Rare Candy    : 0044  | Master Ball: 0001
+  Protein       : 003F  | Iron       : 0040
+  Carbos        : 0041  | Calcium    : 0042
+  HP Up         : 003E  | Zinc       : 0046
+  Life Orb      : 0037  | Choice Band: 002A
+  Leftovers     : 002B  | Rocky Helmet: 0031
+
+WILD POKEMON ENCOUNTER (ganti YYYY dengan Dex No. hex):
+  83007CEE YYYY
+
+  Garchomp  (#445) = 01BD
+  Metagross (#376) = 0178
+  Tyranitar (#248) = 00F8
+
+!! BUG All Items Cheat: bisa bikin TM Case hilang !!
+  Workaround: edit save via mGBA Inventory Editor
+  (cari tabel di FearlessRevolution community)
+
+================================================================
+  6. UNLOCK MEGA EVOLUTION
+================================================================
+
+!! Tanpa selesaikan Tarmigan Mansion, Pokemon tidak bisa
+   Mega Evolve meskipun sudah punya Mega Stone + Key Stone !!
+
+CARA KE TARMIGAN MANSION:
+  Route 11 -> Cliff Cave (pakai Strength) ->
+  Upper Route 11 -> jalan ke utara -> Tarmigan Town -> Mansion
+
+LANGKAH UNLOCK:
+  1. Masuk Tarmigan Mansion (4 lantai + basement)
+  2. Cari 3 secret switch tersembunyi di dalam (ada di statue)
+  3. Kalahkan Successor Maxima (setara gym leader)
+  4. Reward: MEGA KEYSTONE -> Mega Evolution aktif!
+
+MEGA STONE STARTER:
+  Gible   -> Garchompite  : Shadow Base 1F
+  Beldum  -> Metagrossite : Shadow Base 1F (Level 2 Keycard)
+                            ATAU Mission #050: Portal Purge
+  Larvitar-> Tyranitarite : Shadow Base 1F
+
+  [MODE INSANE]: Metagrossite ada di Crystal Peak
+                 (reward dari Marlon)
+
+MEGA STONE LAIN:
+  Cameruptite  : Cinder Volcano (mantap vs Gym 5 Galavan)
+  Mega Rayquaza: Ajarkan Dragon Descent dari NPC dekat
+                 Battle Frontier entrance
+
+================================================================
+  7. MISSION GUIDE & MILESTONE
+================================================================
+
+TOTAL MISI: 84 | Tidak ada yang permanently missable!
+
+MILESTONE KRITIS:
+  45 Misi Selesai -> Unlock LATIAS / LATIOS
+  65 Misi Selesai -> SHINY CHARM
+
+MISI PALING PENTING:
+  #050 Portal Purge    -> Metagrossite (non-Beldum starter)
+  The Endless Nightmare-> Member's Card -> catch DARKRAI
+                          (tidur di Tarmigan Inn malam hari)
+  Nine Tails of Snow   -> Alolan Vulpix Egg
+  Island Survivor      -> Pokemon langka di pulau terpencil
+
+TIPS FARMING MISI:
+  - Buka Mission Log rutin setelah masuk kota baru
+  - Ajak bicara SEMUA NPC di setiap kota
+  - Setelah punya Fly/Surf, revisit kota lama
+  - Cloud Burst mini-game: practice sampai hafal pola
+
+================================================================
+  8. LEGENDARY (26 TOTAL)
+================================================================
+
+LATIAS / LATIOS   : Selesaikan 45 misi
+DARKRAI           : Mission "The Endless Nightmare" ->
+                    Member's Card -> tidur Tarmigan Inn malam
+JIRACHI           : Route 13, post-game, syarat tertentu
+TORNADUS/THUNDURUS: Roaming di overworld post-game
+KYUREM            : Ruins of the Void (Underwater)
+SHAYMIN           : Flower Paradise
+RAYQUAZA          : Crystal Peak (post-game)
+MEGA RAYQUAZA     : Ajarkan Dragon Descent dari NPC
+                    dekat Battle Frontier entrance
+SWORDS OF JUSTICE :
+  Cobalion  -> Magnolia Fields
+  Terrakion -> Victory Road
+  Virizion  -> butuh selesaikan misi tertentu
+
+TIPS CATCH LEGENDARY:
+  - False Swipe + Thunder Wave: HP 1 + paralisis = easiest catch
+  - Bawa Ultra Ball / Dusk Ball (malam atau di gua)
+  - Bawa banyak Revive dan Full Restore
+  - Kalau KO legendary, hampir semua bisa di-encounter ulang
+    setelah masuk/keluar area atau save-reload
+  - Simpan Master Ball untuk roaming legendary (Tornadus dll)
+
+================================================================
+  9. TRAINING & EV GUIDE
+================================================================
+
+EXP GRINDING TERBAIK:
+  HP Trainer  : Full party Audino, level scaling otomatis
+                = EXP per battle tertinggi. Ada dari awal game!
+  Elite 4     : Post-game, level tinggi + farming uang sekaligus
+  Battle Frontier: High level trainers, beragam type
+
+EV TRAINING:
+  Icicle Cave Secret Area : Hanya Alolan Sandshrew (Defense EV)
+                            Unlock via misi
+  DexNav Chaining         : Chain Pokemon yang kasih EV spesifik
+  Battle Frontier Black   :
+    Belt NPC              : Bayar BP -> max semua EV instant!
+                            (Post-game, paling efisien)
+  Vitamin                 : Protein/Iron/dll - cepat tapi mahal
+                            Pakai Infinite Money cheat untuk skip
+
+NATURE & BREEDING:
+  Everstone   : Pokemon holding ini saat breeding -> pass down
+                nature-nya ke keturunan
+  Hidden Power: NPC Hidden Power Changer di Battle Frontier
+                (malam hari) bisa ubah IVs untuk HP type tertentu
+  Hidden Ability: Female 80% chance pass down ability slot
+  Nature NPC  : Di Tehl Town ada NPC yang bisa ubah nature
+                (bayar dengan item tertentu)
+
+================================================================
+  10. POST-GAME
+================================================================
+
+BATTLE FRONTIER:
+  Battle Tower      : Farm BP untuk TM, items, EV training
+  Black Belt NPC    : Max semua EV dengan BP (terbaik!)
+  Hidden Power NPC  : Ubah IVs Pokemon (malam hari)
+  Gym Leader Rematch: 4 leader per hari, Z-Crystal reward
+  Leaders Gauntlet  : Beat 8 gym leader berturut-turut
+
+NEW GAME+ (NG+):
+  - Unlock setelah beat main story
+  - Carry-over progress tertentu
+  - NPC Battle Frontier (Black Belt EV trainer) muncul
+    di Crater Town dari awal
+
+CHECKLIST POST-GAME:
+  [ ] Catch 26 Legendary/Mythical
+  [ ] Dapat Shiny Charm (65 misi)
+  [ ] Complete Pokedex (467 Pokemon di routes)
+  [ ] Max EV semua Pokemon (Battle Frontier Black Belt)
+  [ ] Beat Leaders Gauntlet (8 gym leader berturut-turut)
+  [ ] Catch Darkrai (Mission Endless Nightmare)
+  [ ] Mining di KBT Expressway (fossil Pokemon)
+
+================================================================
+  CATATAN AKHIR
+================================================================
+
+Guide ini diupdate secara berkala di:
+https://yutelich.github.io/GamingCompass/games/unbound/
+
+Versi web punya tips lebih detail, YouTube links per section,
+dan update terbaru dari komunitas.
+
+Suka dengan guide ini? Dukung Gaming Compass di:
+https://trakteer.id/yudith2/tip
+
+================================================================
+  Gaming Compass — Panduan Game Bahasa Indonesia
+  Gratis selamanya. Dibuat dengan cinta oleh gamer, untuk gamer.
+================================================================
