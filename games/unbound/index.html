@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pokemon Unbound — Guide Lengkap + Cheat Codes | Gaming Compass</title>
 <meta name="description" content="Guide Pokemon Unbound GBA bahasa Indonesia — cheat codes rare candy master ball, cara beat semua 8 gym gimmick, unlock Mega Evolution, lokasi legendary, dan tips EV training.">
 <meta name="keywords" content="pokemon unbound guide indonesia, pokemon unbound cheat codes, pokemon unbound rare candy, pokemon unbound gym gimmick, pokemon unbound mega evolution, panduan pokemon unbound bahasa indonesia">
@@ -383,28 +383,119 @@
   .gc-dl-skip:hover { color: var(--c-text-2); }
 
   @media (max-width: 640px) {
-    .gc-game-hero { margin-top: 0 !important; border-radius: 0; }
-    .gc-game-hero-bg { aspect-ratio: 16/9; position: relative; }
-    .gc-game-hero-bg img { opacity: 0.75 !important; }
-    .gc-game-hero-gradient { display: none; }
+    /* Hero — 16:9 gambar, konten di bawah */
+    .gc-game-hero { margin-top: 0 !important; border-radius: 0 !important; }
+    .gc-game-hero-bg {
+      position: relative !important;
+      height: 0 !important;
+      padding-bottom: 56.25% !important; /* 16:9 */
+    }
+    .gc-game-hero-bg img {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      opacity: 0.7 !important;
+    }
+    .gc-game-hero-gradient { display: none !important; }
     .gc-game-hero-content {
-      position: relative;
-      background: var(--c-surface);
-      border-top: 1px solid var(--c-border);
-      padding: 1rem 1.25rem;
+      position: relative !important;
+      background: var(--c-surface) !important;
+      border-top: 1px solid var(--c-border) !important;
+      padding: 0.9rem 1rem 1rem !important;
     }
-    .gc-game-layout { flex-direction: column; }
+    .gc-game-hero-title { font-size: 1.4rem !important; }
+    .gc-game-hero-tag { font-size: 0.6rem !important; }
+    .gc-game-hero-meta { font-size: 0.72rem !important; }
+    .gc-game-hero-actions { gap: 0.5rem !important; }
+    .gc-game-hero-actions .btn { font-size: 0.75rem !important; padding: 0.45rem 0.85rem !important; }
+
+    /* Layout — sidebar setelah konten di mobile */
+    .gc-game-layout {
+      flex-direction: column !important;
+      padding: 0 !important;
+    }
     .gc-game-sidebar {
-      width: 100% !important; position: static !important;
-      order: -1; border-radius: var(--radius); margin: 0.75rem 1rem;
+      width: 100% !important;
+      position: static !important;
+      order: 2; /* sidebar di bawah konten */
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border-top: 1px solid var(--c-border) !important;
+      padding: 1rem !important;
+      box-sizing: border-box !important;
     }
+    /* Sidebar links: tampilkan horizontal scroll di mobile */
+    .gc-sidebar-links {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      gap: 0.4rem !important;
+      padding-bottom: 0.5rem !important;
+      scrollbar-width: none !important;
+    }
+    .gc-sidebar-links::-webkit-scrollbar { display: none !important; }
+    .gc-sidebar-link {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      font-size: 0.72rem !important;
+      padding: 0.35rem 0.7rem !important;
+      background: var(--c-surface-2) !important;
+      border: 1px solid var(--c-border) !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    /* Trakteer di sidebar — sembunyikan di mobile (sudah ada di download bar) */
+    .gc-game-sidebar > div:last-child { display: none !important; }
+
+    /* Main content — full width */
+    .gc-content {
+      width: 100% !important;
+      padding: 0.75rem 1rem !important;
+      box-sizing: border-box !important;
+      order: 1;
+    }
+
+    /* Download bar — stack vertikal */
+    .gc-download-bar {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.75rem !important;
+      padding: 0.85rem 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    .btn-download-txt { width: 100% !important; justify-content: center !important; }
+
+    /* Tab nav */
     .gc-game-tabs {
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; padding: 0 1rem;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      padding: 0 !important;
+      margin-bottom: 1rem !important;
     }
-    .gc-game-tabs::-webkit-scrollbar { display: none; }
-    .gc-tab { white-space: nowrap; flex-shrink: 0; font-size: 0.72rem; padding: 0.45rem 0.7rem; }
-    .gym-card-header { flex-wrap: wrap; }
+    .gc-game-tabs::-webkit-scrollbar { display: none !important; }
+    .gc-tab {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      font-size: 0.68rem !important;
+      padding: 0.4rem 0.65rem !important;
+    }
+    .gc-sidebar-title { font-size: 0.65rem !important; margin-bottom: 0.5rem !important; }
+
+    /* Gym cards */
+    .gym-card-header { flex-wrap: wrap !important; gap: 0.4rem !important; }
+    .gym-num { font-size: 1.1rem !important; width: 1.5rem !important; }
+
+    /* Chapter bodies */
+    .gc-chapter-body { padding: 0.75rem 0 !important; }
+    .tip-panel-inner { padding: 0.6rem 0.75rem !important; }
+
+    /* Tables — horizontal scroll */
+    .gc-table { font-size: 0.75rem !important; }
+    .gc-chapter { overflow-x: auto !important; }
+
+    /* Cheat blocks */
+    .cheat-block { font-size: 0.75rem !important; }
   }
 </style>
 </head>
@@ -444,10 +535,10 @@
 </div>
 
 <!-- MAIN LAYOUT -->
-<div class="gc-game-layout">
+<div class="gc-game-layout" style="display:flex;align-items:flex-start;gap:1.5rem">
 
   <!-- SIDEBAR -->
-  <aside class="gc-game-sidebar">
+  <aside class="gc-game-sidebar" style="width:220px;flex-shrink:0;position:sticky;top:1rem">
     <div class="gc-sidebar-title">Navigasi Cepat</div>
     <div class="gc-sidebar-links">
       <a class="gc-sidebar-link active" href="#" onclick="showTab('start',this);return false">🚀 Mulai Bermain</a>
@@ -472,7 +563,7 @@
   </aside>
 
   <!-- MAIN CONTENT -->
-  <main class="gc-content">
+  <main class="gc-content" style="flex:1;min-width:0;max-width:100%">
 
     <!-- Download TXT Bar -->
     <div class="gc-download-bar">
