@@ -542,6 +542,7 @@
     <div class="gc-sidebar-title">Navigasi Cepat</div>
     <div class="gc-sidebar-links">
       <a class="gc-sidebar-link active" href="#" onclick="showTab('start',this);return false">🚀 Mulai Bermain</a>
+      <a class="gc-sidebar-link" href="#" onclick="showTab('team',this);return false" style="color:#f472b6">👥 Tim & Pokemon</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('gym',this);return false">🏟️ Gym Guide</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('cheat',this);return false">⚡ Cheat Codes</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('mega',this);return false">✨ Mega Evolution</a>
@@ -602,6 +603,7 @@
     <!-- Tab Nav -->
     <div class="gc-game-tabs" style="display:flex;flex-wrap:nowrap;gap:0.25rem;margin-bottom:1.5rem;overflow-x:auto;padding-bottom:0.25rem">
       <button class="gc-tab active" onclick="showTab('start',this)">🚀 Mulai</button>
+      <button class="gc-tab" onclick="showTab('team',this)" style="color:#f472b6">👥 Tim & Pokemon</button>
       <button class="gc-tab" onclick="showTab('gym',this)">🏟️ Gym</button>
       <button class="gc-tab" onclick="showTab('cheat',this)" style="color:#4ade80">⚡ Cheat</button>
       <button class="gc-tab" onclick="showTab('mega',this)">✨ Mega Evo</button>
@@ -706,6 +708,380 @@
           </table>
         </div>
       </div>
+    </div>
+
+    <!-- ══ TAB: TIM & POKEMON ══ -->
+    <div class="gc-tab-section" id="tab-team">
+
+      <!-- Deck Rekomendasi -->
+      <div class="gc-chapter open">
+        <div class="gc-chapter-header" onclick="toggleChapter(this)">
+          <div class="gc-chapter-title">5 Set Tim Rekomendasi — Per Playstyle</div>
+          <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+        </div>
+        <div class="gc-chapter-body">
+          <div class="gc-tip" style="margin-bottom:0.75rem">
+            👥 Semua tim di bawah bisa dipake di Difficult/Expert. Tim bisa dikombinasi sesuai selera — ini hanya titik awal. Pokeball tersedia di semua Pokemart, tapi untuk yang rare pakai DexNav chaining biar lebih efisien.
+          </div>
+
+          <!-- Tim 1 -->
+          <div class="gc-sub-title" style="color:#f472b6">🔥 Tim 1 — Full Agresif (Gible Starter)</div>
+          <div class="gc-tip" style="border-color:rgba(244,114,182,0.3);background:rgba(244,114,182,0.05)">
+            Tim ini dirancang untuk sweep cepat. Kalau kamu suka langsung hajar semua musuh tanpa banyak mikir setup, ini tim kamu.
+          </div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Tipe</th><th>Dapat di</th><th>Role</th><th>Moveset Andalan</th></tr>
+            <tr>
+              <td><strong>Garchomp</strong> ⭐</td><td>Dragon/Ground</td><td>Starter (Gible)</td>
+              <td>Main sweeper</td>
+              <td>Earthquake, Dragon Claw, Iron Head, Crunch</td>
+            </tr>
+            <tr>
+              <td><strong>Lucario</strong></td><td>Fighting/Steel</td><td>Riolu di Route 2, evolve high happiness siang hari</td>
+              <td>Physical attacker</td>
+              <td>Close Combat, Iron Tail, Extreme Speed, Swords Dance</td>
+            </tr>
+            <tr>
+              <td><strong>Gengar</strong></td><td>Ghost/Poison</td><td>Gastly di Grim Woods, trade Haunter</td>
+              <td>Special attacker</td>
+              <td>Shadow Ball, Sludge Bomb, Thunderbolt, Destiny Bond</td>
+            </tr>
+            <tr>
+              <td><strong>Togekiss</strong></td><td>Fairy/Flying</td><td>Togepi dari egg (happiness) → Togetic (Shiny Stone) → Togekiss</td>
+              <td>Support + Fairy coverage</td>
+              <td>Air Slash, Dazzling Gleam, Thunder Wave, Roost</td>
+            </tr>
+            <tr>
+              <td><strong>Weavile</strong></td><td>Dark/Ice</td><td>Sneasel di Route 14 (Night), evolve pakai Razor Claw malam hari</td>
+              <td>Speed attacker</td>
+              <td>Ice Punch, Night Slash, Poison Jab, Swords Dance</td>
+            </tr>
+            <tr>
+              <td><strong>Infernape</strong></td><td>Fire/Fighting</td><td>Chimchar egg dari Magnolia Café Day Care</td>
+              <td>Mixed attacker</td>
+              <td>Flamethrower, Close Combat, Mach Punch, Nasty Plot</td>
+            </tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips build Tim Agresif</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">⚔️</span><span>Garchomp adalah core tim ini — prioritaskan levelnya di atas semua. Gible evolve ke Gabite di level 24, lalu ke Garchomp di level 48.</span></div>
+            <div class="tip-row"><span class="tip-icon">🤛</span><span>Lucario dari Riolu di Route 2 — bisa ditangkap di awal game! Evolusi dari Riolu butuh happiness tinggi di siang hari. Cepat-cepat kasih Battle Item dan jalan banyak.</span></div>
+            <div class="tip-row"><span class="tip-icon">👻</span><span>Gengar butuh trade — kalau tidak bisa trade, pakai cheat "Wild Pokemon Encounter" untuk dapat Gengar langsung, atau tetap pakai Haunter yang sudah cukup kuat.</span></div>
+            <div class="tip-row"><span class="tip-icon">🏹</span><span>Weavile sangat cepat (Speed 125) dan punya Ice + Dark coverage yang luar biasa. Razor Claw bisa ditemukan di Battle Frontier atau drop dari wild Sneasel (10% chance).</span></div>
+          </div></div>
+
+          <!-- Tim 2 -->
+          <div class="gc-sub-title" style="color:#60a5fa;margin-top:1.25rem">🛡️ Tim 2 — Balanced Tank (Beldum Starter)</div>
+          <div class="gc-tip" style="border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.05)">
+            Tim yang tidak gampang kalah bahkan di Expert mode. Ideal buat yang suka main aman dan tidak mau pokemon mati sering.
+          </div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Tipe</th><th>Dapat di</th><th>Role</th><th>Moveset Andalan</th></tr>
+            <tr>
+              <td><strong>Metagross</strong> ⭐</td><td>Steel/Psychic</td><td>Starter (Beldum, evolve Lv.20→Lv.45)</td>
+              <td>Bulky attacker</td>
+              <td>Meteor Mash, Zen Headbutt, Earthquake, Ice Punch</td>
+            </tr>
+            <tr>
+              <td><strong>Gyarados</strong></td><td>Water/Flying</td><td>Magikarp di banyak lokasi air, evolve Lv.20</td>
+              <td>Physical powerhouse</td>
+              <td>Waterfall, Earthquake, Ice Fang, Dragon Dance</td>
+            </tr>
+            <tr>
+              <td><strong>Togekiss</strong></td><td>Fairy/Flying</td><td>Togepi egg (happiness) → Togetic → Togekiss</td>
+              <td>Support + tank</td>
+              <td>Air Slash, Dazzling Gleam, Thunder Wave, Roost</td>
+            </tr>
+            <tr>
+              <td><strong>Aggron</strong></td><td>Steel/Rock</td><td>Aron di Frozen Heights (Route 15), evolve Lv.32→42</td>
+              <td>Physical wall</td>
+              <td>Iron Tail, Rock Slide, Heavy Slam, Stealth Rock</td>
+            </tr>
+            <tr>
+              <td><strong>Gardevoir</strong></td><td>Psychic/Fairy</td><td>Ralts di Route 4 (tall grass), evolve Lv.20→30</td>
+              <td>Special attacker</td>
+              <td>Psychic, Moonblast, Shadow Ball, Calm Mind</td>
+            </tr>
+            <tr>
+              <td><strong>Arcanine</strong></td><td>Fire</td><td>Growlithe di Route 3/5, evolve Fire Stone</td>
+              <td>Fast attacker + coverage</td>
+              <td>Flamethrower, Extreme Speed, Wild Charge, Crunch</td>
+            </tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips build Tim Tank</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">⏳</span><span>Beldum sangat lambat berkembang — level 45 baru jadi Metagross. Tapi worth it. Di awal game, andalkan Gyarados atau Arcanine sebagai main attacker sementara.</span></div>
+            <div class="tip-row"><span class="tip-icon">🌊</span><span>Magikarp bisa didapat sangat awal — tangkap dan grind sampai level 20 di HP Trainer. Gyarados dengan Dragon Dance + Waterfall hampir tidak ada yang bisa ngehentiin.</span></div>
+            <div class="tip-row"><span class="tip-icon">💎</span><span>Gardevoir → cari Ralts di Route 4. Mega Stone (Gardevoirite) ada di Vivill Town warehouse — hidden item, pakai Dowsing Machine. Mega Gardevoir + Calm Mind = hampir tidak bisa dikalahkan secara special.</span></div>
+            <div class="tip-row"><span class="tip-icon">🪨</span><span>Aron dari Route 15 (Frozen Heights) bisa jadi wall yang sangat bagus. Di mode Insane, Aggron dengan Sturdy ability bisa jadi lifesaver dari serangan yang harusnya langsung KO.</span></div>
+          </div></div>
+
+          <!-- Tim 3 -->
+          <div class="gc-sub-title" style="color:#4ade80;margin-top:1.25rem">🌿 Tim 3 — Speed Runner (Untuk Clear Game Cepat)</div>
+          <div class="gc-tip" style="border-color:rgba(74,222,128,0.3);background:rgba(74,222,128,0.05)">
+            Tim dengan Pokemon yang bisa didapat awal, strong dari awal, dan efektif sampai akhir. Ideal untuk playthrough pertama atau speed run.
+          </div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Dapat di</th><th>Kenapa Bagus</th></tr>
+            <tr><td><strong>Gible</strong> (→Garchomp) ⭐</td><td>Starter</td><td>Strongest starter, Dragon/Ground coverage luas</td></tr>
+            <tr><td><strong>Riolu</strong> (→Lucario)</td><td>Route 2 — sangat awal!</td><td>Bisa didapat sebelum Gym 1, Fighting/Steel coverage premium</td></tr>
+            <tr><td><strong>Ralts</strong> (→Gardevoir/Gallade)</td><td>Route 4</td><td>Gardevoir untuk special, Gallade untuk physical — pilih sesuai kebutuhan</td></tr>
+            <tr><td><strong>Magikarp</strong> (→Gyarados)</td><td>Route 1 / mana saja ada air</td><td>Grind ke Lv.20, lalu salah satu monster terkuat mid-game</td></tr>
+            <tr><td><strong>Growlithe</strong> (→Arcanine)</td><td>Route 3/5</td><td>Fire coverage penting vs Gym 1 (Grass), evolve Fire Stone</td></tr>
+            <tr><td><strong>Minior</strong></td><td>Route 1 — early!</td><td>Salah satu Pokemon terkuat yang bisa didapat di awal, Rock/Flying coverage unik</td></tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips speed run team</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">🚀</span><span>Tangkap Riolu di Route 2 segera setelah bisa — ini satu-satunya Pokemon early game yang sudah Fight/Steel dari awal dan berkembang jadi Lucario.</span></div>
+            <div class="tip-row"><span class="tip-icon">🌀</span><span>Minior di Route 1 sering diremehkan tapi punya Base Stat Total 600 dan form Meteor yang immune ke status effects — coba tangkap jika ketemu!</span></div>
+            <div class="tip-row"><span class="tip-icon">⚡</span><span>Growlithe + Fire Stone = Arcanine yang kuat. Fire Stone bisa dibeli di Pokemart setelah beberapa gym, atau ditemukan di overworld.</span></div>
+          </div></div>
+
+          <!-- Tim 4 -->
+          <div class="gc-sub-title" style="color:#facc15;margin-top:1.25rem">⭐ Tim 4 — Best Team untuk Elite Four</div>
+          <div class="gc-tip" style="border-color:rgba(250,204,21,0.3);background:rgba(250,204,21,0.05)">
+            Berdasarkan komunitas dan PokemonCoders — tim terbaik untuk ngegasak Elite Four (Ground/Ghost/Fairy/Dragon). Tim ini langsung counter semua spesialisasi mereka.
+          </div>
+          <div class="info-box" style="margin-bottom:0.75rem">
+            🏆 <strong>Elite Four Borrius:</strong> Moleman (Ground) → Elias (Ghost) → Arabella (Fairy) → Penny (Dragon) → Rival (mix)
+          </div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Counter</th><th>Moveset untuk E4</th></tr>
+            <tr>
+              <td><strong>Garchomp</strong> ⭐</td>
+              <td>Penny (Dragon), Elias (Crunch), Arabella (Iron Head/Poison Jab)</td>
+              <td>Earthquake, Dragon Claw, Iron Head, Crunch</td>
+            </tr>
+            <tr>
+              <td><strong>Greninja</strong></td>
+              <td>Moleman (Ground) + Elias (Ghost), Protean = semua move STAB</td>
+              <td>Hydro Pump, Dark Pulse, Ice Beam, Grass Knot</td>
+            </tr>
+            <tr>
+              <td><strong>Scizor</strong></td>
+              <td>Arabella (Fairy) via Steel moves</td>
+              <td>Bullet Punch, Bug Bite, Swords Dance, Roost</td>
+            </tr>
+            <tr>
+              <td><strong>Weavile</strong></td>
+              <td>Penny (Dragon) via Ice, Elias (Ghost) via Crunch</td>
+              <td>Ice Punch, Night Slash, Icicle Crash, Poison Jab</td>
+            </tr>
+            <tr>
+              <td><strong>Infernape</strong></td>
+              <td>Moleman (Fighting vs Ground), Arabella (Fighting vs Dark backup)</td>
+              <td>Flamethrower, Close Combat, Mach Punch, Stone Edge</td>
+            </tr>
+            <tr>
+              <td><strong>Togekiss</strong></td>
+              <td>Penny (Fairy vs Dragon), Moleman (Air Slash vs Ground), coverage luas</td>
+              <td>Air Slash, Dazzling Gleam, Thunder Wave, Roost</td>
+            </tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips khusus hadapi Elite Four</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Moleman (Ground):</strong> Greninja + Gyarados/Infernape. Ground type lemah vs Water, Ice, Grass. Hindari Electric dan Rock type di sini.</span></div>
+            <div class="tip-row"><span class="tip-icon">👻</span><span><strong>Elias (Ghost):</strong> Weavile (Dark) + Greninja (Dark Pulse). Ghost type lemah vs Ghost dan Dark. Jangan pakai Normal type di sini.</span></div>
+            <div class="tip-row"><span class="tip-icon">🧚</span><span><strong>Arabella (Fairy):</strong> Scizor (Steel) + Garchomp (Poison Jab) + Infernape. Fairy lemah vs Steel dan Poison.</span></div>
+            <div class="tip-row"><span class="tip-icon">🐉</span><span><strong>Penny (Dragon):</strong> Weavile (Ice) + Togekiss (Fairy) + Garchomp (Dragon vs Dragon). Dragon lemah vs Ice, Dragon, dan Fairy.</span></div>
+            <div class="tip-row"><span class="tip-icon">💊</span><span>Bawa banyak Full Restore, Max Revive, dan Elixir. Di Expert/Insane, E4 tidak menaruh belas kasihan.</span></div>
+          </div></div>
+
+          <!-- Tim 5 -->
+          <div class="gc-sub-title" style="color:#c084fc;margin-top:1.25rem">🎭 Tim 5 — Insane Mode Survival Kit</div>
+          <div class="gc-tip" style="border-color:rgba(192,132,252,0.3);background:rgba(192,132,252,0.05)">
+            Khusus untuk yang main Insane mode — prioritas bulky, reliable, dan tidak mudah di-one-shot. Bukan tim tercepat, tapi tim yang paling tahan banting.
+          </div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Ability</th><th>Kenapa Vital di Insane</th></tr>
+            <tr><td><strong>Garchomp / Metagross</strong></td><td>Rough Skin / Clear Body</td><td>Stat tinggi, tahan damage, coverage luas</td></tr>
+            <tr><td><strong>Togekiss</strong></td><td>Serene Grace</td><td>Air Slash 60% flinch rate + Serene Grace = musuh sering tidak bisa gerak</td></tr>
+            <tr><td><strong>Gyarados</strong></td><td>Intimidate</td><td>Intimidate turunkan Attack musuh saat masuk — lifesaver di Insane</td></tr>
+            <tr><td><strong>Gengar</strong></td><td>Levitate</td><td>Immune Ground, Destiny Bond sebagai last resort vs legendary</td></tr>
+            <tr><td><strong>Aggron / Ferrothorn</strong></td><td>Sturdy / Iron Barbs</td><td>Sturdy = tidak bisa di-OHKO. Physical wall terbaik mode ini</td></tr>
+            <tr><td><strong>Blissey / Chansey</strong></td><td>Natural Cure</td><td>HP wall terbesar di game — sangat berguna untuk stall dan healing</td></tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips Insane mode survival</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">🛡️</span><span><strong>Togekiss dengan Serene Grace</strong> adalah MVP Insane mode. Air Slash punya 30% flinch chance yang jadi 60% dengan Serene Grace — musuh bisa flinch berulang tanpa bisa balas. Sangat powerful untuk boss fights.</span></div>
+            <div class="tip-row"><span class="tip-icon">😱</span><span><strong>Gyarados dengan Intimidate</strong> — kirim Gyarados masuk duluan untuk turunkan Attack musuh, lalu switch ke attacker kamu. Ini bisa bedain antara survive dan tidak di Insane.</span></div>
+            <div class="tip-row"><span class="tip-icon">💀</span><span><strong>Destiny Bond Gengar</strong> — simpan sebagai last resort vs gym leader atau boss yang hampir tidak bisa dikalahkan. Kalau mereka KO Gengar, mereka ikut KO. Drama tapi efektif.</span></div>
+            <div class="tip-row"><span class="tip-icon">🪺</span><span>Di Insane, items tidak bisa dipakai dalam battle. Jadi HP restoration hanya dari move (Recover, Roost, Synthesis, dll). Pilih Pokemon dengan recovery move!</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Pokemon Wajib Ditangkap -->
+      <div class="gc-chapter open">
+        <div class="gc-chapter-header" onclick="toggleChapter(this)">
+          <div class="gc-chapter-title">Pokemon yang Wajib Ditangkap — Jangan Dilewatkan!</div>
+          <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+        </div>
+        <div class="gc-chapter-body">
+          <div class="gc-tip" style="margin-bottom:0.75rem">⭐ Ini Pokemon yang langka, trigger misi khusus, atau terlalu kuat untuk dilewatkan. Beberapa hanya tersedia di window waktu tertentu.</div>
+          <table class="gc-table">
+            <tr><th>Pokemon</th><th>Lokasi</th><th>Kenapa Penting</th></tr>
+            <tr>
+              <td>⭐ <strong>Riolu</strong></td>
+              <td>Route 2 (tall grass)</td>
+              <td>Bisa didapat SANGAT awal. Evolve jadi Lucario (Fighting/Steel) yang kuat. Jangan skip ini!</td>
+            </tr>
+            <tr>
+              <td>⭐ <strong>Ralts</strong></td>
+              <td>Route 4 (tall grass)</td>
+              <td>Serbaguna: Gardevoir (special) atau Gallade (physical) tergantung item. Juga berguna untuk Synchronize farming nature. Lucarionite reward Mission "Warmonger" di Great Desert.</td>
+            </tr>
+            <tr>
+              <td>⭐ <strong>Minior</strong></td>
+              <td>Route 1</td>
+              <td>Base Stat Total 600! Bisa didapat di Route 1 dari awal. Meteor form immune status, Core form sangat cepat. Salah satu Pokemon terkuat yang kerap diremehkan.</td>
+            </tr>
+            <tr>
+              <td><strong>Magikarp</strong></td>
+              <td>Hampir semua area berair</td>
+              <td>Tangkap, grind ke level 20, dapat Gyarados. Salah satu investment terbaik di game ini. Mega Gyarados via Gyaradosite (reward Mega Trainer di Route 13).</td>
+            </tr>
+            <tr>
+              <td><strong>Growlithe</strong></td>
+              <td>Route 3 / Route 5</td>
+              <td>Fire coverage vital untuk Gym 1 (Grass) dan Gym 8 (Bug). Evolve Fire Stone jadi Arcanine yang sangat cepat dan kuat.</td>
+            </tr>
+            <tr>
+              <td><strong>Abra</strong></td>
+              <td>Route 7</td>
+              <td>Berguna untuk Synchronize farming nature. Evolve jadi Kadabra → Alakazam. Mega Alakazite tersedia jika mau Mega-nya.</td>
+            </tr>
+            <tr>
+              <td><strong>Aron</strong></td>
+              <td>Frozen Heights (Route 15)</td>
+              <td>Steel type dengan Sturdy — lifesaver di Insane mode. Evolve jadi Aggron (Lv.32→42). Aggronite di Lost Tunnel.</td>
+            </tr>
+            <tr>
+              <td>🌟 <strong>Eevee</strong></td>
+              <td>Magnolia Town (story event)</td>
+              <td>8 evolusi berbeda — pilih sesuai tim. Espeon/Umbreon bagus untuk support, Sylveon untuk Fairy coverage, Jolteon untuk speed Electric.</td>
+            </tr>
+            <tr>
+              <td>🔔 <strong>Spiritomb</strong></td>
+              <td>Grim Woods (misi khusus)</td>
+              <td>Ghost/Dark type dengan nol kelemahan (kecuali Fairy). Trigger conversation menarik di Grim Woods. Unik karena typing-nya.</td>
+            </tr>
+            <tr>
+              <td>🎭 <strong>Rotom</strong></td>
+              <td>Route 11 (Abandoned Mansion)</td>
+              <td>6 form berbeda tergantung appliance yang dimasuki. Form Wash (Water/Electric) dan Heat (Fire/Electric) sangat berguna.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Grinding & Progression Tips -->
+      <div class="gc-chapter open">
+        <div class="gc-chapter-header" onclick="toggleChapter(this)">
+          <div class="gc-chapter-title">Tips Grinding & Level Efektif per Gym</div>
+          <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+        </div>
+        <div class="gc-chapter-body">
+          <div class="gc-tip" style="margin-bottom:0.75rem">⏱️ Level cap di Unbound berdasarkan Pokemon TERTINGGI di party kamu (bukan keseluruhan). Jaga supaya tidak ada yang terlalu jomplang dari yang lain.</div>
+          <table class="gc-table">
+            <tr><th>Checkpoint</th><th>Level Target</th><th>Tempat Grinding Terbaik</th></tr>
+            <tr><td>Sebelum Gym 1 (Lv.20)</td><td>18–20</td><td>Route 2–3, HP Trainer (Audino) — grind sampai evolusi pertama terjadi</td></tr>
+            <tr><td>Sebelum Gym 2 (Lv.26)</td><td>24–26</td><td>HP Trainer, Route 4–5 trainers</td></tr>
+            <tr><td>Sebelum Gym 3 (Lv.32)</td><td>29–32</td><td>Route 6–7, Grim Woods trainers</td></tr>
+            <tr><td>Sebelum Gym 4 (Lv.36)</td><td>33–36</td><td>Route 8–9, Fallshore City trainers</td></tr>
+            <tr><td>Sebelum Gym 5 (Lv.45)</td><td>42–45</td><td>HP Trainer, Route 10–11 trainers</td></tr>
+            <tr><td>Sebelum Gym 6 (Lv.52)</td><td>49–52</td><td>KBT Expressway, Route 12–13</td></tr>
+            <tr><td>Sebelum Gym 7 (Lv.58)</td><td>55–58</td><td>Crystal Peak, Icicle Cave</td></tr>
+            <tr><td>Sebelum Gym 8 (Lv.64)</td><td>61–64</td><td>Redwood Forest, Victory Road awal</td></tr>
+            <tr><td>Elite Four</td><td>68–75</td><td>Victory Road (Route 18), Elite Four sendiri (rematch)</td></tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips grinding efisien</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">⭐</span><span><strong>HP Trainer (Audino trainer)</strong> adalah spot grinding TERBAIK sepanjang game. Full party Audino dengan level scaling = EXP sangat tinggi. Revisit terus kapanpun butuh grind cepat.</span></div>
+            <div class="tip-row"><span class="tip-icon">🥚</span><span><strong>Lucky Egg</strong> — equip ke Pokemon yang mau dilevelin untuk EXP boost. Bisa didapat dari wild Chansey (route tertentu, 5% chance) atau kadang dari item di overworld.</span></div>
+            <div class="tip-row"><span class="tip-icon">⚡</span><span><strong>Gunakan Speed Up</strong> emulator saat grinding (biasanya tombol L atau fast-forward). Bisa 3–5x lebih cepat. Tetap perhatikan battle agar tidak KO.</span></div>
+            <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Raid Dens</strong> — bisa kasih EXP besar. Cek DexNav di area yang ada Raid Den untuk cari Wild Pokemon kuat yang bisa di-farm.</span></div>
+            <div class="tip-row"><span class="tip-icon">💡</span><span><strong>Jangan over-grind!</strong> Level cap gym menyesuaikan ke Pokemon tertinggi. Kalau terlalu jauh di atas cap, experience share ke Pokemon lain jadi tidak efisien.</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- Uang & Pokeball Tips -->
+      <div class="gc-chapter open">
+        <div class="gc-chapter-header" onclick="toggleChapter(this)">
+          <div class="gc-chapter-title">Cara Dapat Uang & Pokeball dengan Mudah</div>
+          <div class="gc-chapter-meta"><span class="gc-chevron">▼</span></div>
+        </div>
+        <div class="gc-chapter-body">
+          <div class="gc-sub-title">💰 Farming Uang</div>
+          <table class="gc-table">
+            <tr><th>Metode</th><th>Cara</th><th>Efisiensi</th></tr>
+            <tr>
+              <td>⭐ <strong>Amulet Coin + rematch trainer</strong></td>
+              <td>Equip Amulet Coin ke lead Pokemon → battle trainer kaya berulang. Uang double!</td>
+              <td>Terbaik — bisa farming sambil leveling</td>
+            </tr>
+            <tr>
+              <td><strong>Elite Four rematch</strong></td>
+              <td>Setelah jadi Champion, rematch E4 untuk EXP + uang besar</td>
+              <td>Tinggi tapi butuh tim kuat</td>
+            </tr>
+            <tr>
+              <td><strong>Thief move farming</strong></td>
+              <td>Ajarkan Thief ke Pokemon, battle wild yang punya held item berharga</td>
+              <td>Sedang — butuh setup</td>
+            </tr>
+            <tr>
+              <td><strong>Cheat Infinite Money</strong></td>
+              <td>Kode: 29C78059 96542194 (Master Code harus aktif)</td>
+              <td>Instant — tapi hilangkan fun grinding</td>
+            </tr>
+          </table>
+          <div class="gc-sub-title" style="margin-top:1rem">⚽ Cara Dapat Pokeball Mudah</div>
+          <table class="gc-table">
+            <tr><th>Pokeball</th><th>Cara Dapat</th><th>Tips Pakai</th></tr>
+            <tr>
+              <td><strong>Pokeball / Great Ball</strong></td>
+              <td>Beli di semua Pokemart, harga murah</td>
+              <td>Stok selalu. Jangan pelit Great Ball untuk Pokemon yang mau ditangkap.</td>
+            </tr>
+            <tr>
+              <td><strong>Ultra Ball</strong></td>
+              <td>Beli di Pokemart setelah beberapa gym, atau dari misi</td>
+              <td>Terbaik untuk wild tangkapan standar. Stok minimal 20.</td>
+            </tr>
+            <tr>
+              <td>⭐ <strong>Dusk Ball</strong></td>
+              <td>Pokemart (mid-game onwards) atau misi reward</td>
+              <td>3.5x catch rate di malam hari atau di gua. TERBAIK untuk legendary di gua!</td>
+            </tr>
+            <tr>
+              <td><strong>Quick Ball</strong></td>
+              <td>Pokemart atau misi reward</td>
+              <td>5x catch rate di turn pertama. Lempar dulu Quick Ball setiap encounter.</td>
+            </tr>
+            <tr>
+              <td><strong>Timer Ball</strong></td>
+              <td>Pokemart atau misi reward</td>
+              <td>Makin lama battle, makin tinggi catch rate. Bagus untuk legendary yang susah ditangkap.</td>
+            </tr>
+            <tr>
+              <td><strong>Master Ball</strong></td>
+              <td>Cheat atau sangat late game</td>
+              <td>Simpan untuk roaming legendary (Tornadus/Thundurus) yang langsung kabur.</td>
+            </tr>
+          </table>
+          <button class="tip-toggle" onclick="toggleTip(this)"><span class="arr">▶</span> 💡 Tips tambahan catching & economy</button>
+          <div class="tip-panel"><div class="tip-panel-inner">
+            <div class="tip-row"><span class="tip-icon">🌙</span><span><strong>Mau catch legendary di gua malam hari?</strong> Dusk Ball + False Swipe + Thunder Wave = kombinasi paling efisien. Catch rate Dusk Ball 3.5x di kondisi ini.</span></div>
+            <div class="tip-row"><span class="tip-icon">⚡</span><span><strong>Quick Ball sebagai pembuka:</strong> Lempar Quick Ball di turn pertama setiap encounter rare Pokemon. 5x catch rate — lumayan sering langsung kena tanpa perlu drama.</span></div>
+            <div class="tip-row"><span class="tip-icon">🪙</span><span><strong>Amulet Coin</strong> — equip ke Pokemon yang selalu jadi lead di battle. Uang dari trainer battle jadi double. Cari Amulet Coin di Route tertentu atau beli di shop.</span></div>
+            <div class="tip-row"><span class="tip-icon">🎯</span><span><strong>Compound Eyes trick:</strong> Pokemon dengan ability Compound Eyes di slot pertama party (tidak perlu battle) meningkatkan peluang wild Pokemon hold item. Berguna untuk farming held items dari wild.</span></div>
+            <div class="tip-row"><span class="tip-icon">💊</span><span><strong>Paralyze + False Swipe combo:</strong> Thunder Wave dulu → False Swipe sampai HP 1 → lempar Dusk/Ultra Ball. Hampir tidak ada legendary yang kabur dari setup ini.</span></div>
+          </div></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ══ TAB: GYM GUIDE ══ -->
