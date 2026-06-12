@@ -241,6 +241,107 @@
   .type-bug    { background: rgba(132,204,22,0.15); color: #a3e635; border: 1px solid rgba(132,204,22,0.3); }
 
   /* ── Mobile ─────────────────────────────────── */
+  /* ── Pokedex / Database ─────────────────── */
+  .poke-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+  .poke-search {
+    flex: 1;
+    min-width: 150px;
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem 0.75rem;
+    color: var(--c-text);
+    font-size: 0.82rem;
+    outline: none;
+  }
+  .poke-search:focus { border-color: #fb923c; }
+  .poke-filter-btn {
+    font-family: var(--font-head);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--c-border);
+    background: var(--c-surface-2);
+    color: var(--c-text-3);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .poke-filter-btn:hover, .poke-filter-btn.active {
+    border-color: #fb923c;
+    color: #fb923c;
+    background: rgba(251,146,60,0.08);
+  }
+  .poke-table-wrap { overflow-x: auto; }
+  .poke-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+  .poke-table th {
+    background: var(--c-surface-2);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-family: var(--font-head);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-text-3);
+    border-bottom: 1px solid var(--c-border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  .poke-table th:hover { color: #fb923c; }
+  .poke-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  .poke-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .poke-table tr.hidden { display: none; }
+  .poke-name { font-weight: 700; color: var(--c-text); }
+  .poke-type-badge {
+    display: inline-block;
+    font-size: 0.58rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin: 1px;
+  }
+  .rating-S { color: #ffd700; font-weight: 900; }
+  .rating-A { color: #4ade80; font-weight: 700; }
+  .rating-B { color: #60a5fa; font-weight: 700; }
+  .rating-C { color: #9ca3af; }
+  .rating-D { color: #6b7280; }
+  .worth-badge {
+    font-size: 0.65rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 99px;
+  }
+  .worth-S { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
+  .worth-A { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .worth-B { background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+  .worth-C { background: rgba(156,163,175,0.12); color: #9ca3af; border: 1px solid rgba(156,163,175,0.2); }
+  .worth-D { background: rgba(107,114,128,0.1); color: #6b7280; border: 1px solid rgba(107,114,128,0.2); }
+  .poke-count { font-size: 0.75rem; color: var(--c-text-3); margin-bottom: 0.5rem; }
+
   /* ── Download TXT popup ─────────────────── */
   .gc-download-bar {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -543,6 +644,7 @@
     <div class="gc-sidebar-links">
       <a class="gc-sidebar-link active" href="#" onclick="showTab('start',this);return false">🚀 Mulai Bermain</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('team',this);return false" style="color:#f472b6">👥 Tim & Pokemon</a>
+      <a class="gc-sidebar-link" href="#" onclick="showTab('pokedex',this);return false" style="color:#fb923c">📖 Database Pokemon</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('gym',this);return false">🏟️ Gym Guide</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('cheat',this);return false">⚡ Cheat Codes</a>
       <a class="gc-sidebar-link" href="#" onclick="showTab('mega',this);return false">✨ Mega Evolution</a>
@@ -604,6 +706,7 @@
     <div class="gc-game-tabs" style="display:flex;flex-wrap:nowrap;gap:0.25rem;margin-bottom:1.5rem;overflow-x:auto;padding-bottom:0.25rem">
       <button class="gc-tab active" onclick="showTab('start',this)">🚀 Mulai</button>
       <button class="gc-tab" onclick="showTab('team',this)" style="color:#f472b6">👥 Tim & Pokemon</button>
+      <button class="gc-tab" onclick="showTab('pokedex',this)" style="color:#fb923c">📖 Database Pokemon</button>
       <button class="gc-tab" onclick="showTab('gym',this)">🏟️ Gym</button>
       <button class="gc-tab" onclick="showTab('cheat',this)" style="color:#4ade80">⚡ Cheat</button>
       <button class="gc-tab" onclick="showTab('mega',this)">✨ Mega Evo</button>
@@ -707,6 +810,574 @@
             <tr><td>💎 <strong>Max Raids</strong></td><td>Ada mode raid seperti Sword/Shield.</td></tr>
           </table>
         </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: DATABASE POKEMON ══ -->
+    <div class="gc-tab-section" id="tab-pokedex">
+      <div class="gc-tip" style="margin-bottom:0.75rem">
+        📖 <strong>Database Pokemon Unbound</strong> — 467 Pokemon tersedia di Borrius. Gunakan filter dan search untuk cari Pokemon yang kamu mau. Klik header kolom untuk sort.
+      </div>
+
+      <!-- Filter bar -->
+      <div class="poke-filter-bar">
+        <input type="text" class="poke-search" id="pokeSearch" placeholder="🔍 Cari nama Pokemon..." oninput="filterPokemon()">
+      </div>
+
+      <!-- Filter Rating -->
+      <div style="margin-bottom:0.5rem">
+        <div style="font-family:var(--font-head);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.35rem">Filter Tier</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem">
+          <button class="poke-filter-btn active" id="rbtn-all" onclick="filterByRating('all',this)">Semua</button>
+          <button class="poke-filter-btn" id="rbtn-S" onclick="filterByRating('S',this)" style="color:#ffd700">⭐ S — Wajib</button>
+          <button class="poke-filter-btn" id="rbtn-A" onclick="filterByRating('A',this)">🟢 A — Worth</button>
+          <button class="poke-filter-btn" id="rbtn-B" onclick="filterByRating('B',this)">🔵 B — Situasional</button>
+          <button class="poke-filter-btn" id="rbtn-skip" onclick="filterByRating('skip',this)">⬇ C/D — Skip</button>
+          <button class="poke-filter-btn" id="rbtn-deck" onclick="filterByRating('deck',this)">✅ In Deck</button>
+        </div>
+      </div>
+
+      <!-- Filter Stage / Lokasi Progress -->
+      <div style="margin-bottom:0.75rem">
+        <div style="font-family:var(--font-head);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.35rem">📍 Filter Berdasarkan Progress Game</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.35rem">
+          <button class="poke-filter-btn active" id="sbtn-all" onclick="filterByStage('all',this)">Semua Tahap</button>
+          <button class="poke-filter-btn" id="sbtn-early" onclick="filterByStage('early',this)">🌱 Early — Gym 1-2 (Lv.20-26)</button>
+          <button class="poke-filter-btn" id="sbtn-mid1" onclick="filterByStage('mid1',this)">⚔️ Mid-Early — Gym 3-4 (Lv.32-36)</button>
+          <button class="poke-filter-btn" id="sbtn-mid2" onclick="filterByStage('mid2',this)">🔥 Mid-Late — Gym 5-6 (Lv.45-52)</button>
+          <button class="poke-filter-btn" id="sbtn-late" onclick="filterByStage('late',this)">💪 Late — Gym 7-8 (Lv.58-64)</button>
+          <button class="poke-filter-btn" id="sbtn-postgame" onclick="filterByStage('postgame',this)">🏆 Post-Game</button>
+        </div>
+      </div>
+
+      <div class="poke-count" id="pokeCount">Menampilkan semua Pokemon</div>
+      <div class="info-box" id="stageInfo" style="display:none;margin-bottom:0.75rem;font-size:0.8rem"></div>
+
+      <div class="poke-table-wrap">
+        <table class="poke-table" id="pokedexTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable(0)">Pokemon ↕</th>
+              <th onclick="sortTable(1)">Tipe</th>
+              <th onclick="sortTable(2)">Tersedia</th>
+              <th onclick="sortTable(3)">Lokasi</th>
+              <th onclick="sortTable(4)">Efektif vs</th>
+              <th onclick="sortTable(5)">Deck</th>
+              <th onclick="sortTable(6)">Rating ↕</th>
+              <th onclick="sortTable(7)">Worth?</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="pokedexBody">
+            <!-- S TIER -->
+            <tr data-rating="S" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Gible → Garchomp</span></td>
+              <td><span class="poke-type-badge type-elec" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span><span class="poke-type-badge" style="background:rgba(234,179,8,0.2);color:#fbbf24">Ground</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Starter</td>
+              <td>Electric, Rock, Steel, Ice, Fire</td>
+              <td>✅ Tim 1,3,4</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">WAJIB</span></td>
+              <td>Starter terbaik. Dragon/Ground coverage terluas. Speed+Attack gila. Garchompite → Shadow Base 1F.</td>
+            </tr>
+            <tr data-rating="S" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Riolu → Lucario</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fighting</span><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 2 (tall grass) — AWAL GAME!</td>
+              <td>Ice, Rock, Normal, Steel, Dark, Fairy, Dragon</td>
+              <td>✅ Tim 1,3,4</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">WAJIB TANGKAP</span></td>
+              <td>Bisa dapat sangat awal! Fighting/Steel premium. Close Combat+Extreme Speed. Lucarionite dari Mission Warmonger (Great Desert).</td>
+            </tr>
+            <tr data-rating="S" data-deck="yes" data-stage="mid1">
+              <td><span class="poke-name">Ralts → Gardevoir</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span><span class="poke-type-badge" style="background:rgba(244,114,182,0.2);color:#f472b6">Fairy</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 4 (tall grass)</td>
+              <td>Fighting, Dragon, Dark, Poison, Steel</td>
+              <td>✅ Tim 2,3</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">WAJIB TANGKAP</span></td>
+              <td>Moonblast+Calm Mind+Psychic coverage luas. Gardevoirite di Vivill Town warehouse (Dowsing Machine). Juga untuk Synchronize nature farming.</td>
+            </tr>
+            <tr data-rating="S" data-deck="yes" data-stage="mid2">
+              <td><span class="poke-name">Togepi → Togekiss</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(244,114,182,0.2);color:#f472b6">Fairy</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Fallshore City (Egg gift)</td>
+              <td>Ground, Ghost, Fighting, Bug, Dragon</td>
+              <td>✅ Semua Tim</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">WAJIB</span></td>
+              <td>Support terbaik di game! Serene Grace+Air Slash = 60% flinch rate. Thunder Wave. Roost. MVP Insane mode dan Elite Four.</td>
+            </tr>
+            <tr data-rating="S" data-deck="no" data-stage="postgame">
+              <td><span class="poke-name">Latias / Latios</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#c084fc">🏆 Post</td>
+              <td>45 Misi selesai → Mission HQ</td>
+              <td>Ice, Bug, Ghost, Dragon, Dark, Fairy</td>
+              <td>⚠️ Post-game</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">LEGENDARY</span></td>
+              <td>Dragon/Psychic kuat. Levitate ability. Mega Lati@s tersedia (Latiasite/Latiosite dari 45 misi).</td>
+            </tr>
+            <tr data-rating="S" data-deck="no" data-stage="postgame">
+              <td><span class="poke-name">Rayquaza / Mega Rayquaza</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#c084fc">🏆 Post</td>
+              <td>Crystal Peak (post-game)</td>
+              <td>Ice, Rock, Dragon, Fairy</td>
+              <td>⚠️ Post-game</td>
+              <td><span class="rating-S">S</span></td>
+              <td><span class="worth-badge worth-S">LEGENDARY</span></td>
+              <td>Salah satu Pokemon terkuat. Air Lock ability. Dragon Ascent untuk Mega. Satu-satunya yang bisa Mega tanpa Mega Stone.</td>
+            </tr>
+
+            <!-- A TIER -->
+            <tr data-rating="A" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Beldum → Metagross</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Starter pilihan</td>
+              <td>Rock, Ice, Fairy, Grass, Poison, Dragon</td>
+              <td>✅ Tim 2,5</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Evolusi lambat (Lv.45) tapi Metagross sangat tangguh. Meteor Mash kuat. Metagrossite → Shadow Base 1F atau Mission #050.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Minior</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(163,163,163,0.2);color:#a3a3a3">Rock</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 1</td>
+              <td>Flying, Bug, Steel, Fire, Water, Electric</td>
+              <td>⚠️ Situasional</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>BST 600! Didapat di Route 1. Meteor form immune status. Core form Speed tinggi. Sering diremehkan padahal sangat kuat.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Magikarp → Gyarados</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Water</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Hampir semua area berair</td>
+              <td>Ground, Electric, Bug, Grass, Steel</td>
+              <td>✅ Tim 2,4,5</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Investment terbaik. Grind ke Lv.20. Dragon Dance+Waterfall hampir tidak bisa dihentiin. Intimidate untuk team support. Gyaradosite di Route 13.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="early">
+              <td><span class="poke-name">Growlithe → Arcanine</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fire</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 3, Route 5</td>
+              <td>Grass, Ice, Bug, Steel, Fairy</td>
+              <td>✅ Tim 2,3</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WAJIB AWAL</span></td>
+              <td>Fire coverage vital untuk Gym 1+8. Extreme Speed priority. Sangat cepat. Evolusi via Fire Stone.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="mid1">
+              <td><span class="poke-name">Gastly → Gengar</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Ghost</span><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Poison</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Grim Woods</td>
+              <td>Ground, Ghost, Normal, Fighting, Bug, Grass, Fairy</td>
+              <td>✅ Tim 1,4,5</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Special attacker terbaik. Shadow Ball+Sludge Bomb+Thunderbolt. Destiny Bond emergency. Butuh trade untuk Gengar. Gengarite di Victory Road snowy area.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="mid2">
+              <td><span class="poke-name">Sneasel → Weavile</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Dark</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Ice</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 14 (Night)</td>
+              <td>Normal, Ghost, Ice, Dragon, Flying, Grass</td>
+              <td>✅ Tim 1,4</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Speed 125. Ice Punch+Night Slash coverage Ice+Dark luar biasa. Razor Claw untuk evolusi (Battle Frontier atau 10% drop Sneasel).</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="late">
+              <td><span class="poke-name">Aron → Aggron</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span><span class="poke-type-badge" style="background:rgba(163,163,163,0.2);color:#a3a3a3">Rock</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>
+              <td>Frozen Heights, Route 15</td>
+              <td>Ice, Rock, Normal, Grass, Fairy, Flying, Bug, Dragon</td>
+              <td>✅ Tim 2,5</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Sturdy = tidak bisa di-OHKO. Physical wall terbaik. Sangat berguna di Insane mode. Aggronite di Lost Tunnel.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="mid1">
+              <td><span class="poke-name">Ralts → Gallade</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fighting</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 4 (male Ralts + Dawn Stone)</td>
+              <td>Normal, Ice, Rock, Steel, Dark, Dragon</td>
+              <td>⚠️ Situasional</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Physical alternative dari Gardevoir. Close Combat+Psycho Cut+Shadow Sneak bagus. Galladite dari Antisis City Port.</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Rotom (6 Form)</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(250,204,21,0.2);color:#facc15">Electric</span>+Tipe Lain</td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 11 (Abandoned Mansion)</td>
+              <td>Ground, Grass, Water, Ice, Flying</td>
+              <td>⚠️ Situasional</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>6 form! Rotom-Wash (Water/Elec) terbaik: imun Ground via Levitate. Rotom-Heat (Fire/Elec) vs Ice+Steel. Sangat fleksibel.</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="late">
+              <td><span class="poke-name">Eevee (8 Evolusi)</span></td>
+              <td>Normal + pilihan</td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>
+              <td>Magnolia Town (story event)</td>
+              <td>Bergantung evolusi</td>
+              <td>⚠️ Situasional</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>8 evolusi! Sylveon (Fairy), Espeon (Psychic), Umbreon (Dark support), Jolteon (Electric speed), Vaporeon (Water tank). Pilih sesuai tim.</td>
+            </tr>
+            <tr data-rating="A" data-deck="yes" data-stage="mid2">
+              <td><span class="poke-name">Scyther → Scizor</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(132,204,22,0.2);color:#a3e635">Bug</span><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 12, Great Desert</td>
+              <td>Fire, Electric, Ice, Fighting, Flying</td>
+              <td>✅ Tim 4</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH</span></td>
+              <td>Bug/Steel banyak resistansi. Bullet Punch priority. Scizorite dari Ace Trainer Great Desert (Rock Climb). Vs Fairy type Arabella di E4.</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="late">
+              <td><span class="poke-name">Larvesta → Volcarona</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(132,204,22,0.2);color:#a3e635">Bug</span><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fire</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>
+              <td>Crystal Peak (egg dari story)</td>
+              <td>Water, Flying, Rock, Fire</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH (late)</span></td>
+              <td>Quiver Dance+Fiery Dance sweeper terbaik late game. Tapi evolusi di Lv.59 — sangat susah digrind. Worth untuk yang sabar.</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="late">
+              <td><span class="poke-name">Deino → Hydreigon</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Dark</span><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>
+              <td>Crystal Peak area</td>
+              <td>Ice, Fighting, Dragon, Fairy, Bug</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">WORTH (late)</span></td>
+              <td>Dragon terkuat non-legendary. Dark Pulse+Draco Meteor+Flamethrower coverage sempurna. Evolusi di Lv.64 — untuk yang sabar.</td>
+            </tr>
+            <tr data-rating="A" data-deck="no" data-stage="postgame">
+              <td><span class="poke-name">Darkrai</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Dark</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#c084fc">🏆 Post</td>
+              <td>Tarmigan Inn (Mission: The Endless Nightmare)</td>
+              <td>Fighting, Bug, Fairy</td>
+              <td>⚠️ Post-game</td>
+              <td><span class="rating-A">A</span></td>
+              <td><span class="worth-badge worth-A">LEGENDARY</span></td>
+              <td>Dark Void (sleep all) + Nightmare combo. Sangat powerful untuk battle. Butuh selesaikan misi dulu.</td>
+            </tr>
+
+            <!-- B TIER -->
+            <tr data-rating="B" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Larvitar → Tyranitar</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(163,163,163,0.2);color:#a3a3a3">Rock</span><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Dark</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Starter pilihan</td>
+              <td>Fire, Flying, Bug, Fairy, Grass</td>
+              <td>⚠️ Hard Mode</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">HARD MODE</span></td>
+              <td>Susah di awal (4x lemah Grass vs Gym 1). Tyranitar akhirnya kuat dengan Sand Stream+Crunch combo. Hanya untuk yang suka tantangan.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Swinub → Mamoswine</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Ice</span><span class="poke-type-badge" style="background:rgba(234,179,8,0.2);color:#fbbf24">Ground</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 1, Icicle Cave</td>
+              <td>Grass, Dragon, Flying, Electric, Fire</td>
+              <td>❌ Skip</td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Attack tinggi, Ice+Ground coverage. Bagus vs Dragon dan Electric. Bisa dapat awal di Route 1.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Nidoran♀/♂ → Nidoqueen/Nidoking</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Poison</span><span class="poke-type-badge" style="background:rgba(234,179,8,0.2);color:#fbbf24">Ground</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 3, Route 4, Route 5</td>
+              <td>Grass, Fairy, Bug, Electric, Fighting, Rock</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Nidoking dengan Sheer Force+Life Orb menarik. Poison/Ground coverage lumayan. Bisa dapat dari awal.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Abra → Alakazam</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 7</td>
+              <td>Fighting, Poison, Psychic, Ghost</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Speed dan Sp.Attack tinggi. Butuh trade untuk Alakazam. Berguna untuk Synchronize nature farming. Alakazamite tersedia.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Unova Starters (Tepig/Snivy/Oshawott)</span></td>
+              <td>Fire/Grass/Water</td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 5 (gift)</td>
+              <td>Berbeda per starter</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Emboar (Fire/Fight), Serperior (Grass+Contrary Leaf Storm!), Samurott (Water). Berguna sebagai type coverage tambahan.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Numel → Camerupt</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fire</span><span class="poke-type-badge" style="background:rgba(234,179,8,0.2);color:#fbbf24">Ground</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Cinder Volcano area, Route 4</td>
+              <td>Water, Ground, Grass, Ice</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Mega Camerupt sangat berguna vs Gym 5 Galavan (Steel). Cameruptite dari Elder Cinder Volcano. Tanpa Mega, stat biasa.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Litwick → Chandelure</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Ghost</span><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fire</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Cinder Volcano</td>
+              <td>Water, Ground, Ghost, Dark, Rock</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Chandelure Sp.Attack salah satu tertinggi. Shadow Ball+Flamethrower+Energy Ball kuat. Tapi defensive stat sangat rendah.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Trapinch → Flygon</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(234,179,8,0.2);color:#fbbf24">Ground</span><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Great Desert</td>
+              <td>Ice, Dragon, Bug, Fairy</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Flygon Ground/Dragon typing unik. Alternatif kalau tidak pilih Gible. Lebih mudah dapat tapi stat lebih rendah dari Garchomp.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Spiritomb</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Ghost</span><span class="poke-type-badge" style="background:rgba(107,114,128,0.2);color:#9ca3af">Dark</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Grim Woods (misi khusus)</td>
+              <td>Hampir tidak ada (kecuali Fairy)!</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">UNIK</span></td>
+              <td>Nol kelemahan kecuali Fairy! Trigger conversation unik di Grim Woods. Menarik untuk koleksi dan stall strategy.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="late">
+              <td><span class="poke-name">Goomy → Goodra</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>
+              <td>Cootes Bog (rainy area)</td>
+              <td>Ice, Dragon, Fairy</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Dragon defensive terbaik. Sap Sipper imun Grass. Murni Dragon minim kelemahan. Berguna untuk yang ingin defensive Dragon.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Ditto</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Normal</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 9 area</td>
+              <td>Fighting only</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">BREEDING</span></td>
+              <td>Essential untuk breeding! Bisa breed dengan hampir semua Pokemon. Tidak bagus untuk battle tapi sangat berguna untuk EV/nature optimization.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Chansey → Blissey</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Normal</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 13 area</td>
+              <td>Fighting only</td>
+              <td>✅ Tim 5 (Insane)</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">SITUASIONAL</span></td>
+              <td>HP wall terbesar. Di Insane mode (no items in battle) Blissey sangat berguna untuk stall. Natural Cure ability.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Ferroseed → Ferrothorn</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(132,204,22,0.2);color:#a3e635">Grass</span><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Antisis City Ferrothorn Turf</td>
+              <td>Fire (4x!), Fighting</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Defensive wall solid. Iron Barbs+Rocky Helmet damage pasif. Spikes+Stealth Rock setter. Tapi 4x lemah Fire — hati-hati.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Sandshrew (Alolan) → Sandslash</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Ice</span><span class="poke-type-badge" style="background:rgba(209,213,219,0.2);color:#d1d5db">Steel</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Icicle Cave (secret area, butuh misi)</td>
+              <td>Fire, Fighting, Ground, Water</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Ice/Steel typing unik dengan banyak resistansi. Area khusus untuk Defense EV farming. Langka dan butuh misi untuk unlock.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Starmie</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Water</span><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Auburn Waterway, Route 10 (Surf)</td>
+              <td>Electric, Grass, Bug, Ghost, Dark</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Sangat cepat, coverage Water+Psychic luas. Natural Cure ability. Bagus sebagai offensive Water type.</td>
+            </tr>
+            <tr data-rating="B" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Bagon → Salamence</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(99,102,241,0.2);color:#a78bfa">Dragon</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 13 area</td>
+              <td>Electric, Ice, Dragon, Rock, Steel</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-B">B</span></td>
+              <td><span class="worth-badge worth-B">WORTH</span></td>
+              <td>Lebih mudah dari Dratini. Dragon/Flying coverage bagus. Intimidate ability bagus. Salamencite tersedia.</td>
+            </tr>
+
+            <!-- C TIER / SKIP -->
+            <tr data-rating="C" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Snorunt → Glalie/Froslass</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Ice</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 1, Icicle Cave</td>
+              <td>Grass, Ground, Flying, Dragon</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Ice type dengan banyak kelemahan. Ada Ghost type yang lebih baik dari Froslass. Kurang efisien.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Zubat → Crobat</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Poison</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Icicle Cave, berbagai gua</td>
+              <td>Fighting, Ground, Grass, Bug</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Crobat cepat (Speed 130) tapi terlalu banyak kelemahan. Ada Flying type yang lebih baik. Hanya jika sangat butuh speed pivot.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Mankey → Primeape</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fighting</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 4</td>
+              <td>Normal, Ice, Rock, Steel, Dark</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Primeape cukup cepat tapi stat biasa. Ada Fighting type yang jauh lebih baik: Lucario, Infernape, Gallade.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Electrike → Manectric</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(250,204,21,0.2);color:#facc15">Electric</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 4, Route 7</td>
+              <td>Flying, Water, Steel</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Electric type biasa, stat tidak spesial. Lebih baik pakai Rotom-Wash atau Jolteon untuk Electric coverage.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Drowzee → Hypno</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 7</td>
+              <td>Fighting, Poison, Psychic, Ghost</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Stat sangat biasa. Tidak bisa bersaing dengan Gardevoir, Alakazam, atau Espeon sebagai Psychic type.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="mid1">
+              <td><span class="poke-name">Shroomish → Breloom</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(132,204,22,0.2);color:#a3e635">Grass</span><span class="poke-type-badge" style="background:rgba(239,68,68,0.2);color:#f87171">Fighting</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>
+              <td>Route 6, Grim Woods</td>
+              <td>Fire, Ice, Fighting, Flying, Water</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Spore+Focus Punch combo menarik tapi sangat gimmicky dan sulit digunakan efektif. Ada Grass/Fighting yang lebih baik.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Binacle → Barbaracle</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(163,163,163,0.2);color:#a3a3a3">Rock</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Water</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 2 (static)</td>
+              <td>Flying, Steel, Grass, Electric, Fighting, Ground</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Stat tidak spesial. Shell Smash menarik tapi sulit disetup. Ada Rock/Water type yang lebih baik.</td>
+            </tr>
+            <tr data-rating="C" data-deck="no" data-stage="mid2">
+              <td><span class="poke-name">Wobbuffet</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(168,85,247,0.2);color:#c084fc">Psychic</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>
+              <td>Route 9, Route 10</td>
+              <td>Bug, Ghost, Dark</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-C">C</span></td>
+              <td><span class="worth-badge worth-C">SKIP</span></td>
+              <td>Shadow Tag ability menarik tapi sangat gimmicky. Di battle normal tidak efektif.</td>
+            </tr>
+
+            <!-- D TIER -->
+            <tr data-rating="D" data-deck="no" data-stage="early">
+              <td><span class="poke-name">Delibird</span></td>
+              <td><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Ice</span><span class="poke-type-badge" style="background:rgba(147,197,253,0.2);color:#93c5fd">Flying</span></td>
+              <td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>
+              <td>Route 1 (Night/Winter)</td>
+              <td>Grass, Ground, Fighting, Bug</td>
+              <td>❌ Skip</td>
+              <td><span class="rating-D">D</span></td>
+              <td><span class="worth-badge worth-D">SKIP</span></td>
+              <td>Stat sangat rendah, tidak ada evolusi. Hanya untuk koleksi Pokedex.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box" style="margin-top:1rem">
+        📌 Database ini mencakup Pokemon yang paling sering dicari dan dianalisis komunitas. Untuk list lengkap 467 Pokemon dengan lokasi detail, kunjungi <a href="https://unboundwiki.com/pokemon/" target="_blank" rel="noopener" style="color:#fb923c">Unbound Wiki</a> atau <a href="https://pokemonunboundpokedex.com/" target="_blank" rel="noopener" style="color:#fb923c">Pokemon Unbound Pokedex</a>.
       </div>
     </div>
 
@@ -1913,6 +2584,116 @@ A47E0D4C 0A0000A6
 <script src="../../assets/js/test.js"></script>
 <script>
   window.GC_GAME_SLUG = 'unbound';
+
+  // ── Pokedex Filter & Sort ─────────────────────────────────────
+  var currentRatingFilter = 'all';
+  var currentStageFilter = 'all';
+  var sortDir = {};
+
+  function filterPokemon() {
+    var search = document.getElementById('pokeSearch').value.toLowerCase();
+    var rows = document.querySelectorAll('#pokedexBody tr');
+    var visible = 0;
+    rows.forEach(function(row) {
+      var text = row.textContent.toLowerCase();
+      var rating = row.getAttribute('data-rating') || '';
+      var deck = row.getAttribute('data-deck') || '';
+      var stage = row.getAttribute('data-stage') || '';
+
+      // Rating filter
+      var matchRating = currentRatingFilter === 'all' ||
+        (currentRatingFilter === 'skip' && (rating === 'C' || rating === 'D')) ||
+        (currentRatingFilter === 'deck' && deck === 'yes') ||
+        rating === currentRatingFilter;
+
+      // Stage filter — "early" juga include mid1, mid2, late
+      // Karena kalau kamu di late game, kamu masih bisa dapat early pokemon
+      var stageOrder = {early: 1, mid1: 2, mid2: 3, late: 4, postgame: 5};
+      var rowOrder = stageOrder[stage] || 0;
+      var filterOrder = stageOrder[currentStageFilter] || 99;
+      var matchStage = currentStageFilter === 'all' || rowOrder <= filterOrder;
+
+      // Search filter
+      var matchSearch = !search || text.includes(search);
+
+      if (matchRating && matchStage && matchSearch) {
+        row.classList.remove('hidden');
+        visible++;
+      } else {
+        row.classList.add('hidden');
+      }
+    });
+    var countEl = document.getElementById('pokeCount');
+    if (countEl) {
+      var stageLabel = {
+        all: 'semua tahap',
+        early: 'Gym 1-2 (Early)',
+        mid1: 's/d Gym 3-4',
+        mid2: 's/d Gym 5-6',
+        late: 's/d Gym 7-8',
+        postgame: 'Post-Game'
+      }[currentStageFilter] || '';
+      countEl.textContent = 'Menampilkan ' + visible + ' Pokemon' + (stageLabel ? ' — ' + stageLabel : '');
+    }
+  }
+
+  function filterByRating(rating, btn) {
+    currentRatingFilter = rating;
+    // Reset active hanya di rating buttons
+    document.querySelectorAll('[id^="rbtn-"]').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+    filterPokemon();
+  }
+
+  function filterByStage(stage, btn) {
+    currentStageFilter = stage;
+    // Reset active hanya di stage buttons
+    document.querySelectorAll('[id^="sbtn-"]').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+
+    // Update info box berdasarkan stage
+    updateStageInfo(stage);
+    filterPokemon();
+  }
+
+  function updateStageInfo(stage) {
+    var infoMap = {
+      early: '🌱 <strong>Gym 1-2 (Lv.20-26):</strong> Pokemon yang bisa didapat dari awal game sampai sebelum Gym 3. Target level 18-26.',
+      mid1: '⚔️ <strong>Gym 3-4 (Lv.32-36):</strong> Termasuk semua early + tambahan yang unlock di area Gym 3-4.',
+      mid2: '🔥 <strong>Gym 5-6 (Lv.45-52):</strong> Termasuk semua sebelumnya + area mid-game (Route 10-13, Great Desert).',
+      late: '💪 <strong>Gym 7-8 (Lv.58-64):</strong> Semua Pokemon yang bisa didapat sebelum Elite Four.',
+      postgame: '🏆 <strong>Post-Game only:</strong> Hanya bisa didapat setelah jadi Champion.',
+      all: null
+    };
+    var el = document.getElementById('stageInfo');
+    if (!el) return;
+    var info = infoMap[stage];
+    if (info) {
+      el.innerHTML = info;
+      el.style.display = 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  }
+
+  function sortTable(col) {
+    var tbody = document.getElementById('pokedexBody');
+    if (!tbody) return;
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    var dir = sortDir[col] === 'asc' ? 'desc' : 'asc';
+    sortDir[col] = dir;
+    rows.sort(function(a, b) {
+      var aText = a.querySelectorAll('td')[col]?.textContent.trim() || '';
+      var bText = b.querySelectorAll('td')[col]?.textContent.trim() || '';
+      return dir === 'asc' ? aText.localeCompare(bText) : bText.localeCompare(aText);
+    });
+    rows.forEach(function(row) { tbody.appendChild(row); });
+    filterPokemon();
+  }
 
   // Tab navigation
   function showTab(name, el) {
