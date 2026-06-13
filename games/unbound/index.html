@@ -1994,57 +1994,78 @@ A47E0D4C 0A0000A6
     var tbody = document.getElementById('pokedexBody');
     if (!tbody || typeof POKEMON_DB === 'undefined') return;
 
-    var stageLabels = {
-      early: '<td style="white-space:nowrap;font-size:0.72rem;color:#86efac">🌱 Gym 1-2</td>',
-      mid1:  '<td style="white-space:nowrap;font-size:0.72rem;color:#fcd34d">⚔️ Gym 3-4</td>',
-      mid2:  '<td style="white-space:nowrap;font-size:0.72rem;color:#fb923c">🔥 Gym 5-6</td>',
-      late:  '<td style="white-space:nowrap;font-size:0.72rem;color:#f87171">💪 Gym 7-8</td>',
-      postgame: '<td style="white-space:nowrap;font-size:0.72rem;color:#c084fc">🏆 Post</td>',
+    var stageInfo = {
+      early:    {label:'🌱 Gym 1-2', color:'#86efac'},
+      mid1:     {label:'⚔️ Gym 3-4', color:'#fcd34d'},
+      mid2:     {label:'🔥 Gym 5-6', color:'#fb923c'},
+      late:     {label:'💪 Gym 7-8', color:'#f87171'},
+      postgame: {label:'🏆 Post',    color:'#c084fc'},
     };
     var ratingClass = {S:'rating-S',A:'rating-A',B:'rating-B',C:'rating-C',D:'rating-D'};
-    var worthClass  = {S:'worth-S',A:'worth-A',B:'worth-B',C:'worth-C',D:'worth-D',
-      'WAJIB':'worth-S','WAJIB TANGKAP':'worth-S','WAJIB AWAL':'worth-S','LEGENDARY':'worth-A',
-      'WORTH':'worth-A','WORTH (late)':'worth-A','HARD MODE':'worth-B','BREEDING':'worth-B',
-      'SITUASIONAL':'worth-B','UNIK':'worth-B','SKIP':'worth-C','WAJIB AWAL':'worth-S'};
+    var worthClassMap = {
+      'WAJIB':'worth-S','WAJIB TANGKAP':'worth-S','WAJIB AWAL':'worth-S',
+      'LEGENDARY':'worth-A','WORTH':'worth-A','WORTH (late)':'worth-A',
+      'HARD MODE':'worth-B','BREEDING':'worth-B','SITUASIONAL':'worth-B','UNIK':'worth-B',
+      'SKIP':'worth-C','D':'worth-D'
+    };
+    var typeColors = {
+      'Fire':'rgba(239,68,68,0.25)','Water':'rgba(96,165,250,0.25)',
+      'Grass':'rgba(74,222,128,0.2)','Electric':'rgba(250,204,21,0.2)',
+      'Psychic':'rgba(168,85,247,0.2)','Ice':'rgba(147,197,253,0.2)',
+      'Dragon':'rgba(99,102,241,0.2)','Dark':'rgba(107,114,128,0.3)',
+      'Fairy':'rgba(244,114,182,0.2)','Fighting':'rgba(239,68,68,0.18)',
+      'Rock':'rgba(163,163,163,0.2)','Ground':'rgba(234,179,8,0.18)',
+      'Steel':'rgba(209,213,219,0.2)','Ghost':'rgba(168,85,247,0.18)',
+      'Bug':'rgba(132,204,22,0.18)','Flying':'rgba(147,197,253,0.18)',
+      'Normal':'rgba(209,213,219,0.15)','Poison':'rgba(168,85,247,0.18)',
+    };
 
     var html = '';
-    POKEMON_DB.forEach(function(p, i) {
-      var name=p[0], type=p[1], loc=p[2], eff=p[3], deck=p[4],
-          rating=p[5], worth=p[6], notes=p[7], stage=p[8];
-      var isDeck = (deck||'').startsWith('✅') ? 'yes' : 'no';
-      var stageTd = stageLabels[stage] || '<td style="font-size:0.72rem;color:var(--c-text-3)">—</td>';
-      var rCls = ratingClass[rating] || 'rating-C';
-      var wCls = worthClass[worth] || worthClass[rating] || 'worth-C';
+    POKEMON_DB.forEach(function(p) {
+      if (!p || p.length < 9) return;
+      var name   = p[0] || '';
+      var type   = p[1] || '';
+      var loc    = p[2] || '';
+      var eff    = p[3] || '';
+      var deck   = p[4] || '';
+      var rating = p[5] || 'C';
+      var worth  = p[6] || 'SKIP';
+      var notes  = p[7] || '';
+      var stage  = p[8] || '';
 
-      // Simpan type sebagai badge berwarna
-      var typeColors = {
-        'Fire':'rgba(239,68,68,0.2)','Water':'rgba(96,165,250,0.2)',
-        'Grass':'rgba(74,222,128,0.2)','Electric':'rgba(250,204,21,0.2)',
-        'Psychic':'rgba(168,85,247,0.2)','Ice':'rgba(147,197,253,0.2)',
-        'Dragon':'rgba(99,102,241,0.2)','Dark':'rgba(107,114,128,0.25)',
-        'Fairy':'rgba(244,114,182,0.2)','Fighting':'rgba(239,68,68,0.15)',
-        'Rock':'rgba(163,163,163,0.2)','Ground':'rgba(234,179,8,0.15)',
-        'Steel':'rgba(209,213,219,0.2)','Ghost':'rgba(107,114,128,0.2)',
-        'Bug':'rgba(132,204,22,0.15)','Flying':'rgba(147,197,253,0.15)',
-        'Normal':'rgba(209,213,219,0.12)','Poison':'rgba(168,85,247,0.15)',
-      };
-      var typeStr = (type||'').split('/').map(function(t){
+      var isDeck = deck.indexOf('✅') >= 0 ? 'yes' : 'no';
+
+      // Stage label
+      var si = stageInfo[stage];
+      var stageLabel = si
+        ? '<span style="white-space:nowrap;font-size:0.68rem;font-weight:700;color:' + si.color + '">' + si.label + '</span>'
+        : '<span style="color:var(--c-text-3);font-size:0.68rem">—</span>';
+
+      // Type badges
+      var typeStr = type.split('/').map(function(t) {
         t = t.trim();
-        var bg = typeColors[t] || 'rgba(255,255,255,0.08)';
-        return '<span style="display:inline-block;background:'+bg+';border-radius:3px;padding:1px 5px;font-size:0.65rem;font-weight:700;white-space:nowrap;margin:1px">'+t+'</span>';
-      }).join(' ');
+        var bg = typeColors[t] || 'rgba(255,255,255,0.1)';
+        return '<span style="display:inline-block;background:' + bg + ';border-radius:3px;padding:1px 6px;font-size:0.62rem;font-weight:700;white-space:nowrap;margin:1px 0">' + t + '</span>';
+      }).join('<br>');
 
-      html += '<tr data-rating="' + rating + '" data-deck="' + isDeck +
-              '" data-stage="' + (stage||'') + '">' +
-        '<td><span class="poke-name" style="font-size:0.8rem">' + name + '</span></td>' +
-        '<td style="min-width:80px">' + typeStr + '</td>' +
-        stageTd +
-        '<td style="font-size:0.75rem;color:var(--c-text-2);min-width:120px">' + loc + '</td>' +
-        '<td style="font-size:0.7rem;color:var(--c-text-3);min-width:100px">' + eff + '</td>' +
-        '<td style="font-size:0.72rem;min-width:60px">' + deck + '</td>' +
-        '<td style="text-align:center"><span class="' + rCls + '" style="font-size:1rem">' + rating + '</span></td>' +
-        '<td><span class="worth-badge ' + wCls + '">' + worth + '</span></td>' +
-        '<td style="font-size:0.75rem;color:var(--c-text-2);min-width:160px">' + notes + '</td>' +
+      // Rating & Worth
+      var rCls = ratingClass[rating] || 'rating-C';
+      var wCls = worthClassMap[worth] || (rating === 'S' ? 'worth-S' : rating === 'A' ? 'worth-A' : rating === 'B' ? 'worth-B' : 'worth-C');
+
+      // Worth display — singkat
+      var worthShort = worth.length > 12 ? worth.substring(0,10)+'…' : worth;
+
+      html +=
+        '<tr data-rating="' + rating + '" data-deck="' + isDeck + '" data-stage="' + stage + '">' +
+        '<td><span class="poke-name">' + name + '</span></td>' +
+        '<td>' + typeStr + '</td>' +
+        '<td>' + stageLabel + '</td>' +
+        '<td style="font-size:0.75rem;color:var(--c-text-2)">' + loc + '</td>' +
+        '<td style="font-size:0.68rem;color:var(--c-text-3)">' + eff + '</td>' +
+        '<td style="font-size:0.7rem">' + deck + '</td>' +
+        '<td style="text-align:center"><span class="' + rCls + '" style="font-weight:900">' + rating + '</span></td>' +
+        '<td><span class="worth-badge ' + wCls + '" style="white-space:nowrap">' + worthShort + '</span></td>' +
+        '<td style="font-size:0.73rem;color:var(--c-text-2)">' + notes + '</td>' +
         '</tr>';
     });
     tbody.innerHTML = html;
