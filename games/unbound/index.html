@@ -280,11 +280,12 @@
     color: #fb923c;
     background: rgba(251,146,60,0.08);
   }
-  .poke-table-wrap { overflow-x: auto; }
+  .poke-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--c-border); border-radius: var(--radius); }
   .poke-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.78rem;
+    table-layout: auto;
   }
   .poke-table th {
     background: var(--c-surface-2);
@@ -842,11 +843,11 @@
         <div style="font-family:var(--font-head);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-text-3);margin-bottom:0.35rem">📍 Filter Berdasarkan Progress Game</div>
         <div style="display:flex;flex-wrap:wrap;gap:0.35rem">
           <button class="poke-filter-btn active" id="sbtn-all" onclick="filterByStage('all',this)">Semua Tahap</button>
-          <button class="poke-filter-btn" id="sbtn-early" onclick="filterByStage('early',this)">🌱 Early — Gym 1-2 (Lv.20-26)</button>
-          <button class="poke-filter-btn" id="sbtn-mid1" onclick="filterByStage('mid1',this)">⚔️ Mid-Early — Gym 3-4 (Lv.32-36)</button>
-          <button class="poke-filter-btn" id="sbtn-mid2" onclick="filterByStage('mid2',this)">🔥 Mid-Late — Gym 5-6 (Lv.45-52)</button>
-          <button class="poke-filter-btn" id="sbtn-late" onclick="filterByStage('late',this)">💪 Late — Gym 7-8 (Lv.58-64)</button>
-          <button class="poke-filter-btn" id="sbtn-postgame" onclick="filterByStage('postgame',this)">🏆 Post-Game</button>
+          <button class="poke-filter-btn" id="sbtn-early" onclick="filterByStage('early',this)" style="color:#86efac">🌱 Gym 1-2 (Lv.20-26)</button>
+          <button class="poke-filter-btn" id="sbtn-mid1" onclick="filterByStage('mid1',this)" style="color:#fcd34d">⚔️ Gym 3-4 (Lv.32-36)</button>
+          <button class="poke-filter-btn" id="sbtn-mid2" onclick="filterByStage('mid2',this)" style="color:#fb923c">🔥 Gym 5-6 (Lv.45-52)</button>
+          <button class="poke-filter-btn" id="sbtn-late" onclick="filterByStage('late',this)" style="color:#f87171">💪 Gym 7-8 (Lv.58-64)</button>
+          <button class="poke-filter-btn" id="sbtn-postgame" onclick="filterByStage('postgame',this)" style="color:#c084fc">🏆 Post-Game</button>
         </div>
       </div>
 
@@ -857,15 +858,15 @@
         <table class="poke-table" id="pokedexTable">
           <thead>
             <tr>
-              <th onclick="sortTable(0)">Pokemon ↕</th>
-              <th onclick="sortTable(1)">Tipe</th>
-              <th onclick="sortTable(2)">Tersedia</th>
-              <th onclick="sortTable(3)">Lokasi</th>
-              <th onclick="sortTable(4)">Efektif vs</th>
-              <th onclick="sortTable(5)">Deck</th>
-              <th onclick="sortTable(6)">Rating ↕</th>
-              <th onclick="sortTable(7)">Worth?</th>
-              <th>Keterangan</th>
+              <th onclick="sortTable(0)" style="min-width:130px">Pokemon ↕</th>
+              <th onclick="sortTable(1)" style="min-width:80px">Tipe</th>
+              <th onclick="sortTable(2)" style="min-width:70px">Stage</th>
+              <th onclick="sortTable(3)" style="min-width:120px">Lokasi</th>
+              <th onclick="sortTable(4)" style="min-width:100px">Efektif vs</th>
+              <th onclick="sortTable(5)" style="min-width:55px">Deck</th>
+              <th onclick="sortTable(6)" style="min-width:40px;text-align:center">⭐</th>
+              <th onclick="sortTable(7)" style="min-width:60px">Worth</th>
+              <th style="min-width:160px">Keterangan</th>
             </tr>
           </thead>
           <tbody id="pokedexBody">
@@ -874,8 +875,8 @@
         </table>
       </div>
 
-      <div class="info-box" style="margin-top:1rem">
-        📌 Database ini mencakup Pokemon yang paling sering dicari dan dianalisis komunitas. Untuk list lengkap 467 Pokemon dengan lokasi detail, kunjungi <a href="https://unboundwiki.com/pokemon/" target="_blank" rel="noopener" style="color:#fb923c">Unbound Wiki</a> atau <a href="https://pokemonunboundpokedex.com/" target="_blank" rel="noopener" style="color:#fb923c">Pokemon Unbound Pokedex</a>.
+      <div class="info-box" style="margin-top:1rem;font-size:0.8rem">
+        📌 <strong>334 Pokemon dianalisis</strong> dari seluruh Borrius — lokasi terverifikasi dari <a href="https://unboundwiki.com/locations/" target="_blank" rel="noopener" style="color:#fb923c">unboundwiki.com</a>. Filter "Stage" bersifat <strong>kumulatif</strong>: pilih "Gym 5-6" = tampil semua Pokemon yang bisa didapat s/d Gym 5-6 (termasuk yang lebih awal). Untuk list lengkap kunjungi <a href="https://unboundwiki.com/pokemon/" target="_blank" rel="noopener" style="color:#fb923c">Unbound Wiki</a>.
       </div>
     </div>
 
@@ -2010,21 +2011,40 @@ A47E0D4C 0A0000A6
     POKEMON_DB.forEach(function(p, i) {
       var name=p[0], type=p[1], loc=p[2], eff=p[3], deck=p[4],
           rating=p[5], worth=p[6], notes=p[7], stage=p[8];
-      var isDeck = deck.startsWith('✅') ? 'yes' : 'no';
-      var stageTd = stageLabels[stage] || '<td>—</td>';
+      var isDeck = (deck||'').startsWith('✅') ? 'yes' : 'no';
+      var stageTd = stageLabels[stage] || '<td style="font-size:0.72rem;color:var(--c-text-3)">—</td>';
       var rCls = ratingClass[rating] || 'rating-C';
       var wCls = worthClass[worth] || worthClass[rating] || 'worth-C';
+
+      // Simpan type sebagai badge berwarna
+      var typeColors = {
+        'Fire':'rgba(239,68,68,0.2)','Water':'rgba(96,165,250,0.2)',
+        'Grass':'rgba(74,222,128,0.2)','Electric':'rgba(250,204,21,0.2)',
+        'Psychic':'rgba(168,85,247,0.2)','Ice':'rgba(147,197,253,0.2)',
+        'Dragon':'rgba(99,102,241,0.2)','Dark':'rgba(107,114,128,0.25)',
+        'Fairy':'rgba(244,114,182,0.2)','Fighting':'rgba(239,68,68,0.15)',
+        'Rock':'rgba(163,163,163,0.2)','Ground':'rgba(234,179,8,0.15)',
+        'Steel':'rgba(209,213,219,0.2)','Ghost':'rgba(107,114,128,0.2)',
+        'Bug':'rgba(132,204,22,0.15)','Flying':'rgba(147,197,253,0.15)',
+        'Normal':'rgba(209,213,219,0.12)','Poison':'rgba(168,85,247,0.15)',
+      };
+      var typeStr = (type||'').split('/').map(function(t){
+        t = t.trim();
+        var bg = typeColors[t] || 'rgba(255,255,255,0.08)';
+        return '<span style="display:inline-block;background:'+bg+';border-radius:3px;padding:1px 5px;font-size:0.65rem;font-weight:700;white-space:nowrap;margin:1px">'+t+'</span>';
+      }).join(' ');
+
       html += '<tr data-rating="' + rating + '" data-deck="' + isDeck +
               '" data-stage="' + (stage||'') + '">' +
-        '<td><span class="poke-name">' + name + '</span></td>' +
-        '<td>' + type + '</td>' +
+        '<td><span class="poke-name" style="font-size:0.8rem">' + name + '</span></td>' +
+        '<td style="min-width:80px">' + typeStr + '</td>' +
         stageTd +
-        '<td style="font-size:0.75rem">' + loc + '</td>' +
-        '<td style="font-size:0.72rem;color:var(--c-text-3)">' + eff + '</td>' +
-        '<td style="font-size:0.75rem">' + deck + '</td>' +
-        '<td><span class="' + rCls + '">' + rating + '</span></td>' +
+        '<td style="font-size:0.75rem;color:var(--c-text-2);min-width:120px">' + loc + '</td>' +
+        '<td style="font-size:0.7rem;color:var(--c-text-3);min-width:100px">' + eff + '</td>' +
+        '<td style="font-size:0.72rem;min-width:60px">' + deck + '</td>' +
+        '<td style="text-align:center"><span class="' + rCls + '" style="font-size:1rem">' + rating + '</span></td>' +
         '<td><span class="worth-badge ' + wCls + '">' + worth + '</span></td>' +
-        '<td style="font-size:0.75rem;color:var(--c-text-2)">' + notes + '</td>' +
+        '<td style="font-size:0.75rem;color:var(--c-text-2);min-width:160px">' + notes + '</td>' +
         '</tr>';
     });
     tbody.innerHTML = html;
