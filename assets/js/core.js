@@ -15,14 +15,14 @@ const GC = (function () {
   // ─── CONFIG ───────────────────────────────────────────────────────────────
   // ── SATU-SATUNYA TEMPAT ISI API KEY — isi di sini, berlaku untuk semua halaman ──
 const CONFIG = {
-    JSONBIN_API_KEY: 'YOUR_API_KEY_HERE', // ← Ganti ini sekali, semua game page ikut
+    JSONBIN_API_KEY: '$2a$10$VFA8BfmxCnPmR4nZk/qxd..3oQptVimsCT5/ZEF265dcwY8LIfJZK', // Ganti dengan Master Key JSONBin kamu
     JSONBIN_BASE: 'https://api.jsonbin.io/v3',
     // INDEX_BIN_ID: bin khusus yang menyimpan mapping { code -> binId }
     // Buat sekali manual di jsonbin.io dengan isi {"index":{}} lalu taruh ID-nya di sini
-    INDEX_BIN_ID: 'YOUR_INDEX_BIN_ID_HERE',
+    INDEX_BIN_ID: '6a1cf3e1ddf5aa59f77dd639',
     // COLLECTION_ID: ID collection "Gaming Compass Web" di JSONBin
     // Semua bin user akan otomatis masuk ke collection ini
-    COLLECTION_ID: 'YOUR_COLLECTION_ID_HERE',
+    COLLECTION_ID: '6a1d080eddf5aa59f77e08e2',
     DATA_VERSION: '1.0',
     CODE_PREFIX: 'GC',
     LOCAL_KEY: 'gc_session',   // key localStorage untuk simpan sesi
