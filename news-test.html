@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSS Feed Tester — Gaming Compass</title>
+<style>
+  body{font-family:monospace;background:#0f1117;color:#e8eaf0;padding:2rem;max-width:900px;margin:0 auto}
+  h1{color:#fa4b35;margin-bottom:0.5rem}
+  p{color:#9aa0b4;margin-bottom:2rem;font-size:0.9rem}
+  .card{background:#171b24;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1rem;margin-bottom:0.75rem}
+  .name{font-weight:700;color:#e8eaf0;margin-bottom:0.25rem}
+  .url{font-size:0.75rem;color:#5c6278;margin-bottom:0.5rem;word-break:break-all}
+  .status{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.82rem;padding:3px 10px;border-radius:99px}
+  .ok{background:rgba(46,204,113,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.3)}
+  .fail{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3)}
+  .wait{background:rgba(241,196,15,0.15);color:#f1c40f;border:1px solid rgba(241,196,15,0.3)}
+  .detail{margin-top:0.5rem;font-size:0.78rem;color:#9aa0b4}
+  .detail.items{color:#2ecc71}
+  .detail.warn{color:#f39c12}
+  .detail.err{color:#e74c3c}
+  button{font-family:monospace;background:#fa4b35;color:#fff;border:none;padding:0.5rem 1.5rem;border-radius:4px;cursor:pointer;font-size:0.9rem;margin-bottom:2rem}
+  button:hover{background:#ff6b50}
+  .summary{background:#1e2330;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:1rem;margin-bottom:1.5rem;display:none}
+  .summary h3{color:#f0b429;margin:0 0 0.5rem}
+  #log{margin-top:2rem;background:#0a0c12;border-radius:8px;padding:1rem;font-size:0.75rem;color:#5c6278;max-height:300px;overflow-y:auto;display:none}
+</style>
+</head>
+<body>
+<h1>🧪 RSS Feed Tester</h1>
+<p>Test semua sumber RSS via Cloudflare Worker kamu sebelum digunakan di halaman berita.</p>
+
+<button onclick="runTests()">▶ Jalankan Test</button>
+
+<div class="summary" id="summary"></div>
+
+<div id="results"></div>
+<div id="log"></div>
+
+<script>
+var CF = 'https://gc-rss-proxy.yudithputra-smi.workers.dev/?url=';
+
+// Keyword filter untuk deteksi artikel gaming
+var GAME_KEYWORDS = [
+  'game','gaming','gamer','esport','esports','ps5','ps4','xbox','nintendo','switch',
+  'steam','playstation','valorant','mobile legend','mlbb','pubg','free fire',
+  'genshin','rpg','fps','mmorpg','indie','dlc','patch','update game','review game',
+  'trailer game','konsol','pc game','android game','ios game'
+];
+var NON_GAME_KEYWORDS = [
+  'smartphone','earphone','earbuds','headphone','laptop','kamera','camera',
+  'monitor','keyboard','mouse peripheral','charger','powerbank','tablet non-game',
+  'oppo','samsung galaxy','iphone','xiaomi','vivo','realme find','tv oled',
+  'kulkas','ac ','printer','router wifi'
+];
+
+var SOURCES = [
+  {name:'Gamebrott (main)',       url:'https://gamebrott.com/feed',                    expect:'gaming'},
+  {name:'Gamebrott (berita cat)', url:'https://gamebrott.com/category/berita/feed',    expect:'gaming'},
+  {name:'Gamebrott (game cat)',   url:'https://gamebrott.com/category/game/feed',      expect:'gaming'},
+  {name:'KotakGame (berita)',     url:'https://www.kotakgame.com/rss/berita/',          expect:'gaming'},
+  {name:'KotakGame (root)',       url:'https://www.kotakgame.com/rss/',                 expect:'gaming'},
+  {name:'Hybrid.co.id (main)',    url:'https://hybrid.co.id/feed',                     expect:'mixed'},
+  {name:'Hybrid (game tag)',      url:'https://hybrid.co.id/tag/game/feed',            expect:'gaming'},
+  {name:'Hybrid (tech cat)',      url:'https://hybrid.co.id/category/teknologi/feed',  expect:'mixed'},
+  {name:'Gamefinity Blog',        url:'https://blog.gamefinity.id/feed',               expect:'gaming'},
+  {name:'Gamefinity (main)',      url:'https://gamefinity.id/feed',                    expect:'gaming'},
+  {name:'Ligagame',               url:'https://www.ligagame.tv/feed',                  expect:'gaming'},
+  {name:'Ligagame (berita)',      url:'https://www.ligagame.tv/category/berita/feed',  expect:'gaming'},
+];
+
+function log(msg) {
+  var el = document.getElementById('log');
+  el.style.display = 'block';
+  el.innerHTML += msg + '\n';
+  el.scrollTop = el.scrollHeight;
+}
+
+function scoreGaming(titles) {
+  var gameCount = 0, nonGameCount = 0;
+  titles.forEach(function(t) {
+    var tl = t.toLowerCase();
+    var isGame = GAME_KEYWORDS.some(function(k){ return tl.indexOf(k) !== -1; });
+    var isNonGame = NON_GAME_KEYWORDS.some(function(k){ return tl.indexOf(k) !== -1; });
+    if (isGame) gameCount++;
+    if (isNonGame) nonGameCount++;
+  });
+  return {gameCount:gameCount, nonGameCount:nonGameCount, total:titles.length,
+          pct: titles.length ? Math.round(gameCount/titles.length*100) : 0};
+}
+
+async function testSource(src) {
+  var card = document.getElementById('card-'+src.name.replace(/[^a-z0-9]/gi,'_'));
+  var statusEl = card.querySelector('.status');
+  var detailEl = card.querySelector('.detail');
+  statusEl.className = 'status wait';
+  statusEl.textContent = '⏳ Testing...';
+
+  try {
+    var ctrl = new AbortController();
+    var t = setTimeout(function(){ctrl.abort();}, 15000);
+    var start = Date.now();
+    var res = await fetch(CF + encodeURIComponent(src.url), {signal:ctrl.signal});
+    clearTimeout(t);
+    var ms = Date.now() - start;
+
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var xml = await res.text();
+
+    // Parse XML
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(xml, 'application/xml');
+    var parseErr = doc.querySelector('parsererror');
+    if (parseErr) throw new Error('XML parse error');
+
+    var items = Array.from(doc.querySelectorAll('item'));
+    if (!items.length) throw new Error('0 item ditemukan');
+
+    var titles = items.map(function(i){
+      return i.querySelector('title') ? i.querySelector('title').textContent.trim() : '';
+    }).filter(Boolean);
+
+    var score = scoreGaming(titles);
+    var hasImg = items.filter(function(i){
+      var d = i.querySelector('description');
+      return d && d.textContent.indexOf('<img') !== -1;
+    }).length;
+
+    // Result
+    statusEl.className = 'status ok';
+    statusEl.textContent = '✅ OK — ' + items.length + ' artikel · ' + ms + 'ms';
+
+    var scoreColor = score.pct >= 70 ? '#2ecc71' : score.pct >= 40 ? '#f39c12' : '#e74c3c';
+    detailEl.innerHTML =
+      '<span style="color:'+scoreColor+'">🎮 Gaming score: '+score.pct+'% ('+score.gameCount+'/'+score.total+')</span> · ' +
+      '<span style="color:#9aa0b4">📸 Punya gambar: '+hasImg+'/'+items.length+'</span><br>' +
+      '<span style="color:#5c6278">Sample: '+titles.slice(0,2).join(' | ')+'</span>';
+
+    log('[OK] '+src.name+': '+items.length+' items, gaming='+score.pct+'%');
+    return {name:src.name, url:src.url, ok:true, items:items.length, gamingPct:score.pct, hasImg:hasImg, ms:ms};
+
+  } catch(e) {
+    statusEl.className = 'status fail';
+    statusEl.textContent = '❌ Gagal — ' + e.message;
+    detailEl.innerHTML = '<span class="err">'+e.message+'</span>';
+    log('[FAIL] '+src.name+': '+e.message);
+    return {name:src.name, url:src.url, ok:false, error:e.message};
+  }
+}
+
+async function runTests() {
+  var btn = document.querySelector('button');
+  btn.disabled = true;
+  btn.textContent = '⏳ Testing...';
+  document.getElementById('log').innerHTML = '';
+
+  var results = await Promise.all(SOURCES.map(testSource));
+
+  // Summary
+  var ok = results.filter(function(r){return r.ok;});
+  var recommended = ok.filter(function(r){return r.gamingPct >= 60;});
+  var summary = document.getElementById('summary');
+  summary.style.display = 'block';
+  summary.innerHTML = '<h3>📊 Hasil Test</h3>' +
+    '<div>Total: '+SOURCES.length+' sumber | OK: '+ok.length+' | Gagal: '+(SOURCES.length-ok.length)+'</div>' +
+    '<div style="margin-top:0.75rem;color:#f0b429;font-weight:700">⭐ Rekomendasi untuk dipakai (gaming score ≥60%):</div>' +
+    (recommended.length ?
+      recommended.map(function(r){
+        return '<div style="color:#2ecc71;margin-top:0.25rem">✅ '+r.name+' — '+r.gamingPct+'% gaming · '+r.items+' items · '+r.ms+'ms</div>'+
+               '<div style="color:#5c6278;font-size:0.75rem;margin-left:1rem">'+r.url+'</div>';
+      }).join('') :
+      '<div style="color:#e74c3c">Tidak ada sumber yang lolos threshold 60%</div>'
+    );
+
+  btn.disabled = false;
+  btn.textContent = '▶ Ulangi Test';
+}
+
+// Render cards
+var container = document.getElementById('results');
+SOURCES.forEach(function(src) {
+  var id = 'card-'+src.name.replace(/[^a-z0-9]/gi,'_');
+  container.innerHTML += '<div class="card" id="'+id+'">'+
+    '<div class="name">'+src.name+' <span style="font-size:0.7rem;color:#5c6278;font-weight:400">['+src.expect+']</span></div>'+
+    '<div class="url">'+src.url+'</div>'+
+    '<span class="status wait">⏸ Belum ditest</span>'+
+    '<div class="detail" style="margin-top:0.5rem;color:#5c6278">—</div>'+
+  '</div>';
+});
+</script>
+</body>
+</html>
